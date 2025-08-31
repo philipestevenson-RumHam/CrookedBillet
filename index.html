@@ -467,6 +467,7 @@
         let touchStartX = 0; // Touch start position for swipe detection
         let touchEndX = 0; // Touch end position for swipe detection
         let isSwiping = false; // Prevents multiple swipes
+        let isDragging = false; // Tracks if user is actively dragging
 
         /* FUNCTION: Check if current date/time is past the reveal date */
         function checkRevealDate() {
@@ -536,69 +537,57 @@
 
         /* FUNCTION: Change slide by relative amount (next/previous) */
         function changeSlide(n) {
-            if (isSwiping) return; // Prevent rapid slide changes
+            if (isDragging) return; // Don't change if user is dragging
             showSlide(currentSlide + n);
         }
 
         /* TOUCH/SWIPE HANDLING FUNCTIONS */
         function handleTouchStart(e) {
             touchStartX = e.touches[0].clientX;
-            touchEndX = 0;
+            touchEndX = touchStartX;
+            isDragging = true;
             isSwiping = false;
-            
-            // Disable transitions during swipe for immediate feedback
-            const slidesContainer = document.getElementById('slides-container');
-            slidesContainer.style.transition = 'none';
         }
 
         function handleTouchMove(e) {
-            if (!touchStartX) return;
-            e.preventDefault(); // Prevent scrolling while swiping
-            touchEndX = e.touches[0].clientX;
+            if (!isDragging) return;
+            e.preventDefault();
             
-            // Calculate drag distance
+            touchEndX = e.touches[0].clientX;
             const dragDistance = touchEndX - touchStartX;
             const currentTranslate = -(currentSlide - 1) * 100;
             const dragPercent = (dragDistance / window.innerWidth) * 100;
             const newTranslate = currentTranslate + dragPercent;
             
-            // Apply the drag effect in real-time
             const slidesContainer = document.getElementById('slides-container');
+            slidesContainer.style.transition = 'none';
             slidesContainer.style.transform = `translateX(${newTranslate}%)`;
         }
 
         function handleTouchEnd(e) {
-            if (!touchStartX) return;
+            if (!isDragging) return;
             
+            isDragging = false;
             const slidesContainer = document.getElementById('slides-container');
-            // Re-enable transitions
-            slidesContainer.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            slidesContainer.style.transition = 'transform 0.3s ease-out';
             
             const swipeDistance = touchStartX - touchEndX;
-            const swipeThreshold = window.innerWidth * 0.15; // 15% of screen width
+            const swipeThreshold = 50; // Simple pixel threshold
             
             if (Math.abs(swipeDistance) > swipeThreshold) {
-                isSwiping = true;
-                
                 if (swipeDistance > 0 && currentSlide < pictures.length) {
-                    // Swipe left - next slide
-                    changeSlide(1);
+                    // Swiped left - go to next slide
+                    currentSlide++;
                 } else if (swipeDistance < 0 && currentSlide > 1) {
-                    // Swipe right - previous slide
-                    changeSlide(-1);
-                } else {
-                    // Can't go further, snap back
-                    showSlide(currentSlide);
+                    // Swiped right - go to previous slide  
+                    currentSlide--;
                 }
-                
-                // Reset swipe prevention after animation
-                setTimeout(() => { isSwiping = false; }, 350);
-            } else {
-                // Snap back to current slide if swipe wasn't far enough
-                showSlide(currentSlide);
             }
             
-            // Reset touch positions
+            // Always snap to the current slide position
+            showSlide(currentSlide);
+            
+            // Reset
             touchStartX = 0;
             touchEndX = 0;
         }
