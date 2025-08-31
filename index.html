@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture Slideshow</title>
+    <style>
+        /* GLOBAL STYLES - Reset and base styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* BRANDING HEADER - Top section for logo/branding */
+        .branding-header {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 0;
+        }
+
+        /* Logo placeholder - Replace with your actual logo */
+        .logo {
+            height: 60px;
+            width: auto;
+            margin-bottom: 10px;
+        }
+
+        /* Brand text styling */
+        .brand-text {
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* MAIN TITLE - Title above slideshow */
+        .slideshow-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* SLIDESHOW CONTAINER - Main slideshow wrapper */
+        .slideshow-container {
+            max-width: 800px;
+            position: relative;
+            background: white;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* INDIVIDUAL SLIDE - Container for each picture and description */
+        .slide {
+            display: none;
+            position: relative;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Active slide styling with fade animation */
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Fade in animation for slide transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* SLIDE NUMBER - Number indicator in top right of each slide */
+        .slide-number {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            z-index: 2;
+        }
+
+        /* MAIN IMAGE - The picture in each slide */
+        .slide img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            cursor: pointer; /* Indicates image is clickable */
+            transition: transform 0.2s ease;
+        }
+
+        /* Image hover effect */
+        .slide img:hover {
+            transform: scale(1.02);
+        }
+
+        /* FULLSCREEN OVERLAY - Dark background when image is fullscreen */
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        /* FULLSCREEN IMAGE - Styling for fullscreen image view */
+        .fullscreen-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+        }
+
+        /* FULLSCREEN CLOSE BUTTON - X button to close fullscreen */
+        .fullscreen-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .fullscreen-close:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        /* DESCRIPTION BOX - Text area below each image */
+        .description-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            font-size: 16px;
+            color: #333;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Hidden description styling (before reveal date) */
+        .description-hidden {
+            background: #ffe6e6;
+            border-left-color: #ff6b6b;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* NAVIGATION CONTROLS - Previous/Next buttons and counter */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        /* Navigation button styling */
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Button hover effects */
+        .nav-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Disabled button styling */
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Slide counter display */
+        .slide-counter {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* DOT NAVIGATION - Dots at bottom for direct slide access */
+        .dots-container {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        /* Individual dot styling */
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 3px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Active and hover dot styling */
+        .dot:hover, .dot.active {
+            background-color: #667eea;
+            transform: scale(1.2);
+        }
+
+        /* RESPONSIVE DESIGN - Mobile-friendly adjustments */
+        @media (max-width: 768px) {
+            .slideshow-title {
+                font-size: 2rem;
+            }
+            
+            .slideshow-container, .branding-header {
+                max-width: 95%;
+            }
+            
+            .nav-btn {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+
+            .brand-text {
+                font-size: 1rem;
+            }
+
+            .logo {
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- BRANDING HEADER SECTION -->
+    <div class="branding-header">
+        <!-- Replace this placeholder with your actual logo -->
+        <!-- <img src="your-logo.png" alt="Your Logo" class="logo"> -->
+        <div style="height: 60px; background: #ddd; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 10px;">
+            <span style="color: #666;">Your Logo Here</span>
+        </div>
+        <div class="brand-text">Your Brand Name / Website</div>
+    </div>
+
+    <!-- MAIN SLIDESHOW TITLE -->
+    <h1 class="slideshow-title">My Picture Collection</h1>
+    
+    <!-- MAIN SLIDESHOW CONTAINER -->
+    <div class="slideshow-container">
+        <!-- SLIDES CONTAINER - Individual slides are generated here by JavaScript -->
+        <div id="slides-container"></div>
+        
+        <!-- NAVIGATION CONTROLS -->
+        <div class="navigation">
+            <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn">
+                ◀ Previous
+            </button>
+            <div class="slide-counter">
+                <span id="current-slide">1</span> / <span id="total-slides">25</span>
+            </div>
+            <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn">
+                Next ▶
+            </button>
+        </div>
+        
+        <!-- DOT NAVIGATION - Dots are generated here by JavaScript -->
+        <div class="dots-container" id="dots-container"></div>
+    </div>
+
+    <!-- FULLSCREEN OVERLAY - Hidden by default, shown when image is clicked -->
+    <div class="fullscreen-overlay" id="fullscreen-overlay" onclick="closeFullscreen()">
+        <div class="fullscreen-close" onclick="closeFullscreen()">&times;</div>
+        <img class="fullscreen-image" id="fullscreen-image" src="" alt="">
+    </div>
+
+    <script>
+        /* CONFIGURATION SETTINGS - Update these for your slideshow */
+        
+        // Date and time when descriptions should be revealed
+        const REVEAL_DATE = new Date('2025-09-15T10:00:00'); // Change this to your desired date and time
+        
+        // Base URL for your GitHub repository images
+        const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/yourusername/yourrepository/main/images/'; // Update with your GitHub path
+        
+        /* PICTURE DATA - Update these arrays with your actual image info */
+        const pictures = [
+            { filename: 'picture1.jpg', description: 'Description for picture 1' },
+            { filename: 'picture2.jpg', description: 'Description for picture 2' },
+            { filename: 'picture3.jpg', description: 'Description for picture 3' },
+            { filename: 'picture4.jpg', description: 'Description for picture 4' },
+            { filename: 'picture5.jpg', description: 'Description for picture 5' },
+            { filename: 'picture6.jpg', description: 'Description for picture 6' },
+            { filename: 'picture7.jpg', description: 'Description for picture 7' },
+            { filename: 'picture8.jpg', description: 'Description for picture 8' },
+            { filename: 'picture9.jpg', description: 'Description for picture 9' },
+            { filename: 'picture10.jpg', description: 'Description for picture 10' },
+            { filename: 'picture11.jpg', description: 'Description for picture 11' },
+            { filename: 'picture12.jpg', description: 'Description for picture 12' },
+            { filename: 'picture13.jpg', description: 'Description for picture 13' },
+            { filename: 'picture14.jpg', description: 'Description for picture 14' },
+            { filename: 'picture15.jpg', description: 'Description for picture 15' },
+            { filename: 'picture16.jpg', description: 'Description for picture 16' },
+            { filename: 'picture17.jpg', description: 'Description for picture 17' },
+            { filename: 'picture18.jpg', description: 'Description for picture 18' },
+            { filename: 'picture19.jpg', description: 'Description for picture 19' },
+            { filename: 'picture20.jpg', description: 'Description for picture 20' },
+            { filename: 'picture21.jpg', description: 'Description for picture 21' },
+            { filename: 'picture22.jpg', description: 'Description for picture 22' },
+            { filename: 'picture23.jpg', description: 'Description for picture 23' },
+            { filename: 'picture24.jpg', description: 'Description for picture 24' },
+            { filename: 'picture25.jpg', description: 'Description for picture 25' }
+        ];
+
+        /* GLOBAL VARIABLES */
+        let currentSlide = 1; // Tracks which slide is currently active
+        let isRevealed = false; // Tracks whether descriptions should be shown
+
+        /* FUNCTION: Check if current date/time is past the reveal date */
+        function checkRevealDate() {
+            const now = new Date();
+            isRevealed = now >= REVEAL_DATE;
+        }
+
+        /* FUNCTION: Create all slides and navigation dots */
+        function createSlides() {
+            const slidesContainer = document.getElementById('slides-container');
+            const dotsContainer = document.getElementById('dots-container');
+            
+            // Loop through each picture and create slide + dot
+            pictures.forEach((picture, index) => {
+                // Create slide element
+                const slide = document.createElement('div');
+                slide.className = `slide ${index === 0 ? 'active' : ''}`;
+                slide.innerHTML = `
+                    <div class="slide-number">${index + 1} / 25</div>
+                    <img src="${GITHUB_BASE_URL}${picture.filename}" 
+                         alt="Picture ${index + 1}" 
+                         onclick="openFullscreen(this)"
+                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlICR7aW5kZXggKyAxfTwvdGV4dD48L3N2Zz4='">
+                    <div class="description-box ${isRevealed ? '' : 'description-hidden'}">
+                        ${isRevealed ? picture.description : 'Description will be revealed later...'}
+                    </div>
+                `;
+                slidesContainer.appendChild(slide);
+                
+                // Create navigation dot
+                const dot = document.createElement('span');
+                dot.className = `dot ${index === 0 ? 'active' : ''}`;
+                dot.onclick = () => showSlide(index + 1);
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        /* FUNCTION: Display specific slide number */
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            // Handle wraparound (going past first/last slide)
+            if (n > slides.length) currentSlide = 1;
+            if (n < 1) currentSlide = slides.length;
+            else currentSlide = n;
+            
+            // Remove active class from all slides and dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Add active class to current slide and dot
+            slides[currentSlide - 1].classList.add('active');
+            dots[currentSlide - 1].classList.add('active');
+            
+            // Update slide counter display
+            document.getElementById('current-slide').textContent = currentSlide;
+            
+            // Update navigation button states (disable at first/last slide)
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === slides.length;
+        }
+
+        /* FUNCTION: Change slide by relative amount (next/previous) */
+        function changeSlide(n) {
+            showSlide(currentSlide + n);
+        }
+
+        /* FUNCTION: Open image in fullscreen view */
+        function openFullscreen(img) {
+            const overlay = document.getElementById('fullscreen-overlay');
+            const fullscreenImg = document.getElementById('fullscreen-image');
+            
+            // Set the fullscreen image source to the clicked image
+            fullscreenImg.src = img.src;
+            fullscreenImg.alt = img.alt;
+            
+            // Show the fullscreen overlay
+            overlay.style.display = 'block';
+            
+            // Prevent body scrolling when in fullscreen
+            document.body.style.overflow = 'hidden';
+        }
+
+        /* FUNCTION: Close fullscreen view */
+        function closeFullscreen() {
+            const overlay = document.getElementById('fullscreen-overlay');
+            
+            // Hide the fullscreen overlay
+            overlay.style.display = 'none';
+            
+            // Restore body scrolling
+            document.body.style.overflow = 'auto';
+        }
+
+        /* FUNCTION: Update all description boxes based on reveal date */
+        function updateDescriptions() {
+            checkRevealDate();
+            const descriptionBoxes = document.querySelectorAll('.description-box');
+            
+            // Update each description box
+            descriptionBoxes.forEach((box, index) => {
+                if (isRevealed) {
+                    box.className = 'description-box';
+                    box.textContent = pictures[index].description;
+                } else {
+                    box.className = 'description-box description-hidden';
+                    box.textContent = 'Description will be revealed later...';
+                }
+            });
+        }
+
+        /* EVENT LISTENERS */
+        
+        // Keyboard navigation (arrow keys)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'Escape') closeFullscreen(); // Close fullscreen with Escape key
+        });
+
+        // Prevent fullscreen close when clicking on the image itself
+        document.getElementById('fullscreen-image').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        /* INITIALIZATION - Run when page loads */
+        checkRevealDate(); // Check if descriptions should be revealed
+        createSlides(); // Generate all slides and dots
+        showSlide(1); // Show first slide
+        
+        // Check for reveal date every minute (60000 milliseconds)
+        setInterval(updateDescriptions, 60000);
+    </script>
+</body>
+</html>
