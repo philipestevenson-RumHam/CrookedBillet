@@ -67,11 +67,11 @@
         .slide {
             position: relative;
             text-align: center;
-            padding: 20px;
-            min-height: 60vh;
+            padding: 15px;
+            min-height: 85vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             width: 100%;
             flex-shrink: 0;
         }
@@ -111,13 +111,14 @@
         /* MAIN IMAGE - The picture in each slide */
         .slide img {
             width: 100%;
-            max-height: 65vh;
+            max-height: 75vh;
             object-fit: contain;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+            margin-bottom: 10px;
+            flex-grow: 1;
         }
 
         /* Image touch feedback */
@@ -180,20 +181,20 @@
 
         /* DESCRIPTION BOX - Text area below each image */
         .description-box {
-            margin-top: auto;
-            padding: 20px;
+            padding: 15px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border-radius: 12px;
             border-left: 4px solid #667eea;
             font-size: 16px;
             color: #333;
-            min-height: 80px;
+            min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
             font-weight: 500;
-            line-height: 1.5;
+            line-height: 1.4;
+            flex-shrink: 0;
         }
 
         /* Hidden description styling (before reveal date) */
@@ -321,13 +322,13 @@
             }
             
             .slide {
-                padding: 15px;
-                min-height: 75vh;
+                padding: 10px;
+                min-height: 88vh;
             }
 
             .slide img {
-                max-height: 60vh;
-                margin-bottom: 15px;
+                max-height: 75vh;
+                margin-bottom: 8px;
             }
             
             .nav-btn {
@@ -342,9 +343,9 @@
             }
 
             .description-box {
-                padding: 15px;
+                padding: 12px;
                 font-size: 15px;
-                min-height: 70px;
+                min-height: 50px;
             }
 
             .slide-number {
@@ -542,6 +543,7 @@
         /* TOUCH/SWIPE HANDLING FUNCTIONS */
         function handleTouchStart(e) {
             touchStartX = e.touches[0].clientX;
+            touchEndX = 0;
             isSwiping = false;
             
             // Disable transitions during swipe for immediate feedback
@@ -554,11 +556,11 @@
             e.preventDefault(); // Prevent scrolling while swiping
             touchEndX = e.touches[0].clientX;
             
-            // Calculate drag distance with increased sensitivity
+            // Calculate drag distance
             const dragDistance = touchEndX - touchStartX;
-            const sensitivity = 0.8; // Make swiping more responsive
             const currentTranslate = -(currentSlide - 1) * 100;
-            const newTranslate = currentTranslate + (dragDistance / window.innerWidth * 100 * sensitivity);
+            const dragPercent = (dragDistance / window.innerWidth) * 100;
+            const newTranslate = currentTranslate + dragPercent;
             
             // Apply the drag effect in real-time
             const slidesContainer = document.getElementById('slides-container');
@@ -572,24 +574,25 @@
             // Re-enable transitions
             slidesContainer.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             
-            const diffX = touchStartX - touchEndX;
-            const minSwipeDistance = 30; // Reduced minimum distance for easier swiping
-            const swipeVelocity = Math.abs(diffX) / 300; // Consider swipe speed
+            const swipeDistance = touchStartX - touchEndX;
+            const swipeThreshold = window.innerWidth * 0.15; // 15% of screen width
             
-            // Make swiping easier - either distance or velocity can trigger a slide change
-            if (Math.abs(diffX) > minSwipeDistance || swipeVelocity > 0.1) {
+            if (Math.abs(swipeDistance) > swipeThreshold) {
                 isSwiping = true;
                 
-                if (diffX > 0) {
+                if (swipeDistance > 0 && currentSlide < pictures.length) {
                     // Swipe left - next slide
                     changeSlide(1);
-                } else {
+                } else if (swipeDistance < 0 && currentSlide > 1) {
                     // Swipe right - previous slide
                     changeSlide(-1);
+                } else {
+                    // Can't go further, snap back
+                    showSlide(currentSlide);
                 }
                 
                 // Reset swipe prevention after animation
-                setTimeout(() => { isSwiping = false; }, 400);
+                setTimeout(() => { isSwiping = false; }, 350);
             } else {
                 // Snap back to current slide if swipe wasn't far enough
                 showSlide(currentSlide);
