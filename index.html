@@ -13,61 +13,47 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
-        }
-
-        /* BRANDING HEADER - Top section for logo/branding */
-        .branding-header {
-            width: 100%;
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px 15px 0 0;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 0;
-        }
-
-        /* Logo placeholder - Replace with your actual logo */
-        .logo {
-            height: 60px;
-            width: auto;
-            margin-bottom: 10px;
-        }
-
-        /* Brand text styling */
-        .brand-text {
-            font-size: 1.2rem;
-            color: #333;
-            font-weight: bold;
+            overflow-x: hidden;
         }
 
         /* MAIN TITLE - Title above slideshow */
         .slideshow-title {
             color: white;
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 700;
+            margin: 20px 0;
             text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
             width: 100%;
             max-width: 800px;
+            letter-spacing: -0.02em;
         }
 
         /* SLIDESHOW CONTAINER - Main slideshow wrapper */
         .slideshow-container {
+            width: 100%;
             max-width: 800px;
             position: relative;
             background: white;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        /* SLIDES WRAPPER - Container for touch gestures */
+        .slides-wrapper {
+            position: relative;
+            overflow: hidden;
+            touch-action: pan-y pinch-zoom;
+            user-select: none;
         }
 
         /* INDIVIDUAL SLIDE - Container for each picture and description */
@@ -76,48 +62,60 @@
             position: relative;
             text-align: center;
             padding: 20px;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         /* Active slide styling with fade animation */
         .slide.active {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
+            display: flex;
+            animation: slideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Fade in animation for slide transitions */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* Slide animations */
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* SLIDE NUMBER - Number indicator in top right of each slide */
         .slide-number {
             position: absolute;
-            top: 15px;
+            top: 20px;
             right: 20px;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             color: white;
-            padding: 8px 15px;
+            padding: 8px 16px;
             border-radius: 20px;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 14px;
             z-index: 2;
+            backdrop-filter: blur(10px);
         }
 
         /* MAIN IMAGE - The picture in each slide */
         .slide img {
             width: 100%;
-            max-height: 500px;
+            max-height: 50vh;
             object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            cursor: pointer; /* Indicates image is clickable */
-            transition: transform 0.2s ease;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            margin-bottom: 20px;
         }
 
-        /* Image hover effect */
-        .slide img:hover {
-            transform: scale(1.02);
+        /* Image touch feedback */
+        .slide img:active {
+            transform: scale(0.98);
         }
 
         /* FULLSCREEN OVERLAY - Dark background when image is fullscreen */
@@ -128,9 +126,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             cursor: pointer;
+            backdrop-filter: blur(5px);
         }
 
         /* FULLSCREEN IMAGE - Styling for fullscreen image view */
@@ -143,52 +142,56 @@
             max-height: 95%;
             object-fit: contain;
             border-radius: 8px;
-            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+            box-shadow: 0 0 50px rgba(255,255,255,0.2);
         }
 
         /* FULLSCREEN CLOSE BUTTON - X button to close fullscreen */
         .fullscreen-close {
             position: absolute;
             top: 20px;
-            right: 30px;
+            right: 20px;
             color: white;
-            font-size: 40px;
+            font-size: 30px;
             font-weight: bold;
             cursor: pointer;
             z-index: 1001;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.7);
             border-radius: 50%;
             width: 50px;
             height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .fullscreen-close:hover {
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.9);
+            transform: scale(1.1);
         }
 
         /* DESCRIPTION BOX - Text area below each image */
         .description-box {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            margin-top: auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
             border-left: 4px solid #667eea;
             font-size: 16px;
             color: #333;
-            min-height: 60px;
+            min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            font-weight: 500;
+            line-height: 1.5;
         }
 
         /* Hidden description styling (before reveal date) */
         .description-hidden {
-            background: #ffe6e6;
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffcccc 100%);
             border-left-color: #ff6b6b;
             color: #666;
             font-style: italic;
@@ -200,30 +203,38 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            gap: 15px;
         }
 
         /* Navigation button styling */
         .nav-btn {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 14px 20px;
             border-radius: 25px;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex;
             align-items: center;
             gap: 8px;
+            min-width: 100px;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
-        /* Button hover effects */
+        /* Button hover/touch effects */
         .nav-btn:hover {
-            background: #5a67d8;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
         }
 
         /* Disabled button styling */
@@ -236,83 +247,155 @@
 
         /* Slide counter display */
         .slide-counter {
-            font-weight: bold;
+            font-weight: 600;
             color: #333;
+            font-size: 16px;
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
         }
 
         /* DOT NAVIGATION - Dots at bottom for direct slide access */
         .dots-container {
             text-align: center;
             padding: 20px;
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            overflow-x: auto;
+            white-space: nowrap;
         }
 
         /* Individual dot styling */
         .dot {
-            height: 12px;
-            width: 12px;
-            margin: 0 3px;
+            height: 10px;
+            width: 10px;
+            margin: 0 4px;
             background-color: #bbb;
             border-radius: 50%;
             display: inline-block;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         /* Active and hover dot styling */
         .dot:hover, .dot.active {
             background-color: #667eea;
-            transform: scale(1.2);
+            transform: scale(1.4);
         }
 
-        /* RESPONSIVE DESIGN - Mobile-friendly adjustments */
+        /* SWIPE INDICATOR */
+        .swipe-indicator {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            animation: fadeInOut 3s infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* MOBILE-SPECIFIC OPTIMIZATIONS */
         @media (max-width: 768px) {
-            .slideshow-title {
-                font-size: 2rem;
+            body {
+                padding: 5px;
+            }
+
+            .slideshow-container {
+                border-radius: 15px;
+                margin: 0;
             }
             
-            .slideshow-container, .branding-header {
-                max-width: 95%;
+            .slide {
+                padding: 15px;
+                min-height: 70vh;
+            }
+
+            .slide img {
+                max-height: 45vh;
+                margin-bottom: 15px;
             }
             
             .nav-btn {
-                padding: 10px 16px;
+                padding: 12px 16px;
                 font-size: 14px;
+                min-width: 80px;
             }
 
-            .brand-text {
-                font-size: 1rem;
+            .slide-counter {
+                font-size: 14px;
+                padding: 6px 12px;
             }
 
-            .logo {
-                height: 50px;
+            .description-box {
+                padding: 15px;
+                font-size: 15px;
+                min-height: 70px;
+            }
+
+            .slide-number {
+                top: 15px;
+                right: 15px;
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .dots-container {
+                padding: 15px 10px;
+            }
+
+            .dot {
+                height: 8px;
+                width: 8px;
+                margin: 0 3px;
+            }
+        }
+
+        /* VERY SMALL SCREENS */
+        @media (max-width: 480px) {
+            .navigation {
+                padding: 15px;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 10px 12px;
+                font-size: 13px;
+                min-width: 70px;
+            }
+
+            .slide-counter {
+                font-size: 13px;
+                padding: 5px 10px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- BRANDING HEADER SECTION -->
-    <div class="branding-header">
-        <!-- Replace this placeholder with your actual logo -->
-        <!-- <img src="your-logo.png" alt="Your Logo" class="logo"> -->
-        <div style="height: 60px; background: #ddd; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 10px;">
-            <span style="color: #666;">Your Logo Here</span>
-        </div>
-        <div class="brand-text">Your Brand Name / Website</div>
-    </div>
-
     <!-- MAIN SLIDESHOW TITLE -->
     <h1 class="slideshow-title">My Picture Collection</h1>
+    
+    <!-- SWIPE INDICATOR (shows briefly on load) -->
+    <div class="swipe-indicator" id="swipeIndicator">← Swipe to navigate →</div>
     
     <!-- MAIN SLIDESHOW CONTAINER -->
     <div class="slideshow-container">
         <!-- SLIDES CONTAINER - Individual slides are generated here by JavaScript -->
-        <div id="slides-container"></div>
+        <div class="slides-wrapper" id="slides-wrapper">
+            <div id="slides-container"></div>
+        </div>
         
         <!-- NAVIGATION CONTROLS -->
         <div class="navigation">
             <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn">
-                ◀ Previous
+                ◀ Prev
             </button>
             <div class="slide-counter">
                 <span id="current-slide">1</span> / <span id="total-slides">25</span>
@@ -368,15 +451,14 @@
 { filename: '23 - Michael Bolton.png', description: 'Michael Bolton' },
 { filename: '24 - Michael Crawford.png', description: 'Michael Crawford' },
 { filename: '25 - Michael Parkinson.png', description: 'Michael Parkinson' }
-
-
-
-
         ];
 
         /* GLOBAL VARIABLES */
         let currentSlide = 1; // Tracks which slide is currently active
         let isRevealed = false; // Tracks whether descriptions should be shown
+        let touchStartX = 0; // Touch start position for swipe detection
+        let touchEndX = 0; // Touch end position for swipe detection
+        let isSwiping = false; // Prevents multiple swipes
 
         /* FUNCTION: Check if current date/time is past the reveal date */
         function checkRevealDate() {
@@ -399,6 +481,7 @@
                     <img src="${GITHUB_BASE_URL}${picture.filename}" 
                          alt="Picture ${index + 1}" 
                          onclick="openFullscreen(this)"
+                         loading="lazy"
                          onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlICR7aW5kZXggKyAxfTwvdGV4dD48L3N2Zz4='">
                     <div class="description-box ${isRevealed ? '' : 'description-hidden'}">
                         ${isRevealed ? picture.description : 'Description will be revealed later...'}
@@ -442,7 +525,45 @@
 
         /* FUNCTION: Change slide by relative amount (next/previous) */
         function changeSlide(n) {
+            if (isSwiping) return; // Prevent rapid slide changes
             showSlide(currentSlide + n);
+        }
+
+        /* TOUCH/SWIPE HANDLING FUNCTIONS */
+        function handleTouchStart(e) {
+            touchStartX = e.touches[0].clientX;
+            isSwiping = false;
+        }
+
+        function handleTouchMove(e) {
+            if (!touchStartX) return;
+            touchEndX = e.touches[0].clientX;
+        }
+
+        function handleTouchEnd(e) {
+            if (!touchStartX || !touchEndX) return;
+            
+            const diffX = touchStartX - touchEndX;
+            const minSwipeDistance = 50; // Minimum distance for a swipe
+            
+            if (Math.abs(diffX) > minSwipeDistance) {
+                isSwiping = true;
+                
+                if (diffX > 0) {
+                    // Swipe left - next slide
+                    changeSlide(1);
+                } else {
+                    // Swipe right - previous slide
+                    changeSlide(-1);
+                }
+                
+                // Reset swipe prevention after animation
+                setTimeout(() => { isSwiping = false; }, 400);
+            }
+            
+            // Reset touch positions
+            touchStartX = 0;
+            touchEndX = 0;
         }
 
         /* FUNCTION: Open image in fullscreen view */
@@ -489,6 +610,19 @@
             });
         }
 
+        /* FUNCTION: Hide swipe indicator after a few seconds */
+        function hideSwipeIndicator() {
+            const indicator = document.getElementById('swipeIndicator');
+            setTimeout(() => {
+                if (indicator) {
+                    indicator.style.opacity = '0';
+                    setTimeout(() => {
+                        indicator.style.display = 'none';
+                    }, 1000);
+                }
+            }, 4000);
+        }
+
         /* EVENT LISTENERS */
         
         // Keyboard navigation (arrow keys)
@@ -498,23 +632,32 @@
             if (e.key === 'Escape') closeFullscreen(); // Close fullscreen with Escape key
         });
 
+        // Touch/swipe event listeners
+        const slidesWrapper = document.getElementById('slides-wrapper');
+        slidesWrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
+        slidesWrapper.addEventListener('touchmove', handleTouchMove, { passive: true });
+        slidesWrapper.addEventListener('touchend', handleTouchEnd, { passive: true });
+
         // Prevent fullscreen close when clicking on the image itself
         document.getElementById('fullscreen-image').addEventListener('click', (e) => {
             e.stopPropagation();
+        });
+
+        // Prevent context menu on long press (mobile)
+        document.addEventListener('contextmenu', (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
         });
 
         /* INITIALIZATION - Run when page loads */
         checkRevealDate(); // Check if descriptions should be revealed
         createSlides(); // Generate all slides and dots
         showSlide(1); // Show first slide
+        hideSwipeIndicator(); // Hide swipe indicator after 4 seconds
         
         // Check for reveal date every minute (60000 milliseconds)
         setInterval(updateDescriptions, 60000);
     </script>
 </body>
-
 </html>
-
-
-
-
