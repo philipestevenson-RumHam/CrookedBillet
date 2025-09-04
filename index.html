@@ -88,7 +88,7 @@
             font-size: clamp(1.1rem, 3vw, 1.3rem);
             font-weight: 600;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            text-transform: uppercase;
+            //text-transform: uppercase;
             letter-spacing: 0.5px;
             position: relative;
             overflow: hidden;
@@ -654,10 +654,10 @@
     <!-- MAIN MENU SCREEN -->
     <div class="main-menu" id="main-menu">
         <h1 class="main-title">Crooked Billet</h1>
-        <p class="main-subtitle">Choose a collection to explore</p>
+        <p class="main-subtitle">Pick A Table Top</p>
         <div class="menu-buttons">
-            <button class="menu-btn" onclick="showInstructions('set1')">Mixed Up Michaels</button>
-            <button class="menu-btn" onclick="showInstructions('set2')">Second Collection</button>
+            <button class="menu-btn" onclick="showInstructions('set1')">Set1</button>
+            <button class="menu-btn" onclick="showInstructions('set2')">Set2</button>
         </div>
     </div>
 
@@ -678,7 +678,7 @@
         </div>
     </div>
 
-    <!-- SLIDESHOW SECTION 1: Mixed Up Michaels -->
+    <!-- SLIDESHOW SECTION 1: Set1 -->
     <div class="slideshow-section hidden" id="slideshow-set1">
         <h1 class="slideshow-title" onclick="showMainMenu()">Set1</h1>
         
@@ -705,7 +705,7 @@
         </div>
     </div>
 
-    <!-- INSTRUCTIONS PAGE 2: Second Collection -->
+    <!-- INSTRUCTIONS PAGE 2: Set2 -->
     <div class="instructions-section hidden" id="instructions-set2">
         <div class="instructions-container">
             <h2 class="instructions-title">Set2</h2>
@@ -772,7 +772,7 @@
             // Customize the instructions for each collection
             instructions: {
                 set1: {
-                    title: 'Mixed Up Michaels1',
+                    title: 'Mixed Up Michaels 1',
                     content: {
                         howToPlay: [
                             'Look at each image carefully',
@@ -784,7 +784,7 @@
                     }
                 },
                 set2: {
-                    title: 'Mixed Up Michaels2',
+                    title: 'Mixed Up Michaels 2',
                     content: {
                         howToPlay: [
                             'Look at each image carefully',
@@ -792,6 +792,8 @@
                             'Answers will be revealed automatically at the specified time',
                             'Use the navigation buttons or swipe to move between images',
                             'Click any image to view it in fullscreen',
+							'Titties',
+							'Titties',
 							'Titties'
                         ]
                     }
@@ -801,8 +803,8 @@
             // 🖼️ PICTURE COLLECTIONS
             collections: {
                 set1: {
-                    title: 'Mixed Up Michaels1',
-                    buttonText: 'Mixed Up Michaels1',
+                    title: 'Mixed Up Michaels 1',
+                    buttonText: 'Mixed Up Michaels 1',
                     pictures: [
                         { filename: '01 - Michael Owen.png', description: 'Michael Owen' },
                         { filename: '02 - Michael Jackson.png', description: 'Michael Jackson' },
@@ -832,8 +834,8 @@
                     ]
                 },
                 set2: {
-                    title: 'Mixed Up Michaels2',
-                    buttonText: 'Mixed Up Michaels2',
+                    title: 'Mixed Up Michaels 2',
+                    buttonText: 'Mixed Up Michaels 2',
                     pictures: [
                         { filename: '01 - Michael Owen.png', description: 'Michael Owen' },
                         { filename: '02 - Michael Jackson.png', description: 'Michael Jackson' },
@@ -1201,6 +1203,7 @@
     </script>
 </body>
 </html>
+
 
 
 
