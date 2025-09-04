@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Picture Slideshow</title>
+    <title>Picture Slideshow Collection</title>
     <style>
+        /* =================================================== */
+        /*                 EASY CONFIGURATION                 */
+        /* =================================================== */
+        /*
+        To modify settings, change the values in the JavaScript 
+        CONFIG object at the top of the script section below.
+        
+        You can easily change:
+        - Reveal date and time
+        - GitHub repository URL
+        - Picture collections and descriptions
+        - Collection names and titles
+        */
+        
         /* GLOBAL STYLES - Reset and base styling */
         * {
             margin: 0;
@@ -20,80 +34,177 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             overflow-x: hidden;
         }
 
-        /* MAIN TITLE - Title above slideshow */
+        /* MAIN MENU STYLES */
+        .main-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .main-title {
+            color: white;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 12px rgba(0,0,0,0.4);
+            letter-spacing: -0.02em;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .main-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .menu-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 1.2rem 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-btn:hover::before {
+            left: 100%;
+        }
+
+        .menu-btn:active {
+            transform: translateY(-1px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SLIDESHOW STYLES */
+        .slideshow-section {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
         .slideshow-title {
             color: white;
             font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 700;
-            margin: 20px 0;
+            margin-bottom: 20px;
             text-align: center;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
             width: 100%;
             max-width: 800px;
             letter-spacing: -0.02em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        /* SLIDESHOW CONTAINER - Main slideshow wrapper */
+        .slideshow-title:hover {
+            transform: scale(1.02);
+            text-shadow: 3px 3px 12px rgba(0,0,0,0.5);
+        }
+
         .slideshow-container {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             position: relative;
             background: white;
             border-radius: 20px;
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             overflow: hidden;
             backdrop-filter: blur(10px);
+            /* Fixed height for desktop */
+            height: min(85vh, 700px);
+            display: flex;
+            flex-direction: column;
         }
 
-        /* SLIDES WRAPPER - Container for touch gestures */
         .slides-wrapper {
             position: relative;
             overflow: hidden;
             touch-action: pan-x;
             user-select: none;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* SLIDES CONTAINER - Horizontal container for all slides */
-        #slides-container {
+        .slides-container {
             display: flex;
             width: 100%;
+            height: 100%;
             transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* INDIVIDUAL SLIDE - Container for each picture and description */
         .slide {
             position: relative;
             text-align: center;
-            padding: 15px;
-            min-height: 85vh;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: space-between;
             width: 100%;
             flex-shrink: 0;
+            height: 100%;
         }
 
-        /* Active slide styling */
-        .slide.active {
-            /* No special styling needed for swipe-based navigation */
-        }
-
-        /* Slide animations */
-        @keyframes slideIn {
-            from { 
-                opacity: 0;
-                transform: translateX(20px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* SLIDE NUMBER - Number indicator in top right of each slide */
         .slide-number {
             position: absolute;
             top: 20px;
@@ -108,25 +219,30 @@
             backdrop-filter: blur(10px);
         }
 
-        /* MAIN IMAGE - The picture in each slide */
+        .slide-image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            overflow: hidden;
+            min-height: 0; /* Important for flex shrinking */
+        }
+
         .slide img {
             width: 100%;
-            max-height: 75vh;
+            height: 100%;
             object-fit: contain;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             cursor: pointer;
             transition: transform 0.2s ease;
-            margin-bottom: 10px;
-            flex-grow: 1;
         }
 
-        /* Image touch feedback */
         .slide img:active {
             transform: scale(0.98);
         }
 
-        /* FULLSCREEN OVERLAY - Dark background when image is fullscreen */
         .fullscreen-overlay {
             display: none;
             position: fixed;
@@ -140,7 +256,6 @@
             backdrop-filter: blur(5px);
         }
 
-        /* FULLSCREEN IMAGE - Styling for fullscreen image view */
         .fullscreen-image {
             position: absolute;
             top: 50%;
@@ -153,7 +268,6 @@
             box-shadow: 0 0 50px rgba(255,255,255,0.2);
         }
 
-        /* FULLSCREEN CLOSE BUTTON - X button to close fullscreen */
         .fullscreen-close {
             position: absolute;
             top: 20px;
@@ -179,7 +293,6 @@
             transform: scale(1.1);
         }
 
-        /* DESCRIPTION BOX - Text area below each image */
         .description-box {
             padding: 15px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -197,7 +310,6 @@
             flex-shrink: 0;
         }
 
-        /* Hidden description styling (before reveal date) */
         .description-hidden {
             background: linear-gradient(135deg, #ffe6e6 0%, #ffcccc 100%);
             border-left-color: #ff6b6b;
@@ -205,7 +317,6 @@
             font-style: italic;
         }
 
-        /* NAVIGATION CONTROLS - Previous/Next buttons and counter */
         .navigation {
             display: flex;
             justify-content: space-between;
@@ -213,9 +324,9 @@
             padding: 20px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             gap: 15px;
+            flex-shrink: 0;
         }
 
-        /* Navigation button styling */
         .nav-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -234,7 +345,6 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
-        /* Button hover/touch effects */
         .nav-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
@@ -245,7 +355,6 @@
             box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
         }
 
-        /* Disabled button styling */
         .nav-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
@@ -253,7 +362,6 @@
             box-shadow: none;
         }
 
-        /* Slide counter display */
         .slide-counter {
             font-weight: 600;
             color: #333;
@@ -265,16 +373,15 @@
             backdrop-filter: blur(10px);
         }
 
-        /* DOT NAVIGATION - Dots at bottom for direct slide access */
         .dots-container {
             text-align: center;
             padding: 20px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             overflow-x: auto;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        /* Individual dot styling */
         .dot {
             height: 10px;
             width: 10px;
@@ -286,16 +393,14 @@
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Active and hover dot styling */
         .dot:hover, .dot.active {
             background-color: #667eea;
             transform: scale(1.4);
         }
 
-        /* SWIPE INDICATOR */
         .swipe-indicator {
             position: absolute;
-            bottom: 100px;
+            bottom: 150px;
             left: 50%;
             transform: translateX(-50%);
             color: rgba(255, 255, 255, 0.7);
@@ -310,24 +415,60 @@
             50% { opacity: 1; }
         }
 
-        /* MOBILE-SPECIFIC OPTIMIZATIONS */
+        /* VISIBILITY CONTROL */
+        .hidden {
+            display: none !important;
+        }
+
+        /* DESKTOP SPECIFIC STYLES */
+        @media (min-width: 1024px) {
+            body {
+                padding: 20px;
+            }
+            
+            .slideshow-container {
+                max-width: 1000px;
+                height: 80vh;
+                min-height: 600px;
+                max-height: 800px;
+            }
+            
+            .slide {
+                padding: 25px;
+            }
+        }
+
+        /* MOBILE OPTIMIZATIONS */
         @media (max-width: 768px) {
             body {
                 padding: 5px;
             }
 
+            .main-menu {
+                min-height: 70vh;
+                padding: 2rem 1rem;
+            }
+
+            .menu-buttons {
+                gap: 1rem;
+            }
+
+            .menu-btn {
+                padding: 1rem 1.5rem;
+            }
+
             .slideshow-container {
                 border-radius: 15px;
                 margin: 0;
+                height: 90vh;
+                min-height: auto;
             }
             
             .slide {
-                padding: 10px;
-                min-height: 88vh;
+                padding: 15px;
             }
 
             .slide img {
-                max-height: 75vh;
                 margin-bottom: 8px;
             }
             
@@ -366,7 +507,6 @@
             }
         }
 
-        /* VERY SMALL SCREENS */
         @media (max-width: 480px) {
             .navigation {
                 padding: 15px;
@@ -387,112 +527,241 @@
     </style>
 </head>
 <body>
-    <!-- MAIN SLIDESHOW TITLE -->
-    <h1 class="slideshow-title">Mixed Up Michaels</h1>
-    
-    <!-- SWIPE INDICATOR (shows briefly on load) -->
-    <div class="swipe-indicator" id="swipeIndicator">← Swipe to navigate →</div>
-    
-    <!-- MAIN SLIDESHOW CONTAINER -->
-    <div class="slideshow-container">
-        <!-- SLIDES CONTAINER - Individual slides are generated here by JavaScript -->
-        <div class="slides-wrapper" id="slides-wrapper">
-            <div id="slides-container"></div>
+    <!-- MAIN MENU SCREEN -->
+    <div class="main-menu" id="main-menu">
+        <h1 class="main-title">Picture Slideshow</h1>
+        <p class="main-subtitle">Choose a collection to explore</p>
+        <div class="menu-buttons">
+            <button class="menu-btn" onclick="showSlideshow('set1')">Mixed Up Michaels</button>
+            <button class="menu-btn" onclick="showSlideshow('set2')">Second Collection</button>
         </div>
-        
-        <!-- NAVIGATION CONTROLS -->
-        <div class="navigation">
-            <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn">
-                ◀ Prev
-            </button>
-            <div class="slide-counter">
-                <span id="current-slide">1</span> / <span id="total-slides">25</span>
-            </div>
-            <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn">
-                Next ▶
-            </button>
-        </div>
-        
-        <!-- DOT NAVIGATION - Dots are generated here by JavaScript -->
-        <div class="dots-container" id="dots-container"></div>
     </div>
 
-    <!-- FULLSCREEN OVERLAY - Hidden by default, shown when image is clicked -->
+    <!-- SLIDESHOW SECTION 1: Mixed Up Michaels -->
+    <div class="slideshow-section hidden" id="slideshow-set1">
+        <h1 class="slideshow-title" onclick="showMainMenu()">Mixed Up Michaels</h1>
+        
+        <div class="swipe-indicator" id="swipeIndicator1">← Swipe to navigate →</div>
+        
+        <div class="slideshow-container">
+            <div class="slides-wrapper" id="slides-wrapper1">
+                <div class="slides-container" id="slides-container1"></div>
+            </div>
+            
+            <div class="navigation">
+                <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn1">
+                    ◀ Prev
+                </button>
+                <div class="slide-counter">
+                    <span id="current-slide1">1</span> / <span id="total-slides1">25</span>
+                </div>
+                <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn1">
+                    Next ▶
+                </button>
+            </div>
+            
+            <div class="dots-container" id="dots-container1"></div>
+        </div>
+    </div>
+
+    <!-- SLIDESHOW SECTION 2: Second Collection -->
+    <div class="slideshow-section hidden" id="slideshow-set2">
+        <h1 class="slideshow-title" onclick="showMainMenu()">Second Collection</h1>
+        
+        <div class="swipe-indicator" id="swipeIndicator2">← Swipe to navigate →</div>
+        
+        <div class="slideshow-container">
+            <div class="slides-wrapper" id="slides-wrapper2">
+                <div class="slides-container" id="slides-container2"></div>
+            </div>
+            
+            <div class="navigation">
+                <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn2">
+                    ◀ Prev
+                </button>
+                <div class="slide-counter">
+                    <span id="current-slide2">1</span> / <span id="total-slides2">10</span>
+                </div>
+                <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn2">
+                    Next ▶
+                </button>
+            </div>
+            
+            <div class="dots-container" id="dots-container2"></div>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN OVERLAY -->
     <div class="fullscreen-overlay" id="fullscreen-overlay" onclick="closeFullscreen()">
         <div class="fullscreen-close" onclick="closeFullscreen()">&times;</div>
         <img class="fullscreen-image" id="fullscreen-image" src="" alt="">
     </div>
 
     <script>
-        /* CONFIGURATION SETTINGS - Update these for your slideshow */
+        /* ===================================================== */
+        /*              📋 EASY CONFIGURATION                   */
+        /* ===================================================== */
         
-        // Date and time when descriptions should be revealed
-        const REVEAL_DATE = new Date('2025-09-03 22:55:00'); // treated as local
-
+        const CONFIG = {
+            // 🕐 REVEAL DATE & TIME
+            // Format: 'YYYY-MM-DD HH:MM:SS'
+            revealDateTime: '2025-09-03 22:55:00',
+            
+            // 🌐 GITHUB REPOSITORY URL
+            // Your GitHub Pages base URL (include trailing slash)
+            githubBaseUrl: 'https://philipestevenson-rumham.github.io/CrockedBillet/',
+            
+            // 🖼️ PICTURE COLLECTIONS
+            collections: {
+                set1: {
+                    title: 'Mixed Up Michaels',
+                    buttonText: 'Mixed Up Michaels',
+                    pictures: [
+                        { filename: '01 - Michael Owen.png', description: 'Michael Owen' },
+                        { filename: '02 - Michael Jackson.png', description: 'Michael Jackson' },
+                        { filename: '03 - Michael Douglas.png', description: 'Michael Douglas' },
+                        { filename: '04 - Michael Mcintyre.png', description: 'Michael Mcintyre' },
+                        { filename: '05 - Michael Barrymore.png', description: 'Michael Barrymore' },
+                        { filename: '06 - Michael Flatley.png', description: 'Michael Flatley' },
+                        { filename: '07 - Michael Bubble.png', description: 'Michael Bubble' },
+                        { filename: '08 - Michael Caine.png', description: 'Michael Caine' },
+                        { filename: '09 - Michael Keaton.png', description: 'Michael Keaton' },
+                        { filename: '10 - Michael Fish.png', description: 'Michael Fish' },
+                        { filename: '11 - Michael Schumacher.png', description: 'Michael Schumacher' },
+                        { filename: '12 - Michael Phelps.png', description: 'Michael Phelps' },
+                        { filename: '13 - Michael J Fox.png', description: 'Michael J Fox' },
+                        { filename: '14 - Michael Philip Jagger.png', description: 'Michael Philip Jagger' },
+                        { filename: '15 - Michael John Myers.png', description: 'Michael John Myers' },
+                        { filename: '16 - Michael Gerard Tyson.png', description: 'Michael Gerard Tyson' },
+                        { filename: '17 - Michael Gambon.png', description: 'Michael Gambon' },
+                        { filename: '18 - Michael Fassbender.png', description: 'Michael Fassbender' },
+                        { filename: '19 - Michael Sheen.png', description: 'Michael Sheen' },
+                        { filename: '20 - Michael C Hall.png', description: 'Michael C Hall' },
+                        { filename: '21 - Michael Ball.png', description: 'Michael Ball' },
+                        { filename: '22 - Michael James Hucknall.png', description: 'Michael James Hucknall' },
+                        { filename: '23 - Michael Bolton.png', description: 'Michael Bolton' },
+                        { filename: '24 - Michael Crawford.png', description: 'Michael Crawford' },
+                        { filename: '25 - Michael Parkinson.png', description: 'Michael Parkinson' }
+                    ]
+                },
+                set2: {
+                    title: 'Second Collection',
+                    buttonText: 'Second Collection',
+                    pictures: [
+                        { filename: '01 - Michael Owen.png', description: 'Michael Owen' },
+                        { filename: '02 - Michael Jackson.png', description: 'Michael Jackson' },
+                        { filename: '03 - Michael Douglas.png', description: 'Michael Douglas' },
+                        { filename: '04 - Michael Mcintyre.png', description: 'Michael Mcintyre' },
+                        { filename: '05 - Michael Barrymore.png', description: 'Michael Barrymore' },
+                        { filename: '06 - Michael Flatley.png', description: 'Michael Flatley' },
+                        { filename: '07 - Michael Bubble.png', description: 'Michael Bubble' },
+                        { filename: '08 - Michael Caine.png', description: 'Michael Caine' },
+                        { filename: '09 - Michael Keaton.png', description: 'Michael Keaton' },
+                        { filename: '10 - Michael Fish.png', description: 'Michael Fish' },
+                        { filename: '11 - Michael Schumacher.png', description: 'Michael Schumacher' },
+                        { filename: '12 - Michael Phelps.png', description: 'Michael Phelps' },
+                        { filename: '13 - Michael J Fox.png', description: 'Michael J Fox' },
+                        { filename: '14 - Michael Philip Jagger.png', description: 'Michael Philip Jagger' },
+                        { filename: '15 - Michael John Myers.png', description: 'Michael John Myers' },
+                        { filename: '16 - Michael Gerard Tyson.png', description: 'Michael Gerard Tyson' },
+                        { filename: '17 - Michael Gambon.png', description: 'Michael Gambon' },
+                        { filename: '18 - Michael Fassbender.png', description: 'Michael Fassbender' },
+                        { filename: '19 - Michael Sheen.png', description: 'Michael Sheen' },
+                        { filename: '20 - Michael C Hall.png', description: 'Michael C Hall' },
+                        { filename: '21 - Michael Ball.png', description: 'Michael Ball' },
+                        { filename: '22 - Michael James Hucknall.png', description: 'Michael James Hucknall' },
+                        { filename: '23 - Michael Bolton.png', description: 'Michael Bolton' },
+                        { filename: '24 - Michael Crawford.png', description: 'Michael Crawford' },
+                        { filename: '25 - Michael Parkinson.png', description: 'Michael Parkinson' }
+                    ]
+                }
+            }
+        };
         
-        // Base URL for your GitHub repository images
-        const GITHUB_BASE_URL = 'https://philipestevenson-rumham.github.io/CrockedBillet/'; // Update with your GitHub path
-        
-        /* PICTURE DATA - Update these arrays with your actual image info */
-        const pictures = [
-{ filename: '01 - Michael Owen.png', description: 'Michael Owen' },
-{ filename: '02 - Michael Jackson.png', description: 'Michael Jackson' },
-{ filename: '03 - Michael Douglas.png', description: 'Michael Douglas' },
-{ filename: '04 - Michael Mcintyre.png', description: 'Michael Mcintyre' },
-{ filename: '05 - Michael Barrymore.png', description: 'Michael Barrymore' },
-{ filename: '06 - Michael Flatley.png', description: 'Michael Flatley' },
-{ filename: '07 - Michael Bubble.png', description: 'Michael Bubble' },
-{ filename: '08 - Michael Caine.png', description: 'Michael Caine' },
-{ filename: '09 - Michael Keaton.png', description: 'Michael Keaton' },
-{ filename: '10 - Michael Fish.png', description: 'Michael Fish' },
-{ filename: '11 - Michael Schumacher.png', description: 'Michael Schumacher' },
-{ filename: '12 - Michael Phelps.png', description: 'Michael Phelps' },
-{ filename: '13 - Michael J Fox.png', description: 'Michael J Fox' },
-{ filename: '14 - Michael Philip Jagger.png', description: 'Michael Philip Jagger' },
-{ filename: '15 - Michael John Myers.png', description: 'Michael John Myers' },
-{ filename: '16 - Michael Gerard Tyson.png', description: 'Michael Gerard Tyson' },
-{ filename: '17 - Michael Gambon.png', description: 'Michael Gambon' },
-{ filename: '18 - Michael Fassbender.png', description: 'Michael Fassbender' },
-{ filename: '19 - Michael Sheen.png', description: 'Michael Sheen' },
-{ filename: '20 - Michael C Hall.png', description: 'Michael C Hall' },
-{ filename: '21 - Michael Ball.png', description: 'Michael Ball' },
-{ filename: '22 - Michael James Hucknall.png', description: 'Michael James Hucknall' },
-{ filename: '23 - Michael Bolton.png', description: 'Michael Bolton' },
-{ filename: '24 - Michael Crawford.png', description: 'Michael Crawford' },
-{ filename: '25 - Michael Parkinson.png', description: 'Michael Parkinson' }
-        ];
+        /* ===================================================== */
+        /*                🔧 SYSTEM CODE BELOW                  */
+        /*            (No need to modify this part)             */
+        /* ===================================================== */
 
         /* GLOBAL VARIABLES */
-        let currentSlide = 1; // Tracks which slide is currently active
-        let isRevealed = false; // Tracks whether descriptions should be shown
-        let touchStartX = 0; // Touch start position for swipe detection
-        let touchEndX = 0; // Touch end position for swipe detection
-        let isSwiping = false; // Prevents multiple swipes
-        let isDragging = false; // Tracks if user is actively dragging
+        let currentSlide = 1;
+        let activeSet = null;
+        let isRevealed = false;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isSwiping = false;
+        let isDragging = false;
 
-        /* FUNCTION: Check if current date/time is past the reveal date */
-        function checkRevealDate() {
-            const now = new Date();
-            isRevealed = now >= REVEAL_DATE;
+        /* NAVIGATION FUNCTIONS */
+        function showMainMenu() {
+            // Hide all slideshow sections
+            document.querySelectorAll('.slideshow-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show main menu
+            document.getElementById('main-menu').classList.remove('hidden');
+            activeSet = null;
+            currentSlide = 1;
         }
 
-        /* FUNCTION: Create all slides and navigation dots */
-        function createSlides() {
-            const slidesContainer = document.getElementById('slides-container');
-            const dotsContainer = document.getElementById('dots-container');
+        function showSlideshow(setId) {
+            // Hide main menu
+            document.getElementById('main-menu').classList.add('hidden');
             
-            // Loop through each picture and create slide + dot
+            // Hide all slideshow sections
+            document.querySelectorAll('.slideshow-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected slideshow
+            document.getElementById(`slideshow-${setId}`).classList.remove('hidden');
+            activeSet = setId;
+            
+            // Initialize the slideshow if it hasn't been created yet
+            const setNumber = setId === 'set1' ? '1' : '2';
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            if (!slidesContainer.children.length) {
+                createSlides(setId);
+            }
+            
+            showSlide(1);
+            hideSwipeIndicator(setId);
+        }
+
+        /* CORE SLIDESHOW FUNCTIONS */
+        function checkRevealDate() {
+            const now = new Date();
+            const revealDate = new Date(CONFIG.revealDateTime);
+            isRevealed = now >= revealDate;
+        }
+
+        function createSlides(setId) {
+            const setNumber = setId === 'set1' ? '1' : '2';
+            const pictures = CONFIG.collections[setId].pictures;
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            const dotsContainer = document.getElementById(`dots-container${setNumber}`);
+            
+            // Update total slides counter
+            document.getElementById(`total-slides${setNumber}`).textContent = pictures.length;
+            
+            // Clear existing content
+            slidesContainer.innerHTML = '';
+            dotsContainer.innerHTML = '';
+            
             pictures.forEach((picture, index) => {
                 // Create slide element
                 const slide = document.createElement('div');
                 slide.className = 'slide';
                 slide.innerHTML = `
-                    <div class="slide-number">${index + 1} / 25</div>
-                    <img src="${GITHUB_BASE_URL}${picture.filename}" 
-                         alt="Picture ${index + 1}" 
-                         onclick="openFullscreen(this)"
-                         loading="lazy"
-                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlICR7aW5kZXggKyAxfTwvdGV4dD48L3N2Zz4='">
+                    <div class="slide-number">${index + 1} / ${pictures.length}</div>
+                    <div class="slide-image-container">
+                        <img src="${CONFIG.githubBaseUrl}${picture.filename}" 
+                             alt="Picture ${index + 1}" 
+                             onclick="openFullscreen(this)"
+                             loading="lazy"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlICR7aW5kZXggKyAxfTwvdGV4dD48L3N2Zz4='">
+                    </div>
                     <div class="description-box ${isRevealed ? '' : 'description-hidden'}">
                         ${isRevealed ? picture.description : 'Description will be revealed later...'}
                     </div>
@@ -507,43 +776,41 @@
             });
         }
 
-        /* FUNCTION: Display specific slide number */
         function showSlide(n) {
-            const slides = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.dot');
-            const slidesContainer = document.getElementById('slides-container');
+            if (!activeSet) return;
             
-            // Handle wraparound (going past first/last slide)
+            const setNumber = activeSet === 'set1' ? '1' : '2';
+            const pictures = CONFIG.collections[activeSet].pictures;
+            const slides = document.querySelectorAll(`#slides-container${setNumber} .slide`);
+            const dots = document.querySelectorAll(`#dots-container${setNumber} .dot`);
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            
             if (n > slides.length) currentSlide = 1;
-            if (n < 1) currentSlide = slides.length;
+            else if (n < 1) currentSlide = slides.length;
             else currentSlide = n;
             
-            // Calculate the transform value to show the current slide
             const translateX = -(currentSlide - 1) * 100;
             slidesContainer.style.transform = `translateX(${translateX}%)`;
             
-            // Remove active class from all dots
             dots.forEach(dot => dot.classList.remove('active'));
+            if (dots[currentSlide - 1]) {
+                dots[currentSlide - 1].classList.add('active');
+            }
             
-            // Add active class to current dot
-            dots[currentSlide - 1].classList.add('active');
+            document.getElementById(`current-slide${setNumber}`).textContent = currentSlide;
             
-            // Update slide counter display
-            document.getElementById('current-slide').textContent = currentSlide;
-            
-            // Update navigation button states (disable at first/last slide)
-            document.getElementById('prevBtn').disabled = currentSlide === 1;
-            document.getElementById('nextBtn').disabled = currentSlide === slides.length;
+            document.getElementById(`prevBtn${setNumber}`).disabled = currentSlide === 1;
+            document.getElementById(`nextBtn${setNumber}`).disabled = currentSlide === slides.length;
         }
 
-        /* FUNCTION: Change slide by relative amount (next/previous) */
         function changeSlide(n) {
-            if (isDragging) return; // Don't change if user is dragging
+            if (isDragging || !activeSet) return;
             showSlide(currentSlide + n);
         }
 
-        /* TOUCH/SWIPE HANDLING FUNCTIONS */
+        /* TOUCH/SWIPE HANDLING */
         function handleTouchStart(e) {
+            if (!activeSet) return;
             touchStartX = e.touches[0].clientX;
             touchEndX = touchStartX;
             isDragging = true;
@@ -551,7 +818,7 @@
         }
 
         function handleTouchMove(e) {
-            if (!isDragging) return;
+            if (!isDragging || !activeSet) return;
             e.preventDefault();
             
             touchEndX = e.touches[0].clientX;
@@ -560,76 +827,65 @@
             const dragPercent = (dragDistance / window.innerWidth) * 100;
             const newTranslate = currentTranslate + dragPercent;
             
-            const slidesContainer = document.getElementById('slides-container');
+            const setNumber = activeSet === 'set1' ? '1' : '2';
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
             slidesContainer.style.transition = 'none';
             slidesContainer.style.transform = `translateX(${newTranslate}%)`;
         }
 
         function handleTouchEnd(e) {
-            if (!isDragging) return;
+            if (!isDragging || !activeSet) return;
             
             isDragging = false;
-            const slidesContainer = document.getElementById('slides-container');
+            const setNumber = activeSet === 'set1' ? '1' : '2';
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
             slidesContainer.style.transition = 'transform 0.3s ease-out';
             
             const swipeDistance = touchStartX - touchEndX;
-            const swipeThreshold = 50; // Simple pixel threshold
+            const swipeThreshold = 50;
             
             if (Math.abs(swipeDistance) > swipeThreshold) {
-                if (swipeDistance > 0 && currentSlide < pictures.length) {
-                    // Swiped left - go to next slide
+                if (swipeDistance > 0 && currentSlide < CONFIG.collections[activeSet].pictures.length) {
                     currentSlide++;
                 } else if (swipeDistance < 0 && currentSlide > 1) {
-                    // Swiped right - go to previous slide  
                     currentSlide--;
                 }
             }
             
-            // Always snap to the current slide position
             showSlide(currentSlide);
             
-            // Reset
             touchStartX = 0;
             touchEndX = 0;
         }
 
-        /* FUNCTION: Open image in fullscreen view */
+        /* FULLSCREEN FUNCTIONS */
         function openFullscreen(img) {
             const overlay = document.getElementById('fullscreen-overlay');
             const fullscreenImg = document.getElementById('fullscreen-image');
             
-            // Set the fullscreen image source to the clicked image
             fullscreenImg.src = img.src;
             fullscreenImg.alt = img.alt;
-            
-            // Show the fullscreen overlay
             overlay.style.display = 'block';
-            
-            // Prevent body scrolling when in fullscreen
             document.body.style.overflow = 'hidden';
         }
 
-        /* FUNCTION: Close fullscreen view */
         function closeFullscreen() {
             const overlay = document.getElementById('fullscreen-overlay');
-            
-            // Hide the fullscreen overlay
             overlay.style.display = 'none';
-            
-            // Restore body scrolling
             document.body.style.overflow = 'auto';
         }
 
-        /* FUNCTION: Update all description boxes based on reveal date */
         function updateDescriptions() {
             checkRevealDate();
-            const descriptionBoxes = document.querySelectorAll('.description-box');
+            if (!activeSet) return;
             
-            // Update each description box
+            const setNumber = activeSet === 'set1' ? '1' : '2';
+            const descriptionBoxes = document.querySelectorAll(`#slides-container${setNumber} .description-box`);
+            
             descriptionBoxes.forEach((box, index) => {
                 if (isRevealed) {
                     box.className = 'description-box';
-                    box.textContent = pictures[index].description;
+                    box.textContent = CONFIG.collections[activeSet].pictures[index].description;
                 } else {
                     box.className = 'description-box description-hidden';
                     box.textContent = 'Description will be revealed later...';
@@ -637,9 +893,9 @@
             });
         }
 
-        /* FUNCTION: Hide swipe indicator after a few seconds */
-        function hideSwipeIndicator() {
-            const indicator = document.getElementById('swipeIndicator');
+        function hideSwipeIndicator(setId) {
+            const setNumber = setId === 'set1' ? '1' : '2';
+            const indicator = document.getElementById(`swipeIndicator${setNumber}`);
             setTimeout(() => {
                 if (indicator) {
                     indicator.style.opacity = '0';
@@ -650,47 +906,58 @@
             }, 4000);
         }
 
+        function initializeMenuButtons() {
+            const menuButtons = document.querySelectorAll('.menu-btn');
+            menuButtons.forEach((button, index) => {
+                const setKey = index === 0 ? 'set1' : 'set2';
+                button.textContent = CONFIG.collections[setKey].buttonText;
+            });
+            
+            // Update slideshow titles
+            document.querySelector('#slideshow-set1 .slideshow-title').textContent = CONFIG.collections.set1.title;
+            document.querySelector('#slideshow-set2 .slideshow-title').textContent = CONFIG.collections.set2.title;
+        }
+
         /* EVENT LISTENERS */
         
-        // Keyboard navigation (arrow keys)
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') changeSlide(-1);
-            if (e.key === 'ArrowRight') changeSlide(1);
-            if (e.key === 'Escape') closeFullscreen(); // Close fullscreen with Escape key
+            if (activeSet) {
+                if (e.key === 'ArrowLeft') changeSlide(-1);
+                if (e.key === 'ArrowRight') changeSlide(1);
+            }
+            if (e.key === 'Escape') {
+                closeFullscreen();
+                if (activeSet) showMainMenu();
+            }
         });
 
-        // Touch/swipe event listeners with passive: false for better control
-        const slidesWrapper = document.getElementById('slides-wrapper');
-        slidesWrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
-        slidesWrapper.addEventListener('touchmove', handleTouchMove, { passive: false }); // Allow preventDefault
-        slidesWrapper.addEventListener('touchend', handleTouchEnd, { passive: true });
+        // Touch/swipe event listeners
+        document.addEventListener('touchstart', handleTouchStart, { passive: true });
+        document.addEventListener('touchmove', handleTouchMove, { passive: false });
+        document.addEventListener('touchend', handleTouchEnd, { passive: true });
 
         // Prevent fullscreen close when clicking on the image itself
         document.getElementById('fullscreen-image').addEventListener('click', (e) => {
             e.stopPropagation();
         });
 
-        // Prevent context menu on long press (mobile)
+        // Prevent context menu on long press
         document.addEventListener('contextmenu', (e) => {
             if (e.target.tagName === 'IMG') {
                 e.preventDefault();
             }
         });
 
-        /* INITIALIZATION - Run when page loads */
-        checkRevealDate(); // Check if descriptions should be revealed
-        createSlides(); // Generate all slides and dots
-        showSlide(1); // Show first slide
-        hideSwipeIndicator(); // Hide swipe indicator after 4 seconds
+        /* INITIALIZATION */
+        checkRevealDate();
+        initializeMenuButtons();
+        showMainMenu();
         
-        // Check for reveal date every minute (60000 milliseconds)
-        setInterval(updateDescriptions, 60000);
+        // Check for reveal date every minute
+        setInterval(() => {
+            if (activeSet) updateDescriptions();
+        }, 60000);
     </script>
 </body>
 </html>
-
-
-
-
-
-
