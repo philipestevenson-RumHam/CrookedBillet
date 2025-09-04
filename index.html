@@ -17,6 +17,7 @@
         - GitHub repository URL
         - Picture collections and descriptions
         - Collection names and titles
+        - Instruction content for each collection
         */
         
         /* GLOBAL STYLES - Reset and base styling */
@@ -128,6 +129,106 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        /* INSTRUCTIONS PAGE STYLES */
+        .instructions-section {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .instructions-container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            padding: 40px;
+            margin: 20px 0;
+        }
+
+        .instructions-title {
+            color: #333;
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .instructions-content {
+            color: #555;
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .instructions-content h3 {
+            color: #333;
+            font-size: clamp(1.3rem, 3vw, 1.5rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        .instructions-content ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        .instructions-content li {
+            margin-bottom: 8px;
+        }
+
+        .instructions-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .instructions-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            min-width: 150px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .instructions-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .instructions-btn:active {
+            transform: translateY(0);
+        }
+
+        .instructions-btn.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            color: #667eea;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .instructions-btn.secondary:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
 
         /* SLIDESHOW STYLES */
@@ -505,6 +606,21 @@
                 width: 8px;
                 margin: 0 3px;
             }
+
+            .instructions-container {
+                padding: 30px 25px;
+                margin: 10px;
+            }
+            
+            .instructions-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .instructions-btn {
+                width: 100%;
+                max-width: 280px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -523,6 +639,14 @@
                 font-size: 13px;
                 padding: 5px 10px;
             }
+
+            .instructions-container {
+                padding: 25px 20px;
+            }
+            
+            .instructions-content {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -532,8 +656,36 @@
         <h1 class="main-title">Picture Slideshow</h1>
         <p class="main-subtitle">Choose a collection to explore</p>
         <div class="menu-buttons">
-            <button class="menu-btn" onclick="showSlideshow('set1')">Mixed Up Michaels</button>
-            <button class="menu-btn" onclick="showSlideshow('set2')">Second Collection</button>
+            <button class="menu-btn" onclick="showInstructions('set1')">Mixed Up Michaels</button>
+            <button class="menu-btn" onclick="showInstructions('set2')">Second Collection</button>
+        </div>
+    </div>
+
+    <!-- INSTRUCTIONS PAGE 1: Mixed Up Michaels -->
+    <div class="instructions-section hidden" id="instructions-set1">
+        <div class="instructions-container">
+            <h2 class="instructions-title">Mixed Up Michaels</h2>
+            <div class="instructions-content">
+                <h3>How to Play:</h3>
+                <ul>
+                    <li>Look at each image carefully</li>
+                    <li>Try to identify which famous Michael is shown</li>
+                    <li>Descriptions will be revealed automatically at the specified time</li>
+                    <li>Use the navigation buttons or swipe to move between images</li>
+                    <li>Click any image to view it in fullscreen</li>
+                </ul>
+                
+                <h3>Tips:</h3>
+                <ul>
+                    <li>Some images might be tricky - think about different fields like sports, entertainment, and more</li>
+                    <li>Pay attention to distinctive features or contexts in the images</li>
+                    <li>There are 25 different Michaels to discover!</li>
+                </ul>
+            </div>
+            <div class="instructions-buttons">
+                <button class="instructions-btn" onclick="startSlideshow('set1')">Start Slideshow</button>
+                <button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
+            </div>
         </div>
     </div>
 
@@ -561,6 +713,34 @@
             </div>
             
             <div class="dots-container" id="dots-container1"></div>
+        </div>
+    </div>
+
+    <!-- INSTRUCTIONS PAGE 2: Second Collection -->
+    <div class="instructions-section hidden" id="instructions-set2">
+        <div class="instructions-container">
+            <h2 class="instructions-title">Second Collection</h2>
+            <div class="instructions-content">
+                <h3>How to Play:</h3>
+                <ul>
+                    <li>Browse through this second collection of images</li>
+                    <li>Take your time to examine each picture</li>
+                    <li>Descriptions will be revealed at the scheduled time</li>
+                    <li>Navigate using buttons, arrow keys, or touch gestures</li>
+                </ul>
+                
+                <h3>Features:</h3>
+                <ul>
+                    <li>Touch/swipe support on mobile devices</li>
+                    <li>Keyboard navigation with arrow keys</li>
+                    <li>Click dots at the bottom to jump to specific images</li>
+                    <li>Fullscreen viewing available</li>
+                </ul>
+            </div>
+            <div class="instructions-buttons">
+                <button class="instructions-btn" onclick="startSlideshow('set2')">Start Slideshow</button>
+                <button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
+            </div>
         </div>
     </div>
 
@@ -611,6 +791,45 @@
             // Your GitHub Pages base URL (include trailing slash)
             githubBaseUrl: 'https://philipestevenson-rumham.github.io/CrockedBillet/',
             
+            // 📖 INSTRUCTION CONTENT
+            // Customize the instructions for each collection
+            instructions: {
+                set1: {
+                    title: 'Mixed Up Michaels',
+                    content: {
+                        howToPlay: [
+                            'Look at each image carefully',
+                            'Try to identify which famous Michael is shown',
+                            'Descriptions will be revealed automatically at the specified time',
+                            'Use the navigation buttons or swipe to move between images',
+                            'Click any image to view it in fullscreen'
+                        ],
+                        tips: [
+                            'Some images might be tricky - think about different fields like sports, entertainment, and more',
+                            'Pay attention to distinctive features or contexts in the images',
+                            'There are 25 different Michaels to discover!'
+                        ]
+                    }
+                },
+                set2: {
+                    title: 'Second Collection',
+                    content: {
+                        howToPlay: [
+                            'Browse through this second collection of images',
+                            'Take your time to examine each picture',
+                            'Descriptions will be revealed at the scheduled time',
+                            'Navigate using buttons, arrow keys, or touch gestures'
+                        ],
+                        features: [
+                            'Touch/swipe support on mobile devices',
+                            'Keyboard navigation with arrow keys',
+                            'Click dots at the bottom to jump to specific images',
+                            'Fullscreen viewing available'
+                        ]
+                    }
+                }
+            },
+            
             // 🖼️ PICTURE COLLECTIONS
             collections: {
                 set1: {
@@ -657,22 +876,7 @@
                         { filename: '07 - Michael Bubble.png', description: 'Michael Bubble' },
                         { filename: '08 - Michael Caine.png', description: 'Michael Caine' },
                         { filename: '09 - Michael Keaton.png', description: 'Michael Keaton' },
-                        { filename: '10 - Michael Fish.png', description: 'Michael Fish' },
-                        { filename: '11 - Michael Schumacher.png', description: 'Michael Schumacher' },
-                        { filename: '12 - Michael Phelps.png', description: 'Michael Phelps' },
-                        { filename: '13 - Michael J Fox.png', description: 'Michael J Fox' },
-                        { filename: '14 - Michael Philip Jagger.png', description: 'Michael Philip Jagger' },
-                        { filename: '15 - Michael John Myers.png', description: 'Michael John Myers' },
-                        { filename: '16 - Michael Gerard Tyson.png', description: 'Michael Gerard Tyson' },
-                        { filename: '17 - Michael Gambon.png', description: 'Michael Gambon' },
-                        { filename: '18 - Michael Fassbender.png', description: 'Michael Fassbender' },
-                        { filename: '19 - Michael Sheen.png', description: 'Michael Sheen' },
-                        { filename: '20 - Michael C Hall.png', description: 'Michael C Hall' },
-                        { filename: '21 - Michael Ball.png', description: 'Michael Ball' },
-                        { filename: '22 - Michael James Hucknall.png', description: 'Michael James Hucknall' },
-                        { filename: '23 - Michael Bolton.png', description: 'Michael Bolton' },
-                        { filename: '24 - Michael Crawford.png', description: 'Michael Crawford' },
-                        { filename: '25 - Michael Parkinson.png', description: 'Michael Parkinson' }
+                        { filename: '10 - Michael Fish.png', description: 'Michael Fish' }
                     ]
                 }
             }
@@ -694,8 +898,8 @@
 
         /* NAVIGATION FUNCTIONS */
         function showMainMenu() {
-            // Hide all slideshow sections
-            document.querySelectorAll('.slideshow-section').forEach(section => {
+            // Hide all sections
+            document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
                 section.classList.add('hidden');
             });
             
@@ -705,12 +909,23 @@
             currentSlide = 1;
         }
 
-        function showSlideshow(setId) {
+        function showInstructions(setId) {
             // Hide main menu
             document.getElementById('main-menu').classList.add('hidden');
             
-            // Hide all slideshow sections
-            document.querySelectorAll('.slideshow-section').forEach(section => {
+            // Hide all sections
+            document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected instructions
+            document.getElementById(`instructions-${setId}`).classList.remove('hidden');
+            activeSet = setId; // Set this so we know which set we're working with
+        }
+
+        function startSlideshow(setId) {
+            // Hide all sections
+            document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
                 section.classList.add('hidden');
             });
             
@@ -727,6 +942,11 @@
             
             showSlide(1);
             hideSwipeIndicator(setId);
+        }
+
+        function showSlideshow(setId) {
+            // This function now just calls startSlideshow for backwards compatibility
+            startSlideshow(setId);
         }
 
         /* CORE SLIDESHOW FUNCTIONS */
@@ -916,6 +1136,43 @@
             // Update slideshow titles
             document.querySelector('#slideshow-set1 .slideshow-title').textContent = CONFIG.collections.set1.title;
             document.querySelector('#slideshow-set2 .slideshow-title').textContent = CONFIG.collections.set2.title;
+            
+            // Initialize instruction pages with dynamic content
+            initializeInstructionPages();
+        }
+
+        function initializeInstructionPages() {
+            // Update instruction page content dynamically from CONFIG
+            Object.keys(CONFIG.instructions).forEach(setKey => {
+                const instructionData = CONFIG.instructions[setKey];
+                const instructionPage = document.getElementById(`instructions-${setKey}`);
+                
+                if (instructionPage && instructionData) {
+                    // Update title
+                    const titleEl = instructionPage.querySelector('.instructions-title');
+                    if (titleEl) titleEl.textContent = instructionData.title;
+                    
+                    // Update content sections
+                    const contentEl = instructionPage.querySelector('.instructions-content');
+                    if (contentEl && instructionData.content) {
+                        let htmlContent = '';
+                        
+                        Object.keys(instructionData.content).forEach(sectionKey => {
+                            const sectionTitle = sectionKey.replace(/([A-Z])/g, ' $1')
+                                .replace(/^./, str => str.toUpperCase());
+                            htmlContent += `<h3>${sectionTitle}:</h3><ul>`;
+                            
+                            instructionData.content[sectionKey].forEach(item => {
+                                htmlContent += `<li>${item}</li>`;
+                            });
+                            
+                            htmlContent += '</ul>';
+                        });
+                        
+                        contentEl.innerHTML = htmlContent;
+                    }
+                }
+            });
         }
 
         /* EVENT LISTENERS */
