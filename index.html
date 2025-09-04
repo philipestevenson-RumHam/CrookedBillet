@@ -777,7 +777,7 @@
                         howToPlay: [
                             'Look at each image carefully',
                             'Try to identify which famous Michael is shown',
-                            'Descriptions will be revealed automatically at the specified time',
+                            'Answers will be revealed automatically at the specified time',
                             'Use the navigation buttons or swipe to move between images',
                             'Click any image to view it in fullscreen'
                         ]
@@ -789,7 +789,7 @@
                         howToPlay: [
                             'Look at each image carefully',
                             'Try to identify which famous Michael is shown',
-                            'Descriptions will be revealed automatically at the specified time',
+                            'Answers will be revealed automatically at the specified time',
                             'Use the navigation buttons or swipe to move between images',
                             'Click any image to view it in fullscreen',
 							'Titties'
@@ -966,7 +966,7 @@
                              onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlICR7aW5kZXggKyAxfTwvdGV4dD48L3N2Zz4='">
                     </div>
                     <div class="description-box ${isRevealed ? '' : 'description-hidden'}">
-                        ${isRevealed ? picture.description : 'Description will be revealed later...'}
+                        ${isRevealed ? picture.description : 'Answer will be revealed later...'}
                     </div>
                 `;
                 slidesContainer.appendChild(slide);
@@ -1091,7 +1091,7 @@
                     box.textContent = CONFIG.collections[activeSet].pictures[index].description;
                 } else {
                     box.className = 'description-box description-hidden';
-                    box.textContent = 'Description will be revealed later...';
+                    box.textContent = 'Answer will be revealed later...';
                 }
             });
         }
@@ -1201,5 +1201,6 @@
     </script>
 </body>
 </html>
+
 
 
