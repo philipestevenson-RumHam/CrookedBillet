@@ -358,8 +358,45 @@
             display: none;
         }
 
-        /* CLUE MODAL STYLES */
-        .clue-modal {
+        /* ANSWER BUTTON STYLES */
+        .answer-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-width: 120px;
+            align-self: center;
+        }
+
+        .answer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+            background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+        }
+
+        .answer-btn:active {
+            transform: translateY(0);
+        }
+
+        .answer-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: white;
+        }
+
+        /* MODAL STYLES - Updated for both clue and answer */
+        .modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -374,7 +411,7 @@
             padding: 20px;
         }
 
-        .clue-modal-content {
+        .modal-content {
             background: white;
             padding: 30px;
             border-radius: 20px;
@@ -384,6 +421,8 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             position: relative;
             animation: modalSlideIn 0.3s ease-out;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         @keyframes modalSlideIn {
@@ -397,7 +436,7 @@
             }
         }
 
-        .clue-modal-title {
+        .modal-title {
             font-size: 1.5rem;
             font-weight: 700;
             color: #333;
@@ -408,20 +447,43 @@
             gap: 10px;
         }
 
-        .clue-modal-title svg {
+        .modal-title svg {
             width: 24px;
             height: 24px;
+        }
+
+        .modal-title.clue-title svg {
             fill: #ffc107;
         }
 
-        .clue-modal-text {
+        .modal-title.answer-title svg {
+            fill: #28a745;
+        }
+
+        .modal-text {
             font-size: 1.1rem;
             color: #555;
             line-height: 1.6;
             margin-bottom: 25px;
         }
 
-        .clue-modal-close {
+        .modal-text.answer-text {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .modal-info {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.5;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-style: italic;
+        }
+
+        .modal-close {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
@@ -433,7 +495,7 @@
             transition: all 0.3s ease;
         }
 
-        .clue-modal-close:hover {
+        .modal-close:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
         }
@@ -512,28 +574,11 @@
             transform: scale(1.1);
         }
 
-        .description-box {
-            padding: 15px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 12px;
-            border-left: 4px solid #667eea;
-            font-size: 16px;
-            color: #333;
-            min-height: 60px;
+        .slide-bottom-section {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            line-height: 1.4;
+            flex-direction: column;
+            gap: 10px;
             flex-shrink: 0;
-        }
-
-        .description-hidden {
-            background: linear-gradient(135deg, #ffe6e6 0%, #ffcccc 100%);
-            border-left-color: #ff6b6b;
-            color: #666;
-            font-style: italic;
         }
 
         .navigation {
@@ -702,10 +747,10 @@
                 padding: 6px 12px;
             }
 
-            .description-box {
-                padding: 12px;
-                font-size: 15px;
-                min-height: 50px;
+            .answer-btn {
+                padding: 10px 16px;
+                font-size: 13px;
+                min-width: 100px;
             }
 
             .slide-number {
@@ -752,7 +797,7 @@
                 max-width: 280px;
             }
 
-            .clue-modal-content {
+            .modal-content {
                 padding: 25px;
                 margin: 10px;
             }
@@ -783,8 +828,14 @@
                 font-size: 1rem;
             }
 
-            .clue-modal-content {
+            .modal-content {
                 padding: 20px;
+            }
+
+            .answer-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+                min-width: 90px;
             }
         }
     </style>
@@ -893,17 +944,13 @@
         <img class="fullscreen-image" id="fullscreen-image" src="" alt="">
     </div>
 
-    <!-- CLUE MODAL -->
-    <div class="clue-modal" id="clue-modal" onclick="closeClueModal()">
-        <div class="clue-modal-content" onclick="event.stopPropagation()">
-            <h3 class="clue-modal-title">
-                <svg viewBox="0 0 24 24">
-                    <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
-                </svg>
-                Clue
-            </h3>
-            <div class="clue-modal-text" id="clue-modal-text"></div>
-            <button class="clue-modal-close" onclick="closeClueModal()">Got it!</button>
+    <!-- UNIVERSAL MODAL -->
+    <div class="modal" id="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 class="modal-title" id="modal-title"></h3>
+            <div class="modal-text" id="modal-text"></div>
+            <div class="modal-info" id="modal-info"></div>
+            <button class="modal-close" onclick="closeModal()">Got it!</button>
         </div>
     </div>
 
@@ -931,7 +978,7 @@
                             'Look at each image carefully',
                             'Try to identify which famous Michael is shown',
                             'Click the lightbulb icon for a clue if you need help',
-                            'Answers will be revealed automatically at the specified time',
+                            'Click the "Show Answer" button to reveal the answer',
                             'Use the navigation buttons or swipe to move between images',
                             'Click any image to view it in fullscreen'
                         ]
@@ -944,7 +991,7 @@
                             'Look at each image carefully',
                             'Try to identify which famous Michael is shown',
                             'Click the lightbulb icon for a clue if you need help',
-                            'Answers will be revealed automatically at the specified time',
+                            'Click the "Show Answer" button to reveal the answer',
                             'Use the navigation buttons or swipe to move between images',
                             'Click any image to view it in fullscreen'
                         ]
@@ -958,47 +1005,47 @@
                     title: 'Mixed Up Michaels 1',
                     buttonText: 'Mixed Up Michaels 1',
                     pictures: [
-                        { filename: '01 - Michael Owen.png', description: 'Michael Owen'},
-                        { filename: '02 - Michael Jackson.png', description: 'Michael Jackson', clue: 'The King of Pop who moonwalked his way into music history' },
-                        { filename: '03 - Michael Douglas.png', description: 'Michael Douglas'},
-                        { filename: '04 - Michael Mcintyre.png', description: 'Michael McIntyre', clue: 'British comedian known for his observational humor and wild hair' },
-                        { filename: '05 - Michael Barrymore.png', description: 'Michael Barrymore', clue: 'TV presenter who hosted Strike It Lucky and My Kind of Music' },
-                        { filename: '06 - Michael Flatley.png', description: 'Michael Flatley', clue: 'Irish-American dancer famous for Riverdance and Lord of the Dance' },
-                        { filename: '07 - Michael Bubble.png', description: 'Michael Bublé', clue: 'Canadian jazz singer known for crooning classics and Christmas songs' },
-                        { filename: '08 - Michael Caine.png', description: 'Michael Caine', clue: 'British actor famous for "My name is Michael Caine" and countless films' },
-                        { filename: '09 - Michael Keaton.png', description: 'Michael Keaton', clue: 'Actor who played Batman and starred in Beetlejuice' },
-                        { filename: '10 - Michael Fish.png', description: 'Michael Fish', clue: 'BBC weather presenter famous for missing the 1987 hurricane forecast' },
-                        { filename: '11 - Michael Schumacher.png', description: 'Michael Schumacher', clue: 'German Formula 1 legend with seven world championships' },
-                        { filename: '12 - Michael Phelps.png', description: 'Michael Phelps', clue: 'American swimmer with 23 Olympic gold medals' },
-                        { filename: '13 - Michael J Fox.png', description: 'Michael J Fox', clue: 'Actor who traveled Back to the Future as Marty McFly' },
-                        { filename: '14 - Michael Philip Jagger.png', description: 'Michael Philip Jagger', clue: 'Lead singer of The Rolling Stones who can\'t get no satisfaction' },
-                        { filename: '15 - Michael John Myers.png', description: 'Michael John Myers', clue: 'Canadian comedian who created Austin Powers and Wayne\'s World' },
-                        { filename: '16 - Michael Gerard Tyson.png', description: 'Michael Gerard Tyson', clue: 'Former heavyweight boxing champion known for his ferocious style' },
-                        { filename: '17 - Michael Gambon.png', description: 'Michael Gambon', clue: 'Irish actor who played Dumbledore in the Harry Potter films' },
-                        { filename: '18 - Michael Fassbender.png', description: 'Michael Fassbender', clue: 'German-Irish actor known for X-Men and intense dramatic roles' },
-                        { filename: '19 - Michael Sheen.png', description: 'Michael Sheen', clue: 'Welsh actor famous for portraying real-life figures like Tony Blair' },
-                        { filename: '20 - Michael C Hall.png', description: 'Michael C Hall', clue: 'American actor who played Dexter Morgan in the TV series Dexter' },
-                        { filename: '21 - Michael Ball.png', description: 'Michael Ball', clue: 'British singer and actor known for musical theatre and radio presenting' },
-                        { filename: '22 - Michael James Hucknall.png', description: 'Michael James Hucknall', clue: 'Red-haired frontman of Simply Red who was "Holding Back the Years"' },
-                        { filename: '23 - Michael Bolton.png', description: 'Michael Bolton', clue: 'American singer known for romantic ballads and that distinctive mullet' },
-                        { filename: '24 - Michael Crawford.png', description: 'Michael Crawford', clue: 'British actor and singer, the original Phantom of the Opera' },
-                        { filename: '25 - Michael Parkinson.png', description: 'Michael Parkinson', clue: 'Legendary British chat show host known simply as "Parky"' }
+                        { filename: '01 - Michael Owen.png', description: 'Michael Owen', info: 'Former England striker who played for Liverpool and Real Madrid'},
+                        { filename: '02 - Michael Jackson.png', description: 'Michael Jackson', clue: 'The King of Pop who moonwalked his way into music history', info: 'Known as the King of Pop, he was one of the most significant cultural figures of the 20th century' },
+                        { filename: '03 - Michael Douglas.png', description: 'Michael Douglas', info: 'Hollywood actor who starred in Wall Street and Fatal Attraction'},
+                        { filename: '04 - Michael Mcintyre.png', description: 'Michael McIntyre', clue: 'British comedian known for his observational humor and wild hair', info: 'Popular British comedian known for his energetic stand-up performances and TV shows' },
+                        { filename: '05 - Michael Barrymore.png', description: 'Michael Barrymore', clue: 'TV presenter who hosted Strike It Lucky and My Kind of Music', info: 'British entertainer who was one of the most popular TV presenters in the 1990s' },
+                        { filename: '06 - Michael Flatley.png', description: 'Michael Flatley', clue: 'Irish-American dancer famous for Riverdance and Lord of the Dance', info: 'Irish-American dancer who revolutionized Irish traditional dance' },
+                        { filename: '07 - Michael Bubble.png', description: 'Michael Bublé', clue: 'Canadian jazz singer known for crooning classics and Christmas songs', info: 'Canadian jazz and pop singer known for his smooth voice and classic interpretations' },
+                        { filename: '08 - Michael Caine.png', description: 'Michael Caine', clue: 'British actor famous for "My name is Michael Caine" and countless films', info: 'Legendary British actor with a career spanning over six decades' },
+                        { filename: '09 - Michael Keaton.png', description: 'Michael Keaton', clue: 'Actor who played Batman and starred in Beetlejuice', info: 'American actor known for both comedic and dramatic roles, including Batman' },
+                        { filename: '10 - Michael Fish.png', description: 'Michael Fish', clue: 'BBC weather presenter famous for missing the 1987 hurricane forecast', info: 'British weather forecaster who became famous for an infamous weather prediction' },
+                        { filename: '11 - Michael Schumacher.png', description: 'Michael Schumacher', clue: 'German Formula 1 legend with seven world championships', info: 'Legendary Formula 1 driver, considered one of the greatest of all time' },
+                        { filename: '12 - Michael Phelps.png', description: 'Michael Phelps', clue: 'American swimmer with 23 Olympic gold medals', info: 'The most decorated Olympian of all time with 28 total Olympic medals' },
+                        { filename: '13 - Michael J Fox.png', description: 'Michael J Fox', clue: 'Actor who traveled Back to the Future as Marty McFly', info: 'Canadian-American actor and advocate for Parkinson\'s disease research' },
+                        { filename: '14 - Michael Philip Jagger.png', description: 'Michael Philip Jagger', clue: 'Lead singer of The Rolling Stones who can\'t get no satisfaction', info: 'Lead vocalist of The Rolling Stones, one of rock\'s most iconic frontmen' },
+                        { filename: '15 - Michael John Myers.png', description: 'Michael John Myers', clue: 'Canadian comedian who created Austin Powers and Wayne\'s World', info: 'Canadian comedian and actor known for his character-based comedy' },
+                        { filename: '16 - Michael Gerard Tyson.png', description: 'Michael Gerard Tyson', clue: 'Former heavyweight boxing champion known for his ferocious style', info: 'Former professional boxer, the youngest heavyweight champion in history' },
+                        { filename: '17 - Michael Gambon.png', description: 'Michael Gambon', clue: 'Irish actor who played Dumbledore in the Harry Potter films', info: 'Irish actor who portrayed Albus Dumbledore in six Harry Potter films' },
+                        { filename: '18 - Michael Fassbender.png', description: 'Michael Fassbender', clue: 'German-Irish actor known for X-Men and intense dramatic roles', info: 'German-Irish actor known for his intense performances in both blockbusters and art films' },
+                        { filename: '19 - Michael Sheen.png', description: 'Michael Sheen', clue: 'Welsh actor famous for portraying real-life figures like Tony Blair', info: 'Welsh actor known for his portrayals of real-life personalities' },
+                        { filename: '20 - Michael C Hall.png', description: 'Michael C Hall', clue: 'American actor who played Dexter Morgan in the TV series Dexter', info: 'American actor best known for his role as the titular character in Dexter' },
+                        { filename: '21 - Michael Ball.png', description: 'Michael Ball', clue: 'British singer and actor known for musical theatre and radio presenting', info: 'British singer and actor, popular in musical theatre and radio' },
+                        { filename: '22 - Michael James Hucknall.png', description: 'Michael James Hucknall', clue: 'Red-haired frontman of Simply Red who was "Holding Back the Years"', info: 'Lead singer of Simply Red, known for his distinctive red hair and soulful voice' },
+                        { filename: '23 - Michael Bolton.png', description: 'Michael Bolton', clue: 'American singer known for romantic ballads and that distinctive mullet', info: 'American singer known for his powerful vocals and romantic ballads' },
+                        { filename: '24 - Michael Crawford.png', description: 'Michael Crawford', clue: 'British actor and singer, the original Phantom of the Opera', info: 'British actor and singer who originated the role of the Phantom in The Phantom of the Opera' },
+                        { filename: '25 - Michael Parkinson.png', description: 'Michael Parkinson', clue: 'Legendary British chat show host known simply as "Parky"', info: 'Legendary British broadcaster and chat show host who interviewed countless celebrities' }
                     ]
                 },
                 set2: {
                     title: 'Mixed Up Michaels 2',
                     buttonText: 'Mixed Up Michaels 2',
                     pictures: [
-                        { filename: '01 - Michael Owen.png', description: 'Michael Owen', clue: 'Former England striker who played for Liverpool and Real Madrid' },
-                        { filename: '02 - Michael Jackson.png', description: 'Michael Jackson', clue: 'The King of Pop who moonwalked his way into music history' },
-                        { filename: '03 - Michael Douglas.png', description: 'Michael Douglas', clue: 'Hollywood actor who starred in Wall Street and Fatal Attraction' },
-                        { filename: '04 - Michael Mcintyre.png', description: 'Michael McIntyre', clue: 'British comedian known for his observational humor and wild hair' },
-                        { filename: '05 - Michael Barrymore.png', description: 'Michael Barrymore', clue: 'TV presenter who hosted Strike It Lucky and My Kind of Music' },
-                        { filename: '06 - Michael Flatley.png', description: 'Michael Flatley', clue: 'Irish-American dancer famous for Riverdance and Lord of the Dance' },
-                        { filename: '07 - Michael Bubble.png', description: 'Michael Bublé', clue: 'Canadian jazz singer known for crooning classics and Christmas songs' },
-                        { filename: '08 - Michael Caine.png', description: 'Michael Caine', clue: 'British actor famous for "My name is Michael Caine" and countless films' },
-                        { filename: '09 - Michael Keaton.png', description: 'Michael Keaton', clue: 'Actor who played Batman and starred in Beetlejuice' },
-                        { filename: '10 - Michael Fish.png', description: 'Michael Fish', clue: 'BBC weather presenter famous for missing the 1987 hurricane forecast' }
+                        { filename: '01 - Michael Owen.png', description: 'Michael Owen', clue: 'Former England striker who played for Liverpool and Real Madrid', info: 'Former England striker who played for Liverpool and Real Madrid' },
+                        { filename: '02 - Michael Jackson.png', description: 'Michael Jackson', clue: 'The King of Pop who moonwalked his way into music history', info: 'Known as the King of Pop, he was one of the most significant cultural figures of the 20th century' },
+                        { filename: '03 - Michael Douglas.png', description: 'Michael Douglas', clue: 'Hollywood actor who starred in Wall Street and Fatal Attraction', info: 'Hollywood actor who starred in Wall Street and Fatal Attraction' },
+                        { filename: '04 - Michael Mcintyre.png', description: 'Michael McIntyre', clue: 'British comedian known for his observational humor and wild hair', info: 'Popular British comedian known for his energetic stand-up performances and TV shows' },
+                        { filename: '05 - Michael Barrymore.png', description: 'Michael Barrymore', clue: 'TV presenter who hosted Strike It Lucky and My Kind of Music', info: 'British entertainer who was one of the most popular TV presenters in the 1990s' },
+                        { filename: '06 - Michael Flatley.png', description: 'Michael Flatley', clue: 'Irish-American dancer famous for Riverdance and Lord of the Dance', info: 'Irish-American dancer who revolutionized Irish traditional dance' },
+                        { filename: '07 - Michael Bubble.png', description: 'Michael Bublé', clue: 'Canadian jazz singer known for crooning classics and Christmas songs', info: 'Canadian jazz and pop singer known for his smooth voice and classic interpretations' },
+                        { filename: '08 - Michael Caine.png', description: 'Michael Caine', clue: 'British actor famous for "My name is Michael Caine" and countless films', info: 'Legendary British actor with a career spanning over six decades' },
+                        { filename: '09 - Michael Keaton.png', description: 'Michael Keaton', clue: 'Actor who played Batman and starred in Beetlejuice', info: 'American actor known for both comedic and dramatic roles, including Batman' },
+                        { filename: '10 - Michael Fish.png', description: 'Michael Fish', clue: 'BBC weather presenter famous for missing the 1987 hurricane forecast', info: 'British weather forecaster who became famous for an infamous weather prediction' }
                     ]
                 }
             }
@@ -1071,7 +1118,7 @@
             startSlideshow(setId);
         }
 
-        /* CLUE FUNCTIONS */
+        /* MODAL FUNCTIONS */
         function showClue(slideIndex) {
             if (!activeSet) return;
             
@@ -1079,16 +1126,61 @@
             const picture = pictures[slideIndex];
             
             if (picture && picture.clue) {
-                const modal = document.getElementById('clue-modal');
-                const modalText = document.getElementById('clue-modal-text');
-                modalText.textContent = picture.clue;
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+                showModal('clue', 'Clue', picture.clue);
             }
         }
 
-        function closeClueModal() {
-            const modal = document.getElementById('clue-modal');
+        function showAnswer(slideIndex) {
+            if (!activeSet) return;
+            
+            const pictures = CONFIG.collections[activeSet].pictures;
+            const picture = pictures[slideIndex];
+            
+            if (!picture) return;
+            
+            checkRevealDate();
+            
+            if (isRevealed) {
+                showModal('answer', 'Answer', picture.description, picture.info);
+            } else {
+                const revealDate = new Date(CONFIG.revealDateTime);
+                const formattedDate = revealDate.toLocaleString();
+                showModal('answer', 'Answer Not Yet Available', `Answers will be revealed on ${formattedDate}`);
+            }
+        }
+
+        function showModal(type, title, text, info = null) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalText = document.getElementById('modal-text');
+            const modalInfo = document.getElementById('modal-info');
+            
+            // Set title with appropriate icon
+            const iconSvg = type === 'clue' 
+                ? '<svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>'
+                : '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>';
+            
+            modalTitle.innerHTML = `${iconSvg} ${title}`;
+            modalTitle.className = `modal-title ${type}-title`;
+            
+            // Set text content and styling
+            modalText.textContent = text;
+            modalText.className = type === 'answer' && isRevealed ? 'modal-text answer-text' : 'modal-text';
+            
+            // Handle info section
+            if (info && type === 'answer' && isRevealed) {
+                modalInfo.textContent = info;
+                modalInfo.style.display = 'block';
+            } else {
+                modalInfo.style.display = 'none';
+            }
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
@@ -1136,8 +1228,13 @@
                              loading="lazy"
                              onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlICR7aW5kZXggKyAxfTwvdGV4dD48L3N2Zz4='">
                     </div>
-                    <div class="description-box ${isRevealed ? '' : 'description-hidden'}">
-                        ${isRevealed ? picture.description : 'Answer will be revealed later...'}
+                    <div class="slide-bottom-section">
+                        <button class="answer-btn" onclick="showAnswer(${index})">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                            </svg>
+                            Show Answer
+                        </button>
                     </div>
                 `;
                 slidesContainer.appendChild(slide);
@@ -1249,24 +1346,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        function updateDescriptions() {
-            checkRevealDate();
-            if (!activeSet) return;
-            
-            const setNumber = activeSet === 'set1' ? '1' : '2';
-            const descriptionBoxes = document.querySelectorAll(`#slides-container${setNumber} .description-box`);
-            
-            descriptionBoxes.forEach((box, index) => {
-                if (isRevealed) {
-                    box.className = 'description-box';
-                    box.textContent = CONFIG.collections[activeSet].pictures[index].description;
-                } else {
-                    box.className = 'description-box description-hidden';
-                    box.textContent = 'Answer will be revealed later...';
-                }
-            });
-        }
-
         function hideSwipeIndicator(setId) {
             const setNumber = setId === 'set1' ? '1' : '2';
             const indicator = document.getElementById(`swipeIndicator${setNumber}`);
@@ -1339,7 +1418,7 @@
             }
             if (e.key === 'Escape') {
                 closeFullscreen();
-                closeClueModal();
+                closeModal();
                 if (activeSet) showMainMenu();
             }
         });
@@ -1368,7 +1447,7 @@
         
         // Check for reveal date every minute
         setInterval(() => {
-            if (activeSet) updateDescriptions();
+            checkRevealDate();
         }, 60000);
     </script>
 </body>
