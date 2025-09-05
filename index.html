@@ -1412,13 +1412,19 @@
         
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
+            if (isModalOpen()) {
+                if (e.key === 'Escape') {
+                    closeFullscreen();
+                    closeModal();
+                }
+                return; // Don't allow other keyboard actions when modal is open
+            }
+            
             if (activeSet) {
                 if (e.key === 'ArrowLeft') changeSlide(-1);
                 if (e.key === 'ArrowRight') changeSlide(1);
             }
             if (e.key === 'Escape') {
-                closeFullscreen();
-                closeModal();
                 if (activeSet) showMainMenu();
             }
         });
