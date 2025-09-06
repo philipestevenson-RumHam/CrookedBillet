@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Crooked Billet Collection</title>
     <style>
         /* =================================================== */
@@ -18,15 +18,23 @@
         - Picture collections and descriptions
         - Collection names and titles
         - Instruction content for each collection
+        - PDF download file name
         */
         
-        /* GLOBAL STYLES - Reset and base styling */
+        /* =================================================== */
+        /*                   CSS RESET                        */
+        /* =================================================== */
+        /* Global reset to ensure consistent styling across browsers */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* =================================================== */
+        /*                  BODY STYLING                      */
+        /* =================================================== */
+        /* Main body container with gradient background and flex layout */
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -39,7 +47,10 @@
             overflow-x: hidden;
         }
 
-        /* MAIN MENU STYLES */
+        /* =================================================== */
+        /*                MAIN MENU STYLES                    */
+        /* =================================================== */
+        /* Container for the main menu screen */
         .main-menu {
             display: flex;
             flex-direction: column;
@@ -51,6 +62,7 @@
             text-align: center;
         }
 
+        /* Main title styling with gradient text effect */
         .main-title {
             color: white;
             font-size: clamp(2.5rem, 8vw, 4rem);
@@ -61,6 +73,7 @@
             animation: fadeInUp 0.8s ease-out;
         }
 
+        /* Subtitle text below main title */
         .main-subtitle {
             color: rgba(255, 255, 255, 0.9);
             font-size: clamp(1rem, 3vw, 1.3rem);
@@ -69,6 +82,7 @@
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
+        /* Container for menu buttons */
         .menu-buttons {
             display: flex;
             flex-direction: column;
@@ -77,6 +91,7 @@
             max-width: 400px;
         }
 
+        /* Individual menu button styling with glassmorphism effect */
         .menu-btn {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
@@ -93,6 +108,7 @@
             overflow: hidden;
         }
 
+        /* Shimmer effect for menu buttons */
         .menu-btn::before {
             content: '';
             position: absolute;
@@ -104,6 +120,7 @@
             transition: left 0.5s;
         }
 
+        /* Menu button hover effects */
         .menu-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
@@ -115,10 +132,12 @@
             left: 100%;
         }
 
+        /* Menu button active state */
         .menu-btn:active {
             transform: translateY(-1px);
         }
 
+        /* Fade-in animation keyframes */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -130,7 +149,10 @@
             }
         }
 
-        /* INSTRUCTIONS PAGE STYLES */
+        /* =================================================== */
+        /*              INSTRUCTIONS PAGE STYLES              */
+        /* =================================================== */
+        /* Main container for instructions screens */
         .instructions-section {
             width: 100%;
             display: flex;
@@ -142,6 +164,7 @@
             text-align: center;
         }
 
+        /* Content box for instructions with glassmorphism */
         .instructions-container {
             width: 100%;
             max-width: 800px;
@@ -153,6 +176,7 @@
             margin: 20px 0;
         }
 
+        /* Instructions page title styling */
         .instructions-title {
             color: #333;
             font-size: clamp(2rem, 6vw, 3rem);
@@ -162,6 +186,7 @@
             letter-spacing: -0.02em;
         }
 
+        /* Instructions text content styling */
         .instructions-content {
             color: #555;
             font-size: clamp(1.1rem, 2.5vw, 1.3rem);
@@ -170,6 +195,7 @@
             text-align: left;
         }
 
+        /* Instructions subheading styling */
         .instructions-content h3 {
             color: #333;
             font-size: clamp(1.3rem, 3vw, 1.5rem);
@@ -178,6 +204,7 @@
             margin-top: 25px;
         }
 
+        /* Instructions list styling */
         .instructions-content ul {
             margin: 15px 0;
             padding-left: 25px;
@@ -187,6 +214,7 @@
             margin-bottom: 8px;
         }
 
+        /* Container for instruction page buttons */
         .instructions-buttons {
             display: flex;
             gap: 20px;
@@ -194,6 +222,7 @@
             flex-wrap: wrap;
         }
 
+        /* Primary instruction button styling */
         .instructions-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -208,6 +237,7 @@
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
 
+        /* Instruction button hover effect */
         .instructions-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
@@ -217,6 +247,7 @@
             transform: translateY(0);
         }
 
+        /* Secondary instruction button variant */
         .instructions-btn.secondary {
             background: rgba(255, 255, 255, 0.2);
             border: 2px solid rgba(102, 126, 234, 0.3);
@@ -230,7 +261,10 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
 
-        /* SLIDESHOW STYLES */
+        /* =================================================== */
+        /*                SLIDESHOW STYLES                    */
+        /* =================================================== */
+        /* Main slideshow section container */
         .slideshow-section {
             width: 100%;
             display: flex;
@@ -241,6 +275,7 @@
             padding: 20px 0;
         }
 
+        /* Slideshow title (clickable to return to menu) */
         .slideshow-title {
             color: white;
             font-size: clamp(1.8rem, 5vw, 2.5rem);
@@ -261,6 +296,7 @@
             text-shadow: 3px 3px 12px rgba(0,0,0,0.5);
         }
 
+        /* Main slideshow container with white background */
         .slideshow-container {
             width: 100%;
             max-width: 900px;
@@ -275,6 +311,7 @@
             flex-direction: column;
         }
 
+        /* Wrapper for slides with touch handling */
         .slides-wrapper {
             position: relative;
             overflow: hidden;
@@ -285,6 +322,7 @@
             flex-direction: column;
         }
 
+        /* Container that holds all slides horizontally */
         .slides-container {
             display: flex;
             width: 100%;
@@ -292,6 +330,7 @@
             transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
+        /* Individual slide styling */
         .slide {
             position: relative;
             text-align: center;
@@ -304,6 +343,7 @@
             height: 100%;
         }
 
+        /* Slide number indicator in top-right corner */
         .slide-number {
             position: absolute;
             top: 20px;
@@ -318,7 +358,10 @@
             backdrop-filter: blur(10px);
         }
 
-        /* CLUE BUTTON STYLES */
+        /* =================================================== */
+        /*                CLUE BUTTON STYLES                  */
+        /* =================================================== */
+        /* Yellow lightbulb clue button in top-left corner */
         .clue-btn {
             position: absolute;
             top: 20px;
@@ -358,7 +401,10 @@
             display: none;
         }
 
-        /* ANSWER BUTTON STYLES */
+        /* =================================================== */
+        /*               ANSWER BUTTON STYLES                 */
+        /* =================================================== */
+        /* Green "Show Answer" button at bottom of slide */
         .answer-btn {
             background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             color: white;
@@ -395,7 +441,10 @@
             fill: white;
         }
 
-        /* MODAL STYLES - Updated for both clue and answer */
+        /* =================================================== */
+        /*                  MODAL STYLES                      */
+        /* =================================================== */
+        /* Modal overlay for clues and answers */
         .modal {
             position: fixed;
             top: 0;
@@ -411,6 +460,7 @@
             padding: 20px;
         }
 
+        /* Modal content box */
         .modal-content {
             background: white;
             padding: 30px;
@@ -425,6 +475,7 @@
             overflow-y: auto;
         }
 
+        /* Modal slide-in animation */
         @keyframes modalSlideIn {
             from {
                 opacity: 0;
@@ -436,6 +487,7 @@
             }
         }
 
+        /* Modal title with icon */
         .modal-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -452,14 +504,17 @@
             height: 24px;
         }
 
+        /* Clue modal icon color */
         .modal-title.clue-title svg {
             fill: #ffc107;
         }
 
+        /* Answer modal icon color */
         .modal-title.answer-title svg {
             fill: #28a745;
         }
 
+        /* Modal text content */
         .modal-text {
             font-size: 1.1rem;
             color: #555;
@@ -467,12 +522,14 @@
             margin-bottom: 25px;
         }
 
+        /* Answer text styling (bold when revealed) */
         .modal-text.answer-text {
             font-weight: 600;
             color: #333;
             font-size: 1.2rem;
         }
 
+        /* Additional info section in modals */
         .modal-info {
             font-size: 1rem;
             color: #666;
@@ -483,6 +540,7 @@
             font-style: italic;
         }
 
+        /* Modal close button */
         .modal-close {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -500,6 +558,10 @@
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
         }
 
+        /* =================================================== */
+        /*               SLIDE IMAGE STYLES                   */
+        /* =================================================== */
+        /* Container for slide images */
         .slide-image-container {
             flex: 1;
             display: flex;
@@ -510,6 +572,7 @@
             min-height: 0;
         }
 
+        /* Slide image styling */
         .slide img {
             width: 100%;
             height: 100%;
@@ -524,6 +587,10 @@
             transform: scale(0.98);
         }
 
+        /* =================================================== */
+        /*              FULLSCREEN OVERLAY STYLES             */
+        /* =================================================== */
+        /* Fullscreen image overlay */
         .fullscreen-overlay {
             display: none;
             position: fixed;
@@ -532,11 +599,13 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
+            z-index: 2000; /* Higher z-index to ensure it's above everything */
             cursor: pointer;
             backdrop-filter: blur(5px);
+            touch-action: manipulation; /* Allow pinch-zoom on mobile */
         }
 
+        /* Fullscreen image styling with zoom capability */
         .fullscreen-image {
             position: absolute;
             top: 50%;
@@ -547,8 +616,11 @@
             object-fit: contain;
             border-radius: 8px;
             box-shadow: 0 0 50px rgba(255,255,255,0.2);
+            cursor: default; /* Reset cursor for image */
+            touch-action: manipulation; /* Enable pinch-zoom */
         }
 
+        /* Fullscreen close button */
         .fullscreen-close {
             position: absolute;
             top: 20px;
@@ -557,7 +629,7 @@
             font-size: 30px;
             font-weight: bold;
             cursor: pointer;
-            z-index: 1001;
+            z-index: 2001;
             background: rgba(0,0,0,0.7);
             border-radius: 50%;
             width: 50px;
@@ -574,6 +646,10 @@
             transform: scale(1.1);
         }
 
+        /* =================================================== */
+        /*               SLIDE BOTTOM SECTION                 */
+        /* =================================================== */
+        /* Container for answer button at bottom of slide */
         .slide-bottom-section {
             display: flex;
             flex-direction: column;
@@ -581,6 +657,10 @@
             flex-shrink: 0;
         }
 
+        /* =================================================== */
+        /*               NAVIGATION STYLES                    */
+        /* =================================================== */
+        /* Bottom navigation bar with prev/next buttons */
         .navigation {
             display: flex;
             justify-content: space-between;
@@ -591,6 +671,7 @@
             flex-shrink: 0;
         }
 
+        /* Navigation buttons (prev/next) */
         .nav-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -619,6 +700,7 @@
             box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
         }
 
+        /* Disabled navigation button styling */
         .nav-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
@@ -626,6 +708,7 @@
             box-shadow: none;
         }
 
+        /* Slide counter display */
         .slide-counter {
             font-weight: 600;
             color: #333;
@@ -637,6 +720,10 @@
             backdrop-filter: blur(10px);
         }
 
+        /* =================================================== */
+        /*                 DOT NAVIGATION                      */
+        /* =================================================== */
+        /* Container for dot navigation at bottom */
         .dots-container {
             text-align: center;
             padding: 20px;
@@ -646,6 +733,7 @@
             flex-shrink: 0;
         }
 
+        /* Individual navigation dots */
         .dot {
             height: 10px;
             width: 10px;
@@ -657,11 +745,16 @@
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
+        /* Active and hover dot styling */
         .dot:hover, .dot.active {
             background-color: #667eea;
             transform: scale(1.4);
         }
 
+        /* =================================================== */
+        /*               SWIPE INDICATOR                       */
+        /* =================================================== */
+        /* Animated swipe instruction text */
         .swipe-indicator {
             position: absolute;
             bottom: 150px;
@@ -674,17 +767,25 @@
             z-index: 10;
         }
 
+        /* Fade in/out animation for swipe indicator */
         @keyframes fadeInOut {
             0%, 100% { opacity: 0; }
             50% { opacity: 1; }
         }
 
-        /* VISIBILITY CONTROL */
+        /* =================================================== */
+        /*               UTILITY CLASSES                       */
+        /* =================================================== */
+        /* Hide elements completely */
         .hidden {
             display: none !important;
         }
 
-        /* DESKTOP SPECIFIC STYLES */
+        /* =================================================== */
+        /*               RESPONSIVE DESIGN                     */
+        /* =================================================== */
+
+        /* Desktop specific styles (1024px and above) */
         @media (min-width: 1024px) {
             body {
                 padding: 20px;
@@ -702,7 +803,7 @@
             }
         }
 
-        /* MOBILE OPTIMIZATIONS */
+        /* Tablet and mobile optimizations (768px and below) */
         @media (max-width: 768px) {
             body {
                 padding: 5px;
@@ -803,6 +904,7 @@
             }
         }
 
+        /* Small mobile optimizations (480px and below) */
         @media (max-width: 480px) {
             .navigation {
                 padding: 15px;
@@ -841,26 +943,38 @@
     </style>
 </head>
 <body>
-    <!-- MAIN MENU SCREEN -->
+    <!-- =================================================== -->
+    <!--                  MAIN MENU SCREEN                  -->
+    <!-- =================================================== -->
+    <!-- Landing page with title and navigation buttons -->
     <div class="main-menu" id="main-menu">
         <h1 class="main-title">Crooked Billet</h1>
         <p class="main-subtitle">Pick A Table Top</p>
         <div class="menu-buttons">
+            <!-- Set 1 button - dynamically populated from CONFIG -->
             <button class="menu-btn" onclick="showInstructions('set1')">Set1</button>
+            <!-- Set 2 button - dynamically populated from CONFIG -->
             <button class="menu-btn" onclick="showInstructions('set2')">Set2</button>
+            <!-- PDF Download button - downloads file from GitHub -->
+            <button class="menu-btn" onclick="downloadPDF()">Download PDF</button>
         </div>
     </div>
 
-    <!-- INSTRUCTIONS PAGE 1: Mixed Up Michaels -->
+    <!-- =================================================== -->
+    <!--              INSTRUCTIONS PAGE 1                   -->
+    <!-- =================================================== -->
+    <!-- Instructions screen for Set 1 -->
     <div class="instructions-section hidden" id="instructions-set1">
         <div class="instructions-container">
             <h2 class="instructions-title">Set 1</h2>
+            <!-- Instructions content - dynamically populated from CONFIG -->
             <div class="instructions-content">
                 <h3>How to Play:</h3>
                 <ul>
                     <li>Instruction1</li>
                 </ul>
             </div>
+            <!-- Action buttons for instructions page -->
             <div class="instructions-buttons">
                 <button class="instructions-btn" onclick="startSlideshow('set1')">Start Slideshow</button>
                 <button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
@@ -868,17 +982,26 @@
         </div>
     </div>
 
-    <!-- SLIDESHOW SECTION 1: Set1 -->
+    <!-- =================================================== -->
+    <!--                SLIDESHOW SECTION 1                 -->
+    <!-- =================================================== -->
+    <!-- Main slideshow interface for Set 1 -->
     <div class="slideshow-section hidden" id="slideshow-set1">
+        <!-- Clickable title returns to main menu -->
         <h1 class="slideshow-title" onclick="showMainMenu()">Set1</h1>
         
+        <!-- Animated swipe instruction indicator -->
         <div class="swipe-indicator" id="swipeIndicator1">← Swipe to navigate →</div>
         
+        <!-- Main slideshow container -->
         <div class="slideshow-container">
+            <!-- Slides wrapper with touch handling -->
             <div class="slides-wrapper" id="slides-wrapper1">
+                <!-- Container for all slides (populated by JavaScript) -->
                 <div class="slides-container" id="slides-container1"></div>
             </div>
             
+            <!-- Bottom navigation bar -->
             <div class="navigation">
                 <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn1">
                     ◀ Prev
@@ -891,19 +1014,26 @@
                 </button>
             </div>
             
+            <!-- Dot navigation indicators -->
             <div class="dots-container" id="dots-container1"></div>
         </div>
     </div>
 
-    <!-- INSTRUCTIONS PAGE 2: Set2 -->
+    <!-- =================================================== -->
+    <!--              INSTRUCTIONS PAGE 2                   -->
+    <!-- =================================================== -->
+    <!-- Instructions screen for Set 2 -->
     <div class="instructions-section hidden" id="instructions-set2">
         <div class="instructions-container">
             <h2 class="instructions-title">Set2</h2>
+            <!-- Instructions content - dynamically populated from CONFIG -->
             <div class="instructions-content">
                 <h3>How to Play:</h3>
                 <ul>
                     <li>Instruction2</li>
+                </ul>
             </div>
+            <!-- Action buttons for instructions page -->
             <div class="instructions-buttons">
                 <button class="instructions-btn" onclick="startSlideshow('set2')">Start Slideshow</button>
                 <button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
@@ -911,17 +1041,26 @@
         </div>
     </div>
 
-    <!-- SLIDESHOW SECTION 2: Second Collection -->
+    <!-- =================================================== -->
+    <!--                SLIDESHOW SECTION 2                 -->
+    <!-- =================================================== -->
+    <!-- Main slideshow interface for Set 2 -->
     <div class="slideshow-section hidden" id="slideshow-set2">
+        <!-- Clickable title returns to main menu -->
         <h1 class="slideshow-title" onclick="showMainMenu()">Set2</h1>
         
+        <!-- Animated swipe instruction indicator -->
         <div class="swipe-indicator" id="swipeIndicator2">← Swipe to navigate →</div>
         
+        <!-- Main slideshow container -->
         <div class="slideshow-container">
+            <!-- Slides wrapper with touch handling -->
             <div class="slides-wrapper" id="slides-wrapper2">
+                <!-- Container for all slides (populated by JavaScript) -->
                 <div class="slides-container" id="slides-container2"></div>
             </div>
             
+            <!-- Bottom navigation bar -->
             <div class="navigation">
                 <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn2">
                     ◀ Prev
@@ -934,22 +1073,35 @@
                 </button>
             </div>
             
+            <!-- Dot navigation indicators -->
             <div class="dots-container" id="dots-container2"></div>
         </div>
     </div>
 
-    <!-- FULLSCREEN OVERLAY -->
+    <!-- =================================================== -->
+    <!--               FULLSCREEN OVERLAY                   -->
+    <!-- =================================================== -->
+    <!-- Fullscreen image viewer with zoom capability -->
     <div class="fullscreen-overlay" id="fullscreen-overlay" onclick="closeFullscreen()">
+        <!-- Close button -->
         <div class="fullscreen-close" onclick="closeFullscreen()">&times;</div>
+        <!-- Fullscreen image with pinch-zoom enabled -->
         <img class="fullscreen-image" id="fullscreen-image" src="" alt="">
     </div>
 
-    <!-- UNIVERSAL MODAL -->
+    <!-- =================================================== -->
+    <!--                UNIVERSAL MODAL                     -->
+    <!-- =================================================== -->
+    <!-- Modal popup for clues and answers -->
     <div class="modal" id="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
+            <!-- Modal title with icon -->
             <h3 class="modal-title" id="modal-title"></h3>
+            <!-- Main modal text content -->
             <div class="modal-text" id="modal-text"></div>
+            <!-- Additional info section -->
             <div class="modal-info" id="modal-info"></div>
+            <!-- Close button -->
             <button class="modal-close" onclick="closeModal()">Got it!</button>
         </div>
     </div>
@@ -968,6 +1120,10 @@
             // Your GitHub Pages base URL (include trailing slash)
             githubBaseUrl: 'https://philipestevenson-rumham.github.io/CrookedBillet/',
             
+            // 📄 PDF DOWNLOAD FILENAME
+            // Name of PDF file to download from GitHub repository
+            pdfFileName: 'CrookedBillet.pdf',
+            
             // 📖 INSTRUCTION CONTENT
             // Customize the instructions for each collection
             instructions: {
@@ -980,7 +1136,7 @@
                             'Click the lightbulb icon for a clue if you need help',
                             'Click the "Show Answer" button to reveal the answer',
                             'Use the navigation buttons or swipe to move between images',
-                            'Click any image to view it in fullscreen'
+                            'Click any image to view it in fullscreen with zoom capability'
                         ]
                     }
                 },
@@ -993,7 +1149,7 @@
                             'Click the lightbulb icon for a clue if you need help',
                             'Click the "Show Answer" button to reveal the answer',
                             'Use the navigation buttons or swipe to move between images',
-                            'Click any image to view it in fullscreen'
+                            'Click any image to view it in fullscreen with zoom capability'
                         ]
                     }
                 }
@@ -1056,18 +1212,27 @@
         /*            (No need to modify this part)             */
         /* ===================================================== */
 
-        /* GLOBAL VARIABLES */
-        let currentSlide = 1;
-        let activeSet = null;
-        let isRevealed = false;
-        let touchStartX = 0;
-        let touchEndX = 0;
-        let isSwiping = false;
-        let isDragging = false;
+        /* ===================================================== */
+        /*                   GLOBAL VARIABLES                   */
+        /* ===================================================== */
+        let currentSlide = 1;           // Current slide index
+        let activeSet = null;           // Currently active set ('set1' or 'set2')
+        let isRevealed = false;         // Whether answers are revealed based on date
+        let touchStartX = 0;            // Touch start X coordinate for swipe detection
+        let touchEndX = 0;              // Touch end X coordinate for swipe detection
+        let isSwiping = false;          // Whether user is currently swiping
+        let isDragging = false;         // Whether user is currently dragging
+        let isFullscreenOpen = false;   // Track if fullscreen is currently open
 
-        /* NAVIGATION FUNCTIONS */
+        /* ===================================================== */
+        /*                 NAVIGATION FUNCTIONS                  */
+        /* ===================================================== */
+        
+        /**
+         * Show the main menu and hide all other sections
+         */
         function showMainMenu() {
-            // Hide all sections
+            // Hide all slideshow and instruction sections
             document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
                 section.classList.add('hidden');
             });
@@ -1078,22 +1243,30 @@
             currentSlide = 1;
         }
 
+        /**
+         * Show instructions page for specified set
+         * @param {string} setId - The set identifier ('set1' or 'set2')
+         */
         function showInstructions(setId) {
             // Hide main menu
             document.getElementById('main-menu').classList.add('hidden');
             
-            // Hide all sections
+            // Hide all other sections
             document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
                 section.classList.add('hidden');
             });
             
             // Show selected instructions
             document.getElementById(`instructions-${setId}`).classList.remove('hidden');
-            activeSet = setId; // Set this so we know which set we're working with
+            activeSet = setId;
         }
 
+        /**
+         * Start slideshow for specified set
+         * @param {string} setId - The set identifier ('set1' or 'set2')
+         */
         function startSlideshow(setId) {
-            // Hide all sections
+            // Hide all other sections
             document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
                 section.classList.add('hidden');
             });
@@ -1113,12 +1286,27 @@
             hideSwipeIndicator(setId);
         }
 
-        function showSlideshow(setId) {
-            // This function now just calls startSlideshow for backwards compatibility
-            startSlideshow(setId);
+        /**
+         * Download PDF file from GitHub repository
+         */
+        function downloadPDF() {
+            const pdfUrl = CONFIG.githubBaseUrl + CONFIG.pdfFileName;
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = CONFIG.pdfFileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
-        /* MODAL FUNCTIONS */
+        /* ===================================================== */
+        /*                   MODAL FUNCTIONS                    */
+        /* ===================================================== */
+        
+        /**
+         * Show clue modal for specified slide
+         * @param {number} slideIndex - Index of the slide
+         */
         function showClue(slideIndex) {
             if (!activeSet) return;
             
@@ -1130,6 +1318,10 @@
             }
         }
 
+        /**
+         * Show answer modal for specified slide
+         * @param {number} slideIndex - Index of the slide
+         */
         function showAnswer(slideIndex) {
             if (!activeSet) return;
             
@@ -1149,6 +1341,13 @@
             }
         }
 
+        /**
+         * Display modal with specified content
+         * @param {string} type - Modal type ('clue' or 'answer')
+         * @param {string} title - Modal title
+         * @param {string} text - Modal text content
+         * @param {string} info - Additional info (optional)
+         */
         function showModal(type, title, text, info = null) {
             const modal = document.getElementById('modal');
             const modalTitle = document.getElementById('modal-title');
@@ -1179,19 +1378,41 @@
             document.body.style.overflow = 'hidden';
         }
 
+        /**
+         * Close the modal
+         */
         function closeModal() {
             const modal = document.getElementById('modal');
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        /* CORE SLIDESHOW FUNCTIONS */
+        /**
+         * Check if any modal is currently open
+         * @returns {boolean} True if modal is open
+         */
+        function isModalOpen() {
+            const modal = document.getElementById('modal');
+            return modal && modal.style.display === 'flex';
+        }
+
+        /* ===================================================== */
+        /*               CORE SLIDESHOW FUNCTIONS               */
+        /* ===================================================== */
+        
+        /**
+         * Check if answers should be revealed based on configured date/time
+         */
         function checkRevealDate() {
             const now = new Date();
             const revealDate = new Date(CONFIG.revealDateTime);
             isRevealed = now >= revealDate;
         }
 
+        /**
+         * Create slides for specified set
+         * @param {string} setId - The set identifier
+         */
         function createSlides(setId) {
             const setNumber = setId === 'set1' ? '1' : '2';
             const pictures = CONFIG.collections[setId].pictures;
@@ -1218,6 +1439,7 @@
                         </svg>
                     </button>` : '';
                 
+                // Build slide HTML
                 slide.innerHTML = `
                     ${clueButtonHTML}
                     <div class="slide-number">${index + 1} / ${pictures.length}</div>
@@ -1247,6 +1469,10 @@
             });
         }
 
+        /**
+         * Show specific slide by number
+         * @param {number} n - Slide number to show
+         */
         function showSlide(n) {
             if (!activeSet) return;
             
@@ -1256,40 +1482,64 @@
             const dots = document.querySelectorAll(`#dots-container${setNumber} .dot`);
             const slidesContainer = document.getElementById(`slides-container${setNumber}`);
             
+            // Handle slide boundaries
             if (n > slides.length) currentSlide = 1;
             else if (n < 1) currentSlide = slides.length;
             else currentSlide = n;
             
+            // Apply transform to show current slide
             const translateX = -(currentSlide - 1) * 100;
             slidesContainer.style.transform = `translateX(${translateX}%)`;
             
+            // Update active dot
             dots.forEach(dot => dot.classList.remove('active'));
             if (dots[currentSlide - 1]) {
                 dots[currentSlide - 1].classList.add('active');
             }
             
+            // Update slide counter
             document.getElementById(`current-slide${setNumber}`).textContent = currentSlide;
             
+            // Update navigation button states
             document.getElementById(`prevBtn${setNumber}`).disabled = currentSlide === 1;
             document.getElementById(`nextBtn${setNumber}`).disabled = currentSlide === slides.length;
         }
 
+        /**
+         * Change slide by relative amount
+         * @param {number} n - Number of slides to move (+1 for next, -1 for previous)
+         */
         function changeSlide(n) {
-            if (isDragging || !activeSet) return;
+            if (isDragging || !activeSet || isFullscreenOpen) return;
             showSlide(currentSlide + n);
         }
 
-        /* TOUCH/SWIPE HANDLING */
+        /* ===================================================== */
+        /*                TOUCH/SWIPE HANDLING                  */
+        /* ===================================================== */
+        
+        /**
+         * Handle touch start event for swipe detection
+         * @param {TouchEvent} e - Touch event
+         */
         function handleTouchStart(e) {
-            if (!activeSet) return;
+            // Don't handle swipes when fullscreen is open or no active set
+            if (!activeSet || isFullscreenOpen) return;
+            
             touchStartX = e.touches[0].clientX;
             touchEndX = touchStartX;
             isDragging = true;
             isSwiping = false;
         }
 
+        /**
+         * Handle touch move event for swipe detection and visual feedback
+         * @param {TouchEvent} e - Touch event
+         */
         function handleTouchMove(e) {
-            if (!isDragging || !activeSet) return;
+            // Don't handle swipes when fullscreen is open or not dragging
+            if (!isDragging || !activeSet || isFullscreenOpen) return;
+            
             e.preventDefault();
             
             touchEndX = e.touches[0].clientX;
@@ -1298,20 +1548,27 @@
             const dragPercent = (dragDistance / window.innerWidth) * 100;
             const newTranslate = currentTranslate + dragPercent;
             
+            // Apply visual feedback during drag
             const setNumber = activeSet === 'set1' ? '1' : '2';
             const slidesContainer = document.getElementById(`slides-container${setNumber}`);
             slidesContainer.style.transition = 'none';
             slidesContainer.style.transform = `translateX(${newTranslate}%)`;
         }
 
+        /**
+         * Handle touch end event to complete swipe action
+         * @param {TouchEvent} e - Touch event
+         */
         function handleTouchEnd(e) {
-            if (!isDragging || !activeSet) return;
+            // Don't handle swipes when fullscreen is open or not dragging
+            if (!isDragging || !activeSet || isFullscreenOpen) return;
             
             isDragging = false;
             const setNumber = activeSet === 'set1' ? '1' : '2';
             const slidesContainer = document.getElementById(`slides-container${setNumber}`);
             slidesContainer.style.transition = 'transform 0.3s ease-out';
             
+            // Determine if swipe was significant enough to change slide
             const swipeDistance = touchStartX - touchEndX;
             const swipeThreshold = 50;
             
@@ -1325,27 +1582,55 @@
             
             showSlide(currentSlide);
             
+            // Reset touch coordinates
             touchStartX = 0;
             touchEndX = 0;
         }
 
-        /* FULLSCREEN FUNCTIONS */
+        /* ===================================================== */
+        /*                FULLSCREEN FUNCTIONS                  */
+        /* ===================================================== */
+        
+        /**
+         * Open image in fullscreen mode with zoom capability
+         * @param {HTMLImageElement} img - Image element to show fullscreen
+         */
         function openFullscreen(img) {
             const overlay = document.getElementById('fullscreen-overlay');
             const fullscreenImg = document.getElementById('fullscreen-image');
             
+            // Set image source and properties
             fullscreenImg.src = img.src;
             fullscreenImg.alt = img.alt;
+            
+            // Show overlay and disable background scrolling
             overlay.style.display = 'block';
             document.body.style.overflow = 'hidden';
+            
+            // Mark fullscreen as open to disable swipe handling
+            isFullscreenOpen = true;
         }
 
+        /**
+         * Close fullscreen image viewer
+         */
         function closeFullscreen() {
             const overlay = document.getElementById('fullscreen-overlay');
             overlay.style.display = 'none';
             document.body.style.overflow = 'auto';
+            
+            // Re-enable swipe handling
+            isFullscreenOpen = false;
         }
 
+        /* ===================================================== */
+        /*                 UTILITY FUNCTIONS                    */
+        /* ===================================================== */
+        
+        /**
+         * Hide swipe indicator after delay
+         * @param {string} setId - Set identifier
+         */
         function hideSwipeIndicator(setId) {
             const setNumber = setId === 'set1' ? '1' : '2';
             const indicator = document.getElementById(`swipeIndicator${setNumber}`);
@@ -1359,11 +1644,18 @@
             }, 4000);
         }
 
+        /**
+         * Initialize menu buttons with configured text and functionality
+         */
         function initializeMenuButtons() {
             const menuButtons = document.querySelectorAll('.menu-btn');
+            
+            // Update first two buttons with collection names
             menuButtons.forEach((button, index) => {
-                const setKey = index === 0 ? 'set1' : 'set2';
-                button.textContent = CONFIG.collections[setKey].buttonText;
+                if (index < 2) {
+                    const setKey = index === 0 ? 'set1' : 'set2';
+                    button.textContent = CONFIG.collections[setKey].buttonText;
+                }
             });
             
             // Update slideshow titles
@@ -1374,6 +1666,9 @@
             initializeInstructionPages();
         }
 
+        /**
+         * Initialize instruction pages with content from CONFIG
+         */
         function initializeInstructionPages() {
             // Update instruction page content dynamically from CONFIG
             Object.keys(CONFIG.instructions).forEach(setKey => {
@@ -1408,47 +1703,85 @@
             });
         }
 
-        /* EVENT LISTENERS */
+        /* ===================================================== */
+        /*                  EVENT LISTENERS                     */
+        /* ===================================================== */
         
-        // Keyboard navigation
+        /**
+         * Keyboard navigation handler
+         */
         document.addEventListener('keydown', (e) => {
-            if (isModalOpen()) {
+            // Handle modal-specific keys
+            if (isModalOpen() || isFullscreenOpen) {
                 if (e.key === 'Escape') {
                     closeFullscreen();
                     closeModal();
                 }
-                return; // Don't allow other keyboard actions when modal is open
+                return; // Don't allow other keyboard actions when modal/fullscreen is open
             }
             
+            // Handle slideshow navigation
             if (activeSet) {
                 if (e.key === 'ArrowLeft') changeSlide(-1);
                 if (e.key === 'ArrowRight') changeSlide(1);
             }
+            
+            // Global escape key handling
             if (e.key === 'Escape') {
                 if (activeSet) showMainMenu();
             }
         });
 
-        // Touch/swipe event listeners
+        /**
+         * Touch event listeners for swipe handling
+         * Note: These are set to passive:false for touchmove to allow preventDefault
+         */
         document.addEventListener('touchstart', handleTouchStart, { passive: true });
         document.addEventListener('touchmove', handleTouchMove, { passive: false });
         document.addEventListener('touchend', handleTouchEnd, { passive: true });
 
-        // Prevent fullscreen close when clicking on the image itself
+        /**
+         * Prevent fullscreen close when clicking on the image itself
+         */
         document.getElementById('fullscreen-image').addEventListener('click', (e) => {
             e.stopPropagation();
         });
 
-        // Prevent context menu on long press
+        /**
+         * Prevent context menu on long press for images
+         */
         document.addEventListener('contextmenu', (e) => {
             if (e.target.tagName === 'IMG') {
                 e.preventDefault();
             }
         });
 
-        /* INITIALIZATION */
+        /**
+         * Handle fullscreen overlay touch events to prevent slide navigation
+         */
+        document.getElementById('fullscreen-overlay').addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        document.getElementById('fullscreen-overlay').addEventListener('touchmove', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        document.getElementById('fullscreen-overlay').addEventListener('touchend', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        /* ===================================================== */
+        /*                   INITIALIZATION                     */
+        /* ===================================================== */
+        
+        // Check reveal date status on page load
         checkRevealDate();
+        
+        // Initialize menu buttons and content
         initializeMenuButtons();
+        
+        // Show main menu on page load
         showMainMenu();
         
         // Check for reveal date every minute
@@ -1458,4 +1791,3 @@
     </script>
 </body>
 </html>
-
