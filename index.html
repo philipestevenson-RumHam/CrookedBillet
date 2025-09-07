@@ -37,7 +37,7 @@
         /* Main body container with gradient background and flex layout */
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 50%, #1a1a1a 100%);
             min-height: 100vh;
             padding: 10px;
             display: flex;
@@ -62,24 +62,37 @@
             text-align: center;
         }
 
-        /* Main title styling with gradient text effect */
+        /* Logo container */
+        .logo-container {
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .logo-container img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+
+        /* Main title styling with updated colors */
         .main-title {
-            color: white;
+            color: #f5f5dc;
             font-size: clamp(2.5rem, 8vw, 4rem);
             font-weight: 800;
             margin-bottom: 2rem;
-            text-shadow: 3px 3px 12px rgba(0,0,0,0.4);
+            text-shadow: 3px 3px 12px rgba(0,0,0,0.6);
             letter-spacing: -0.02em;
-            animation: fadeInUp 0.8s ease-out;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         /* Subtitle text below main title */
         .main-subtitle {
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(245, 245, 220, 0.8);
             font-size: clamp(1rem, 3vw, 1.3rem);
             margin-bottom: 3rem;
             font-weight: 400;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
         /* Container for menu buttons */
@@ -91,12 +104,12 @@
             max-width: 400px;
         }
 
-        /* Individual menu button styling with glassmorphism effect */
+        /* Individual menu button styling with updated colors */
         .menu-btn {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(245, 245, 220, 0.15);
             backdrop-filter: blur(10px);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: #f5f5dc;
+            border: 2px solid rgba(220, 20, 60, 0.6);
             padding: 1.2rem 2rem;
             border-radius: 15px;
             cursor: pointer;
@@ -116,16 +129,16 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(220, 20, 60, 0.3), transparent);
             transition: left 0.5s;
         }
 
         /* Menu button hover effects */
         .menu-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 15px 35px rgba(220, 20, 60, 0.3);
+            background: rgba(220, 20, 60, 0.2);
+            border-color: rgba(220, 20, 60, 0.8);
         }
 
         .menu-btn:hover::before {
@@ -168,17 +181,18 @@
         .instructions-container {
             width: 100%;
             max-width: 800px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(245, 245, 220, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             padding: 40px;
             margin: 20px 0;
+            border: 2px solid rgba(220, 20, 60, 0.3);
         }
 
         /* Instructions page title styling */
         .instructions-title {
-            color: #333;
+            color: #2d2d2d;
             font-size: clamp(2rem, 6vw, 3rem);
             font-weight: 800;
             margin-bottom: 30px;
@@ -188,7 +202,7 @@
 
         /* Instructions text content styling */
         .instructions-content {
-            color: #555;
+            color: #4a4a4a;
             font-size: clamp(1.1rem, 2.5vw, 1.3rem);
             line-height: 1.6;
             margin-bottom: 40px;
@@ -197,7 +211,7 @@
 
         /* Instructions subheading styling */
         .instructions-content h3 {
-            color: #333;
+            color: #2d2d2d;
             font-size: clamp(1.3rem, 3vw, 1.5rem);
             font-weight: 700;
             margin-bottom: 15px;
@@ -224,9 +238,9 @@
 
         /* Primary instruction button styling */
         .instructions-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
+            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
+            color: #f5f5dc;
+            border: 2px solid rgba(220, 20, 60, 0.6);
             padding: 15px 30px;
             border-radius: 25px;
             cursor: pointer;
@@ -234,13 +248,15 @@
             font-weight: 600;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             min-width: 150px;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.3);
         }
 
         /* Instruction button hover effect */
         .instructions-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 15px 35px rgba(220, 20, 60, 0.5);
+            background: linear-gradient(135deg, #5a5a5a 0%, #3d3d3d 100%);
+            border-color: rgba(220, 20, 60, 0.8);
         }
 
         .instructions-btn:active {
@@ -249,16 +265,16 @@
 
         /* Secondary instruction button variant */
         .instructions-btn.secondary {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            color: #667eea;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            background: rgba(245, 245, 220, 0.1);
+            border: 2px solid rgba(220, 20, 60, 0.4);
+            color: #dc143c;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
         .instructions-btn.secondary:hover {
-            background: rgba(102, 126, 234, 0.1);
-            border-color: rgba(102, 126, 234, 0.5);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            background: rgba(220, 20, 60, 0.1);
+            border-color: rgba(220, 20, 60, 0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
 
         /* =================================================== */
@@ -277,12 +293,12 @@
 
         /* Slideshow title (clickable to return to menu) */
         .slideshow-title {
-            color: white;
+            color: #f5f5dc;
             font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 20px;
             text-align: center;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
             width: 100%;
             max-width: 800px;
             letter-spacing: -0.02em;
@@ -293,7 +309,7 @@
 
         .slideshow-title:hover {
             transform: scale(1.02);
-            text-shadow: 3px 3px 12px rgba(0,0,0,0.5);
+            text-shadow: 3px 3px 12px rgba(220, 20, 60, 0.5);
         }
 
         /* Main slideshow container with white background */
@@ -301,9 +317,10 @@
             width: 100%;
             max-width: 900px;
             position: relative;
-            background: white;
+            background: #f5f5dc;
             border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            border: 3px solid rgba(220, 20, 60, 0.4);
             overflow: hidden;
             backdrop-filter: blur(10px);
             height: min(85vh, 700px);
@@ -348,14 +365,15 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(0,0,0,0.8);
-            color: white;
+            background: rgba(74, 74, 74, 0.9);
+            color: #f5f5dc;
             padding: 8px 16px;
             border-radius: 20px;
             font-weight: 600;
             font-size: 14px;
             z-index: 2;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(220, 20, 60, 0.4);
         }
 
         /* =================================================== */
@@ -368,8 +386,8 @@
             left: 20px;
             width: 40px;
             height: 40px;
-            background: rgba(255, 193, 7, 0.9);
-            border: none;
+            background: rgba(220, 20, 60, 0.8);
+            border: 2px solid rgba(74, 74, 74, 0.6);
             border-radius: 50%;
             cursor: pointer;
             z-index: 3;
@@ -378,13 +396,14 @@
             justify-content: center;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
         }
 
         .clue-btn:hover {
             transform: scale(1.1);
-            background: rgba(255, 193, 7, 1);
-            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5);
+            background: rgba(220, 20, 60, 1);
+            border-color: rgba(74, 74, 74, 0.8);
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6);
         }
 
         .clue-btn:active {
@@ -394,7 +413,7 @@
         .clue-btn svg {
             width: 20px;
             height: 20px;
-            fill: #333;
+            fill: #f5f5dc;
         }
 
         .clue-btn.hidden {
@@ -404,11 +423,11 @@
         /* =================================================== */
         /*               ANSWER BUTTON STYLES                 */
         /* =================================================== */
-        /* Green "Show Answer" button at bottom of slide */
+        /* Updated answer button with theme colors */
         .answer-btn {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            border: none;
+            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
+            color: #f5f5dc;
+            border: 2px solid rgba(220, 20, 60, 0.6);
             padding: 12px 20px;
             border-radius: 25px;
             cursor: pointer;
@@ -416,7 +435,7 @@
             font-weight: 600;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -427,8 +446,9 @@
 
         .answer-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
-            background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);
+            background: linear-gradient(135deg, #5a5a5a 0%, #3d3d3d 100%);
+            border-color: rgba(220, 20, 60, 0.8);
         }
 
         .answer-btn:active {
@@ -438,7 +458,7 @@
         .answer-btn svg {
             width: 16px;
             height: 16px;
-            fill: white;
+            fill: #f5f5dc;
         }
 
         /* =================================================== */
@@ -451,7 +471,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             display: none;
             align-items: center;
             justify-content: center;
@@ -462,13 +482,14 @@
 
         /* Modal content box */
         .modal-content {
-            background: white;
+            background: #f5f5dc;
             padding: 30px;
             border-radius: 20px;
             max-width: 500px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(220, 20, 60, 0.4);
             position: relative;
             animation: modalSlideIn 0.3s ease-out;
             max-height: 80vh;
@@ -491,7 +512,7 @@
         .modal-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #333;
+            color: #2d2d2d;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -506,18 +527,18 @@
 
         /* Clue modal icon color */
         .modal-title.clue-title svg {
-            fill: #ffc107;
+            fill: #dc143c;
         }
 
         /* Answer modal icon color */
         .modal-title.answer-title svg {
-            fill: #28a745;
+            fill: #4a4a4a;
         }
 
         /* Modal text content */
         .modal-text {
             font-size: 1.1rem;
-            color: #555;
+            color: #4a4a4a;
             line-height: 1.6;
             margin-bottom: 25px;
         }
@@ -525,7 +546,7 @@
         /* Answer text styling (bold when revealed) */
         .modal-text.answer-text {
             font-weight: 600;
-            color: #333;
+            color: #2d2d2d;
             font-size: 1.2rem;
         }
 
@@ -536,15 +557,15 @@
             line-height: 1.5;
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid rgba(220, 20, 60, 0.3);
             font-style: italic;
         }
 
         /* Modal close button */
         .modal-close {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
+            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
+            color: #f5f5dc;
+            border: 2px solid rgba(220, 20, 60, 0.6);
             padding: 12px 30px;
             border-radius: 25px;
             cursor: pointer;
@@ -555,7 +576,8 @@
 
         .modal-close:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 20px rgba(220, 20, 60, 0.4);
+            background: linear-gradient(135deg, #5a5a5a 0%, #3d3d3d 100%);
         }
 
         /* =================================================== */
@@ -578,9 +600,10 @@
             height: 100%;
             object-fit: contain;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             cursor: pointer;
             transition: transform 0.2s ease;
+            border: 2px solid rgba(220, 20, 60, 0.2);
         }
 
         .slide img:active {
@@ -599,10 +622,10 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
-            z-index: 2000; /* Higher z-index to ensure it's above everything */
+            z-index: 2000;
             cursor: pointer;
             backdrop-filter: blur(5px);
-            touch-action: manipulation; /* Allow pinch-zoom on mobile */
+            touch-action: manipulation;
         }
 
         /* Fullscreen image styling with zoom capability */
@@ -615,9 +638,9 @@
             max-height: 95%;
             object-fit: contain;
             border-radius: 8px;
-            box-shadow: 0 0 50px rgba(255,255,255,0.2);
-            cursor: default; /* Reset cursor for image */
-            touch-action: manipulation; /* Enable pinch-zoom */
+            box-shadow: 0 0 50px rgba(220, 20, 60, 0.3);
+            cursor: default;
+            touch-action: manipulation;
         }
 
         /* Fullscreen close button */
@@ -625,12 +648,13 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            color: white;
+            color: #f5f5dc;
             font-size: 30px;
             font-weight: bold;
             cursor: pointer;
             z-index: 2001;
-            background: rgba(0,0,0,0.7);
+            background: rgba(74, 74, 74, 0.8);
+            border: 2px solid rgba(220, 20, 60, 0.6);
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -642,7 +666,8 @@
         }
 
         .fullscreen-close:hover {
-            background: rgba(0,0,0,0.9);
+            background: rgba(220, 20, 60, 0.8);
+            border-color: rgba(74, 74, 74, 0.8);
             transform: scale(1.1);
         }
 
@@ -666,16 +691,17 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
             gap: 15px;
             flex-shrink: 0;
+            border-top: 2px solid rgba(220, 20, 60, 0.3);
         }
 
         /* Navigation buttons (prev/next) */
         .nav-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
+            background: linear-gradient(135deg, #f5f5dc 0%, #e8e8dc 100%);
+            color: #2d2d2d;
+            border: 2px solid rgba(220, 20, 60, 0.6);
             padding: 14px 20px;
             border-radius: 25px;
             cursor: pointer;
@@ -687,37 +713,42 @@
             gap: 8px;
             min-width: 100px;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
         }
 
         .nav-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.4);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            border-color: rgba(220, 20, 60, 0.8);
         }
 
         .nav-btn:active {
             transform: translateY(0);
-            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 2px 10px rgba(220, 20, 60, 0.3);
         }
 
         /* Disabled navigation button styling */
         .nav-btn:disabled {
-            background: #ccc;
+            background: #999;
+            color: #666;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+            border-color: #666;
         }
 
         /* Slide counter display */
         .slide-counter {
             font-weight: 600;
-            color: #333;
+            color: #f5f5dc;
             font-size: 16px;
             white-space: nowrap;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(245, 245, 220, 0.2);
             padding: 8px 16px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(220, 20, 60, 0.4);
         }
 
         /* =================================================== */
@@ -727,10 +758,11 @@
         .dots-container {
             text-align: center;
             padding: 20px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
             overflow-x: auto;
             white-space: nowrap;
             flex-shrink: 0;
+            border-top: 1px solid rgba(220, 20, 60, 0.3);
         }
 
         /* Individual navigation dots */
@@ -738,17 +770,19 @@
             height: 10px;
             width: 10px;
             margin: 0 4px;
-            background-color: #bbb;
+            background-color: #666;
             border-radius: 50%;
             display: inline-block;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(220, 20, 60, 0.3);
         }
 
         /* Active and hover dot styling */
         .dot:hover, .dot.active {
-            background-color: #667eea;
+            background-color: #dc143c;
             transform: scale(1.4);
+            border-color: #dc143c;
         }
 
         /* =================================================== */
@@ -760,11 +794,12 @@
             bottom: 150px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(245, 245, 220, 0.7);
             font-size: 14px;
             animation: fadeInOut 3s infinite;
             pointer-events: none;
             z-index: 10;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         /* Fade in/out animation for swipe indicator */
@@ -785,8 +820,8 @@
         /*               RESPONSIVE DESIGN                     */
         /* =================================================== */
 
-        /* Desktop specific styles (1024px and above) */
-        @media (min-width: 1024px) {
+        /* Desktop specific styles (1200px and above) */
+        @media (min-width: 1200px) {
             body {
                 padding: 20px;
             }
@@ -801,9 +836,121 @@
             .slide {
                 padding: 25px;
             }
+
+            .logo-container img {
+                max-width: 350px;
+            }
         }
 
-        /* Tablet and mobile optimizations (768px and below) */
+        /* Tablet optimizations (768px to 1199px) - More like mobile */
+        @media (max-width: 1199px) and (min-width: 769px) {
+            body {
+                padding: 10px;
+            }
+
+            .main-menu {
+                min-height: 75vh;
+                padding: 2rem 1rem;
+            }
+
+            .menu-buttons {
+                gap: 1.2rem;
+                max-width: 350px;
+            }
+
+            .menu-btn {
+                padding: 1rem 1.5rem;
+                font-size: clamp(1rem, 2.8vw, 1.2rem);
+            }
+
+            .slideshow-container {
+                border-radius: 15px;
+                margin: 0 10px;
+                height: 85vh;
+                min-height: auto;
+                max-width: 700px;
+            }
+            
+            .slide {
+                padding: 18px;
+            }
+
+            .slide img {
+                margin-bottom: 10px;
+            }
+            
+            .nav-btn {
+                padding: 12px 16px;
+                font-size: 14px;
+                min-width: 90px;
+            }
+
+            .slide-counter {
+                font-size: 15px;
+                padding: 6px 14px;
+            }
+
+            .answer-btn {
+                padding: 10px 16px;
+                font-size: 13px;
+                min-width: 110px;
+            }
+
+            .slide-number {
+                top: 15px;
+                right: 15px;
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            .clue-btn {
+                width: 38px;
+                height: 38px;
+                top: 15px;
+                left: 15px;
+            }
+
+            .clue-btn svg {
+                width: 19px;
+                height: 19px;
+            }
+
+            .dots-container {
+                padding: 18px 12px;
+            }
+
+            .dot {
+                height: 9px;
+                width: 9px;
+                margin: 0 3px;
+            }
+
+            .instructions-container {
+                padding: 35px 30px;
+                margin: 15px;
+                max-width: 650px;
+            }
+            
+            .instructions-buttons {
+                gap: 15px;
+            }
+            
+            .instructions-btn {
+                min-width: 140px;
+            }
+
+            .modal-content {
+                padding: 28px;
+                margin: 15px;
+                max-width: 450px;
+            }
+
+            .logo-container img {
+                max-width: 280px;
+            }
+        }
+
+        /* Mobile optimizations (768px and below) */
         @media (max-width: 768px) {
             body {
                 padding: 5px;
@@ -902,6 +1049,10 @@
                 padding: 25px;
                 margin: 10px;
             }
+
+            .logo-container img {
+                max-width: 250px;
+            }
         }
 
         /* Small mobile optimizations (480px and below) */
@@ -939,6 +1090,10 @@
                 font-size: 12px;
                 min-width: 90px;
             }
+
+            .logo-container img {
+                max-width: 220px;
+            }
         }
     </style>
 </head>
@@ -948,6 +1103,9 @@
     <!-- =================================================== -->
     <!-- Landing page with title and navigation buttons -->
     <div class="main-menu" id="main-menu">
+        <div class="logo-container">
+            <img src="https://philipestevenson-rumham.github.io/CrookedBillet/rumham-logo.png" alt="RumHAM Logo" />
+        </div>
         <h1 class="main-title">Crooked Billet</h1>
         <p class="main-subtitle">Pick A Table Top</p>
         <div class="menu-buttons">
@@ -1116,7 +1274,7 @@
             // Format: 'YYYY-MM-DD HH:MM:SS'
             revealDateTime: '2025-09-05 21:00:00',
             
-            // 🌐 GITHUB REPOSITORY URL
+            // 🌍 GITHUB REPOSITORY URL
             // Your GitHub Pages base URL (include trailing slash)
             githubBaseUrl: 'https://philipestevenson-rumham.github.io/CrookedBillet/',
             
@@ -1190,7 +1348,7 @@
                 },
 
                 
-                set2: {
+                 set2: {
                     title: 'OCD Famous Movie Quotes 04',
                     buttonText: 'OCD Famous Movie Quotes 04',
                     pictures: [
@@ -1542,7 +1700,6 @@
          * @param {TouchEvent} e - Touch event
          */
         function handleTouchStart(e) {
-            // Don't handle swipes when fullscreen is open or no active set
             if (!activeSet || isFullscreenOpen) return;
             
             touchStartX = e.touches[0].clientX;
@@ -1556,7 +1713,6 @@
          * @param {TouchEvent} e - Touch event
          */
         function handleTouchMove(e) {
-            // Don't handle swipes when fullscreen is open or not dragging
             if (!isDragging || !activeSet || isFullscreenOpen) return;
             
             e.preventDefault();
@@ -1579,7 +1735,6 @@
          * @param {TouchEvent} e - Touch event
          */
         function handleTouchEnd(e) {
-            // Don't handle swipes when fullscreen is open or not dragging
             if (!isDragging || !activeSet || isFullscreenOpen) return;
             
             isDragging = false;
@@ -1810,13 +1965,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
