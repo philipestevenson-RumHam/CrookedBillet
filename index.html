@@ -34,10 +34,10 @@
         /* =================================================== */
         /*                  BODY STYLING                      */
         /* =================================================== */
-        /* Main body container with gradient background and flex layout */
+        /* Main body container with vibrant gradient background and flex layout */
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #ffd23f 50%, #06ffa5 75%, #1cb5e0 100%);
             min-height: 100vh;
             padding: 10px;
             display: flex;
@@ -75,20 +75,20 @@
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
         }
 
-        /* Main title styling with updated colors */
+        /* Main title styling with bright colors */
         .main-title {
-            color: #f5f5dc;
+            color: #ffffff;
             font-size: clamp(2.5rem, 8vw, 4rem);
             font-weight: 800;
             margin-bottom: 2rem;
-            text-shadow: 3px 3px 12px rgba(0,0,0,0.6);
+            text-shadow: 3px 3px 12px rgba(0,0,0,0.4);
             letter-spacing: -0.02em;
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         /* Subtitle text below main title */
         .main-subtitle {
-            color: rgba(245, 245, 220, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             font-size: clamp(1rem, 3vw, 1.3rem);
             margin-bottom: 3rem;
             font-weight: 400;
@@ -104,12 +104,12 @@
             max-width: 400px;
         }
 
-        /* Individual menu button styling with updated colors */
+        /* Individual menu button styling with vibrant colors */
         .menu-btn {
-            background: rgba(245, 245, 220, 0.15);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             backdrop-filter: blur(10px);
-            color: #f5f5dc;
-            border: 2px solid rgba(220, 20, 60, 0.6);
+            color: #ffffff;
+            border: 3px solid #ffd23f;
             padding: 1.2rem 2rem;
             border-radius: 15px;
             cursor: pointer;
@@ -119,6 +119,7 @@
             letter-spacing: 0.5px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
         /* Shimmer effect for menu buttons */
@@ -129,16 +130,16 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(220, 20, 60, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
             transition: left 0.5s;
         }
 
         /* Menu button hover effects */
         .menu-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(220, 20, 60, 0.3);
-            background: rgba(220, 20, 60, 0.2);
-            border-color: rgba(220, 20, 60, 0.8);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #06ffa5 0%, #1cb5e0 100%);
+            border-color: #ffd23f;
         }
 
         .menu-btn:hover::before {
@@ -181,18 +182,18 @@
         .instructions-container {
             width: 100%;
             max-width: 800px;
-            background: rgba(245, 245, 220, 0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             padding: 40px;
             margin: 20px 0;
-            border: 2px solid rgba(220, 20, 60, 0.3);
+            border: 3px solid #06ffa5;
         }
 
         /* Instructions page title styling */
         .instructions-title {
-            color: #2d2d2d;
+            color: #ff6b35;
             font-size: clamp(2rem, 6vw, 3rem);
             font-weight: 800;
             margin-bottom: 30px;
@@ -202,7 +203,7 @@
 
         /* Instructions text content styling */
         .instructions-content {
-            color: #4a4a4a;
+            color: #333;
             font-size: clamp(1.1rem, 2.5vw, 1.3rem);
             line-height: 1.6;
             margin-bottom: 40px;
@@ -211,7 +212,7 @@
 
         /* Instructions subheading styling */
         .instructions-content h3 {
-            color: #2d2d2d;
+            color: #1cb5e0;
             font-size: clamp(1.3rem, 3vw, 1.5rem);
             font-weight: 700;
             margin-bottom: 15px;
@@ -238,9 +239,9 @@
 
         /* Primary instruction button styling */
         .instructions-btn {
-            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
-            color: #f5f5dc;
-            border: 2px solid rgba(220, 20, 60, 0.6);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: #ffffff;
+            border: 3px solid #ffd23f;
             padding: 15px 30px;
             border-radius: 25px;
             cursor: pointer;
@@ -248,15 +249,15 @@
             font-weight: 600;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             min-width: 150px;
-            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.3);
+            box-shadow: 0 8px 25px rgba(255,107,53,0.4);
         }
 
         /* Instruction button hover effect */
         .instructions-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(220, 20, 60, 0.5);
-            background: linear-gradient(135deg, #5a5a5a 0%, #3d3d3d 100%);
-            border-color: rgba(220, 20, 60, 0.8);
+            box-shadow: 0 15px 35px rgba(255,107,53,0.6);
+            background: linear-gradient(135deg, #06ffa5 0%, #1cb5e0 100%);
+            border-color: #ffd23f;
         }
 
         .instructions-btn:active {
@@ -265,16 +266,16 @@
 
         /* Secondary instruction button variant */
         .instructions-btn.secondary {
-            background: rgba(245, 245, 220, 0.1);
-            border: 2px solid rgba(220, 20, 60, 0.4);
-            color: #dc143c;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #1cb5e0 0%, #06ffa5 100%);
+            border: 3px solid #ffd23f;
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(28,181,224,0.4);
         }
 
         .instructions-btn.secondary:hover {
-            background: rgba(220, 20, 60, 0.1);
-            border-color: rgba(220, 20, 60, 0.6);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b35 100%);
+            border-color: #ffd23f;
+            box-shadow: 0 15px 35px rgba(28,181,224,0.6);
         }
 
         /* =================================================== */
@@ -293,7 +294,7 @@
 
         /* Slideshow title (clickable to return to menu) */
         .slideshow-title {
-            color: #f5f5dc;
+            color: #ffffff;
             font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 20px;
@@ -309,7 +310,7 @@
 
         .slideshow-title:hover {
             transform: scale(1.02);
-            text-shadow: 3px 3px 12px rgba(220, 20, 60, 0.5);
+            text-shadow: 3px 3px 12px rgba(255,210,63,0.8);
         }
 
         /* Main slideshow container with white background */
@@ -317,10 +318,10 @@
             width: 100%;
             max-width: 900px;
             position: relative;
-            background: #f5f5dc;
+            background: #ffffff;
             border-radius: 20px;
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            border: 3px solid rgba(220, 20, 60, 0.4);
+            border: 3px solid #06ffa5;
             overflow: hidden;
             backdrop-filter: blur(10px);
             height: min(85vh, 700px);
@@ -365,29 +366,30 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(74, 74, 74, 0.9);
-            color: #f5f5dc;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: #ffffff;
             padding: 8px 16px;
             border-radius: 20px;
             font-weight: 600;
             font-size: 14px;
             z-index: 2;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(220, 20, 60, 0.4);
+            border: 2px solid #ffd23f;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
         }
 
         /* =================================================== */
         /*                CLUE BUTTON STYLES                  */
         /* =================================================== */
-        /* Yellow lightbulb clue button in top-left corner */
+        /* Bright clue button in top-left corner */
         .clue-btn {
             position: absolute;
             top: 20px;
             left: 20px;
             width: 40px;
             height: 40px;
-            background: rgba(220, 20, 60, 0.8);
-            border: 2px solid rgba(74, 74, 74, 0.6);
+            background: linear-gradient(135deg, #ffd23f 0%, #f7931e 100%);
+            border: 2px solid #06ffa5;
             border-radius: 50%;
             cursor: pointer;
             z-index: 3;
@@ -396,14 +398,14 @@
             justify-content: center;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
+            box-shadow: 0 4px 15px rgba(255,210,63,0.4);
         }
 
         .clue-btn:hover {
             transform: scale(1.1);
-            background: rgba(220, 20, 60, 1);
-            border-color: rgba(74, 74, 74, 0.8);
-            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6);
+            background: linear-gradient(135deg, #06ffa5 0%, #1cb5e0 100%);
+            border-color: #ffd23f;
+            box-shadow: 0 6px 20px rgba(255,210,63,0.6);
         }
 
         .clue-btn:active {
@@ -413,7 +415,7 @@
         .clue-btn svg {
             width: 20px;
             height: 20px;
-            fill: #f5f5dc;
+            fill: #333;
         }
 
         .clue-btn.hidden {
@@ -423,11 +425,11 @@
         /* =================================================== */
         /*               ANSWER BUTTON STYLES                 */
         /* =================================================== */
-        /* Updated answer button with theme colors */
+        /* Updated answer button with vibrant colors */
         .answer-btn {
-            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
-            color: #f5f5dc;
-            border: 2px solid rgba(220, 20, 60, 0.6);
+            background: linear-gradient(135deg, #1cb5e0 0%, #06ffa5 100%);
+            color: #ffffff;
+            border: 3px solid #ffd23f;
             padding: 12px 20px;
             border-radius: 25px;
             cursor: pointer;
@@ -435,7 +437,7 @@
             font-weight: 600;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
+            box-shadow: 0 4px 15px rgba(28,181,224,0.4);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -446,9 +448,9 @@
 
         .answer-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);
-            background: linear-gradient(135deg, #5a5a5a 0%, #3d3d3d 100%);
-            border-color: rgba(220, 20, 60, 0.8);
+            box-shadow: 0 6px 20px rgba(28,181,224,0.6);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border-color: #ffd23f;
         }
 
         .answer-btn:active {
@@ -458,7 +460,7 @@
         .answer-btn svg {
             width: 16px;
             height: 16px;
-            fill: #f5f5dc;
+            fill: #ffffff;
         }
 
         /* =================================================== */
@@ -482,14 +484,14 @@
 
         /* Modal content box */
         .modal-content {
-            background: #f5f5dc;
+            background: #ffffff;
             padding: 30px;
             border-radius: 20px;
             max-width: 500px;
             width: 100%;
             text-align: center;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(220, 20, 60, 0.4);
+            border: 3px solid #06ffa5;
             position: relative;
             animation: modalSlideIn 0.3s ease-out;
             max-height: 80vh;
@@ -512,7 +514,7 @@
         .modal-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #2d2d2d;
+            color: #ff6b35;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -527,18 +529,18 @@
 
         /* Clue modal icon color */
         .modal-title.clue-title svg {
-            fill: #dc143c;
+            fill: #ffd23f;
         }
 
         /* Answer modal icon color */
         .modal-title.answer-title svg {
-            fill: #4a4a4a;
+            fill: #1cb5e0;
         }
 
         /* Modal text content */
         .modal-text {
             font-size: 1.1rem;
-            color: #4a4a4a;
+            color: #333;
             line-height: 1.6;
             margin-bottom: 25px;
         }
@@ -546,7 +548,7 @@
         /* Answer text styling (bold when revealed) */
         .modal-text.answer-text {
             font-weight: 600;
-            color: #2d2d2d;
+            color: #ff6b35;
             font-size: 1.2rem;
         }
 
@@ -557,27 +559,28 @@
             line-height: 1.5;
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 1px solid rgba(220, 20, 60, 0.3);
+            border-top: 1px solid rgba(6,255,165,0.3);
             font-style: italic;
         }
 
         /* Modal close button */
         .modal-close {
-            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
-            color: #f5f5dc;
-            border: 2px solid rgba(220, 20, 60, 0.6);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: #ffffff;
+            border: 3px solid #ffd23f;
             padding: 12px 30px;
             border-radius: 25px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
         }
 
         .modal-close:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(220, 20, 60, 0.4);
-            background: linear-gradient(135deg, #5a5a5a 0%, #3d3d3d 100%);
+            box-shadow: 0 8px 20px rgba(255,107,53,0.6);
+            background: linear-gradient(135deg, #1cb5e0 0%, #06ffa5 100%);
         }
 
         /* =================================================== */
@@ -594,16 +597,17 @@
             min-height: 0;
         }
 
-        /* Slide image styling */
+        /* Slide image styling - frame matches image size, no rounded corners */
         .slide img {
-            width: 100%;
-            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain;
-            border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             cursor: pointer;
             transition: transform 0.2s ease;
-            border: 2px solid rgba(220, 20, 60, 0.2);
+            border: 3px solid #06ffa5;
         }
 
         .slide img:active {
@@ -637,8 +641,7 @@
             max-width: 95%;
             max-height: 95%;
             object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 0 50px rgba(220, 20, 60, 0.3);
+            box-shadow: 0 0 50px rgba(6,255,165,0.5);
             cursor: default;
             touch-action: manipulation;
         }
@@ -648,13 +651,13 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            color: #f5f5dc;
+            color: #ffffff;
             font-size: 30px;
             font-weight: bold;
             cursor: pointer;
             z-index: 2001;
-            background: rgba(74, 74, 74, 0.8);
-            border: 2px solid rgba(220, 20, 60, 0.6);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border: 3px solid #ffd23f;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -663,11 +666,12 @@
             justify-content: center;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
         }
 
         .fullscreen-close:hover {
-            background: rgba(220, 20, 60, 0.8);
-            border-color: rgba(74, 74, 74, 0.8);
+            background: linear-gradient(135deg, #06ffa5 0%, #1cb5e0 100%);
+            border-color: #ffd23f;
             transform: scale(1.1);
         }
 
@@ -691,17 +695,17 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             gap: 15px;
             flex-shrink: 0;
-            border-top: 2px solid rgba(220, 20, 60, 0.3);
+            border-top: 3px solid #ffd23f;
         }
 
         /* Navigation buttons (prev/next) */
         .nav-btn {
-            background: linear-gradient(135deg, #f5f5dc 0%, #e8e8dc 100%);
-            color: #2d2d2d;
-            border: 2px solid rgba(220, 20, 60, 0.6);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            color: #333;
+            border: 3px solid #06ffa5;
             padding: 14px 20px;
             border-radius: 25px;
             cursor: pointer;
@@ -713,42 +717,43 @@
             gap: 8px;
             min-width: 100px;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
+            box-shadow: 0 4px 15px rgba(6,255,165,0.4);
         }
 
         .nav-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.4);
-            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-            border-color: rgba(220, 20, 60, 0.8);
+            box-shadow: 0 8px 25px rgba(6,255,165,0.6);
+            background: linear-gradient(135deg, #ffd23f 0%, #f7931e 100%);
+            border-color: #06ffa5;
+            color: #333;
         }
 
         .nav-btn:active {
             transform: translateY(0);
-            box-shadow: 0 2px 10px rgba(220, 20, 60, 0.3);
+            box-shadow: 0 2px 10px rgba(6,255,165,0.4);
         }
 
         /* Disabled navigation button styling */
         .nav-btn:disabled {
-            background: #999;
+            background: #ccc;
             color: #666;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
-            border-color: #666;
+            border-color: #999;
         }
 
         /* Slide counter display */
         .slide-counter {
             font-weight: 600;
-            color: #f5f5dc;
+            color: #ffffff;
             font-size: 16px;
             white-space: nowrap;
-            background: rgba(245, 245, 220, 0.2);
+            background: rgba(255, 255, 255, 0.2);
             padding: 8px 16px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(220, 20, 60, 0.4);
+            border: 2px solid #ffd23f;
         }
 
         /* =================================================== */
@@ -758,11 +763,11 @@
         .dots-container {
             text-align: center;
             padding: 20px;
-            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
+            background: linear-gradient(135deg, #1cb5e0 0%, #06ffa5 100%);
             overflow-x: auto;
             white-space: nowrap;
             flex-shrink: 0;
-            border-top: 1px solid rgba(220, 20, 60, 0.3);
+            border-top: 2px solid #ffd23f;
         }
 
         /* Individual navigation dots */
@@ -770,19 +775,19 @@
             height: 10px;
             width: 10px;
             margin: 0 4px;
-            background-color: #666;
+            background-color: rgba(255,255,255,0.5);
             border-radius: 50%;
             display: inline-block;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border: 1px solid rgba(220, 20, 60, 0.3);
+            border: 2px solid #ffd23f;
         }
 
         /* Active and hover dot styling */
         .dot:hover, .dot.active {
-            background-color: #dc143c;
+            background-color: #ffd23f;
             transform: scale(1.4);
-            border-color: #dc143c;
+            border-color: #ff6b35;
         }
 
         /* =================================================== */
@@ -794,7 +799,7 @@
             bottom: 150px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(245, 245, 220, 0.7);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 14px;
             animation: fadeInOut 3s infinite;
             pointer-events: none;
@@ -1104,7 +1109,7 @@
     <!-- Landing page with title and navigation buttons -->
     <div class="main-menu" id="main-menu">
         <div class="logo-container">
-            <img src="https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png" alt="RumHam" />
+            <img src="https://philipestevenson-rumham.github.io/CrookedBillet/rumham-logo.png" alt="RumHAM Logo" />
         </div>
         <h1 class="main-title">Crooked Billet</h1>
         <p class="main-subtitle">Pick A Table Top</p>
@@ -1266,7 +1271,7 @@
 
     <script>
         /* ===================================================== */
-        /*              📋 EASY CONFIGURATION                   */
+        /*              🔧 EASY CONFIGURATION                   */
         /* ===================================================== */
         
         const CONFIG = {
@@ -1274,7 +1279,7 @@
             // Format: 'YYYY-MM-DD HH:MM:SS'
             revealDateTime: '2025-09-05 21:00:00',
             
-            // 🌍 GITHUB REPOSITORY URL
+            // 🌐 GITHUB REPOSITORY URL
             // Your GitHub Pages base URL (include trailing slash)
             githubBaseUrl: 'https://philipestevenson-rumham.github.io/CrookedBillet/',
             
@@ -1773,6 +1778,9 @@
             const overlay = document.getElementById('fullscreen-overlay');
             const fullscreenImg = document.getElementById('fullscreen-image');
             
+            // Reset any previous zoom/transform on the fullscreen image
+            fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+            
             // Set image source and properties
             fullscreenImg.src = img.src;
             fullscreenImg.alt = img.alt;
@@ -1790,6 +1798,11 @@
          */
         function closeFullscreen() {
             const overlay = document.getElementById('fullscreen-overlay');
+            const fullscreenImg = document.getElementById('fullscreen-image');
+            
+            // Reset zoom on the fullscreen image
+            fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+            
             overlay.style.display = 'none';
             document.body.style.overflow = 'auto';
             
@@ -1965,5 +1978,3 @@
     </script>
 </body>
 </html>
-
-
