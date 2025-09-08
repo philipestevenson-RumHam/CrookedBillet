@@ -1800,8 +1800,10 @@
             const overlay = document.getElementById('fullscreen-overlay');
             const fullscreenImg = document.getElementById('fullscreen-image');
             
-            // Reset zoom on the fullscreen image
+            // Complete reset of fullscreen image
             fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+            fullscreenImg.style.transformOrigin = 'center center';
+            fullscreenImg.src = ''; // Clear source to prevent any residual state
             
             overlay.style.display = 'none';
             document.body.style.overflow = 'auto';
@@ -2012,6 +2014,3 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
-
-
-
