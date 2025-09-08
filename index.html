@@ -1803,7 +1803,20 @@
             // Complete reset of fullscreen image
             fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
             fullscreenImg.style.transformOrigin = 'center center';
+            fullscreenImg.style.transition = '';
             fullscreenImg.src = ''; // Clear source to prevent any residual state
+            fullscreenImg.alt = '';
+            
+            // Reset any slideshow images that might have been affected
+            if (activeSet) {
+                const setNumber = activeSet === 'set1' ? '1' : '2';
+                const slideshowImages = document.querySelectorAll(`#slides-container${setNumber} img`);
+                slideshowImages.forEach(img => {
+                    img.style.transform = '';
+                    img.style.transformOrigin = '';
+                    img.style.transition = '';
+                });
+            }
             
             overlay.style.display = 'none';
             document.body.style.overflow = 'auto';
@@ -2014,5 +2027,6 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
+
 
 
