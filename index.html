@@ -1923,9 +1923,23 @@
          * Touch event listeners for swipe handling
          * Note: These are set to passive:false for touchmove to allow preventDefault
          */
-        document.addEventListener('touchstart', handleTouchStart, { passive: true });
-        document.addEventListener('touchmove', handleTouchMove, { passive: false });
-        document.addEventListener('touchend', handleTouchEnd, { passive: true });
+document.addEventListener('touchstart', (e) => {
+    if (!isModalOpen()) {
+        handleTouchStart(e);
+    }
+}, { passive: true });
+
+document.addEventListener('touchmove', (e) => {
+    if (!isModalOpen()) {
+        handleTouchMove(e);
+    }
+}, { passive: false });
+
+document.addEventListener('touchend', (e) => {
+    if (!isModalOpen()) {
+        handleTouchEnd(e);
+    }
+}, { passive: true });
 
         /**
          * Prevent fullscreen close when clicking on the image itself
@@ -1942,6 +1956,26 @@
                 e.preventDefault();
             }
         });
+
+
+/**
+ * Handle modal overlay touch events to prevent slide navigation
+ */
+document.getElementById('modal').addEventListener('touchstart', (e) => {
+    e.stopPropagation();
+}, { passive: true });
+
+document.getElementById('modal').addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+}, { passive: false });
+
+document.getElementById('modal').addEventListener('touchend', (e) => {
+    e.stopPropagation();
+}, { passive: true });
+
+
+
 
         /**
          * Handle fullscreen overlay touch events to prevent slide navigation
@@ -1978,5 +2012,6 @@
     </script>
 </body>
 </html>
+
 
 
