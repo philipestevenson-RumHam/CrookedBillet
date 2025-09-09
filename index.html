@@ -1794,40 +1794,58 @@
         }
 
         /**
-         * Close fullscreen image viewer
-         */
-        function closeFullscreen() {
-            const overlay = document.getElementById('fullscreen-overlay');
-            const fullscreenImg = document.getElementById('fullscreen-image');
+ * Close fullscreen image viewer with proper zoom reset
+ */
+function closeFullscreen() {
+    const overlay = document.getElementById('fullscreen-overlay');
+    const fullscreenImg = document.getElementById('fullscreen-image');
+    
+    // Reset fullscreen image completely
+    fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+    fullscreenImg.style.transformOrigin = 'center center';
+    fullscreenImg.style.transition = 'transform 0.3s ease';
+    
+    // Clear the image source to ensure clean state
+    fullscreenImg.src = '';
+    fullscreenImg.alt = '';
+    
+    // Hide overlay and restore scrolling
+    overlay.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    
+    // Re-enable swipe handling
+    isFullscreenOpen = false;
+    
+    // If you have a currentScale variable for zoom, reset it here
+    // currentScale = 1;
+}
 
-            // Reset the global scale variable to prevent carried-over zoom
-            currentScale = 1;
-
-            
-            // Complete reset of fullscreen image
-            fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
-            fullscreenImg.style.transformOrigin = 'center center';
-            fullscreenImg.style.transition = '';
-            fullscreenImg.src = ''; // Clear source to prevent any residual state
-            fullscreenImg.alt = '';
-            
-            // Reset any slideshow images that might have been affected
-            if (activeSet) {
-                const setNumber = activeSet === 'set1' ? '1' : '2';
-                const slideshowImages = document.querySelectorAll(`#slides-container${setNumber} img`);
-                slideshowImages.forEach(img => {
-                    img.style.transform = '';
-                    img.style.transformOrigin = '';
-                    img.style.transition = '';
-                });
-            }
-            
-            overlay.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            
-            // Re-enable swipe handling
-            isFullscreenOpen = false;
-        }
+/**
+ * Enhanced openFullscreen function to ensure clean start
+ */
+function openFullscreen(img) {
+    const overlay = document.getElementById('fullscreen-overlay');
+    const fullscreenImg = document.getElementById('fullscreen-image');
+    
+    // Ensure completely clean state before opening
+    fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+    fullscreenImg.style.transformOrigin = 'center center';
+    fullscreenImg.style.transition = 'transform 0.3s ease';
+    
+    // Set image source and properties
+    fullscreenImg.src = img.src;
+    fullscreenImg.alt = img.alt;
+    
+    // Show overlay and disable background scrolling
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    
+    // Mark fullscreen as open to disable swipe handling
+    isFullscreenOpen = true;
+    
+    // If you have zoom functionality, reset the scale variable here
+    // currentScale = 1;
+}
 
         /* ===================================================== */
         /*                 UTILITY FUNCTIONS                    */
@@ -2031,4 +2049,5 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
+
 
