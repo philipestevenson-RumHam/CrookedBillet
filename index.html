@@ -1793,58 +1793,100 @@
             isFullscreenOpen = true;
         }
 
-        /**
- * Close fullscreen image viewer with proper zoom reset
+/**
+ * Nuclear option: Completely recreate the fullscreen image element
  */
 function closeFullscreen() {
     const overlay = document.getElementById('fullscreen-overlay');
     const fullscreenImg = document.getElementById('fullscreen-image');
     
-    // Reset fullscreen image completely
-    fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
-    fullscreenImg.style.transformOrigin = 'center center';
-    fullscreenImg.style.transition = 'transform 0.3s ease';
+    // Remove all event listeners and destroy the element
+    const newImg = document.createElement('img');
+    newImg.id = 'fullscreen-image';
+    newImg.className = 'fullscreen-image';
+    newImg.alt = '';
     
-    // Clear the image source to ensure clean state
-    fullscreenImg.src = '';
-    fullscreenImg.alt = '';
+    // Apply default styles from scratch
+    newImg.style.position = 'absolute';
+    newImg.style.top = '50%';
+    newImg.style.left = '50%';
+    newImg.style.transform = 'translate(-50%, -50%)';
+    newImg.style.maxWidth = '95%';
+    newImg.style.maxHeight = '95%';
+    newImg.style.objectFit = 'contain';
+    newImg.style.boxShadow = '0 0 50px rgba(6,255,165,0.5)';
+    newImg.style.cursor = 'default';
+    newImg.style.touchAction = 'manipulation';
+    
+    // Add click prevention
+    newImg.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+    
+    // Replace the old element with the new one
+    fullscreenImg.parentNode.replaceChild(newImg, fullscreenImg);
     
     // Hide overlay and restore scrolling
     overlay.style.display = 'none';
     document.body.style.overflow = 'auto';
     
+    // Reset any global zoom variables
+    if (typeof currentScale !== 'undefined') {
+        currentScale = 1;
+    }
+    if (typeof scale !== 'undefined') {
+        scale = 1;
+    }
+    if (typeof zoom !== 'undefined') {
+        zoom = 1;
+    }
+    
     // Re-enable swipe handling
     isFullscreenOpen = false;
-    
-    // If you have a currentScale variable for zoom, reset it here
-    // currentScale = 1;
 }
 
 /**
- * Enhanced openFullscreen function to ensure clean start
+ * Enhanced openFullscreen with element recreation
  */
 function openFullscreen(img) {
+    // First close any existing fullscreen to ensure clean state
+    if (isFullscreenOpen) {
+        closeFullscreen();
+        // Wait a moment for the close to complete
+        setTimeout(() => openFullscreenInternal(img), 50);
+    } else {
+        openFullscreenInternal(img);
+    }
+}
+
+function openFullscreenInternal(img) {
     const overlay = document.getElementById('fullscreen-overlay');
     const fullscreenImg = document.getElementById('fullscreen-image');
-    
-    // Ensure completely clean state before opening
-    fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
-    fullscreenImg.style.transformOrigin = 'center center';
-    fullscreenImg.style.transition = 'transform 0.3s ease';
     
     // Set image source and properties
     fullscreenImg.src = img.src;
     fullscreenImg.alt = img.alt;
     
+    // Ensure clean state
+    fullscreenImg.style.transform = 'translate(-50%, -50%)';
+    
+    // Reset any zoom variables
+    if (typeof currentScale !== 'undefined') {
+        currentScale = 1;
+    }
+    if (typeof scale !== 'undefined') {
+        scale = 1;
+    }
+    if (typeof zoom !== 'undefined') {
+        zoom = 1;
+    }
+    
     // Show overlay and disable background scrolling
     overlay.style.display = 'block';
     document.body.style.overflow = 'hidden';
     
-    // Mark fullscreen as open to disable swipe handling
+    // Mark fullscreen as open
     isFullscreenOpen = true;
-    
-    // If you have zoom functionality, reset the scale variable here
-    // currentScale = 1;
 }
 
         /* ===================================================== */
@@ -2049,5 +2091,6 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
+
 
 
