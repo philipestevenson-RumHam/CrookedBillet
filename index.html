@@ -1793,28 +1793,45 @@
             isFullscreenOpen = true;
         }
 
-        /**
+/**
          * Close fullscreen image viewer
          */
         function closeFullscreen() {
             const overlay = document.getElementById('fullscreen-overlay');
             const fullscreenImg = document.getElementById('fullscreen-image');
             
-            // Complete reset of fullscreen image
-            fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+            // Force complete reset of fullscreen image with all possible transform properties
+            fullscreenImg.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1); max-width: 95%; max-height: 95%; object-fit: contain; cursor: default; touch-action: manipulation;';
             fullscreenImg.style.transformOrigin = 'center center';
-            fullscreenImg.style.transition = '';
-            fullscreenImg.src = ''; // Clear source to prevent any residual state
+            fullscreenImg.style.transition = 'none';
+            
+            // Force a reflow to ensure styles are applied
+            fullscreenImg.offsetHeight;
+            
+            // Clear source and properties
+            fullscreenImg.src = '';
             fullscreenImg.alt = '';
             
-            // Reset any slideshow images that might have been affected
+            // Reset ALL images in the document to prevent any cross-contamination
+            const allImages = document.querySelectorAll('img');
+            allImages.forEach(img => {
+                if (img !== fullscreenImg) {
+                    img.style.transform = '';
+                    img.style.transformOrigin = '';
+                    img.style.transition = '';
+                    img.style.scale = '';
+                    // Force reflow for each image
+                    img.offsetHeight;
+                }
+            });
+            
+            // Extra cleanup for slideshow images specifically
             if (activeSet) {
                 const setNumber = activeSet === 'set1' ? '1' : '2';
                 const slideshowImages = document.querySelectorAll(`#slides-container${setNumber} img`);
                 slideshowImages.forEach(img => {
-                    img.style.transform = '';
-                    img.style.transformOrigin = '';
-                    img.style.transition = '';
+                    img.style.cssText = img.style.cssText.replace(/transform[^;]*;?/g, '').replace(/scale[^;]*;?/g, '');
+                    img.classList.remove('zoomed'); // Remove any zoom classes that might exist
                 });
             }
             
@@ -2027,6 +2044,7 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
+
 
 
 
