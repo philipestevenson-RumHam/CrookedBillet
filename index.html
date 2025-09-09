@@ -1794,81 +1794,53 @@
         }
 
 /**
- * Nuclear option: Completely recreate the fullscreen image element
+ * Close fullscreen image viewer with proper zoom reset
  */
 function closeFullscreen() {
     const overlay = document.getElementById('fullscreen-overlay');
     const fullscreenImg = document.getElementById('fullscreen-image');
     
-    // Remove all event listeners and destroy the element
-    const newImg = document.createElement('img');
-    newImg.id = 'fullscreen-image';
-    newImg.className = 'fullscreen-image';
-    newImg.alt = '';
+    // Reset fullscreen image completely
+    fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+    fullscreenImg.style.transformOrigin = 'center center';
+    fullscreenImg.style.transition = 'transform 0.3s ease';
     
-    // Apply default styles from scratch
-    newImg.style.position = 'absolute';
-    newImg.style.top = '50%';
-    newImg.style.left = '50%';
-    newImg.style.transform = 'translate(-50%, -50%)';
-    newImg.style.maxWidth = '95%';
-    newImg.style.maxHeight = '95%';
-    newImg.style.objectFit = 'contain';
-    newImg.style.boxShadow = '0 0 50px rgba(6,255,165,0.5)';
-    newImg.style.cursor = 'default';
-    newImg.style.touchAction = 'manipulation';
-    
-    // Add click prevention
-    newImg.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
-    
-    // Replace the old element with the new one
-    fullscreenImg.parentNode.replaceChild(newImg, fullscreenImg);
+    // Clear the image source to ensure clean state
+    fullscreenImg.src = '';
+    fullscreenImg.alt = '';
     
     // Hide overlay and restore scrolling
     overlay.style.display = 'none';
     document.body.style.overflow = 'auto';
     
-    // Reset any global zoom variables
-    if (typeof currentScale !== 'undefined') {
-        currentScale = 1;
-    }
-    if (typeof scale !== 'undefined') {
-        scale = 1;
-    }
-    if (typeof zoom !== 'undefined') {
-        zoom = 1;
-    }
-    
     // Re-enable swipe handling
     isFullscreenOpen = false;
+    
+    // If you have a currentScale variable for zoom, reset it here
+    // currentScale = 1;
 }
 
 /**
- * Enhanced openFullscreen with element recreation
+ * Enhanced openFullscreen function with aggressive reset
  */
 function openFullscreen(img) {
-    // First close any existing fullscreen to ensure clean state
-    if (isFullscreenOpen) {
-        closeFullscreen();
-        // Wait a moment for the close to complete
-        setTimeout(() => openFullscreenInternal(img), 50);
-    } else {
-        openFullscreenInternal(img);
-    }
-}
-
-function openFullscreenInternal(img) {
     const overlay = document.getElementById('fullscreen-overlay');
     const fullscreenImg = document.getElementById('fullscreen-image');
     
-    // Set image source and properties
-    fullscreenImg.src = img.src;
-    fullscreenImg.alt = img.alt;
+    // Aggressively reset any existing styles
+    fullscreenImg.removeAttribute('style');
     
-    // Ensure clean state
+    // Apply clean positioning styles
+    fullscreenImg.style.position = 'absolute';
+    fullscreenImg.style.top = '50%';
+    fullscreenImg.style.left = '50%';
     fullscreenImg.style.transform = 'translate(-50%, -50%)';
+    fullscreenImg.style.maxWidth = '95%';
+    fullscreenImg.style.maxHeight = '95%';
+    fullscreenImg.style.objectFit = 'contain';
+    fullscreenImg.style.boxShadow = '0 0 50px rgba(6,255,165,0.5)';
+    fullscreenImg.style.cursor = 'default';
+    fullscreenImg.style.touchAction = 'manipulation';
     
     // Reset any zoom variables
     if (typeof currentScale !== 'undefined') {
@@ -1881,11 +1853,18 @@ function openFullscreenInternal(img) {
         zoom = 1;
     }
     
+    // Set image source and properties
+    fullscreenImg.src = img.src;
+    fullscreenImg.alt = img.alt;
+    
+    // Force a reflow
+    void fullscreenImg.offsetHeight;
+    
     // Show overlay and disable background scrolling
     overlay.style.display = 'block';
     document.body.style.overflow = 'hidden';
     
-    // Mark fullscreen as open
+    // Mark fullscreen as open to disable swipe handling
     isFullscreenOpen = true;
 }
 
@@ -2091,6 +2070,7 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
+
 
 
 
