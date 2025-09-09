@@ -1169,7 +1169,7 @@
         <div class="logo-container">
             <img src="https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png" alt="RumHam" />
         </div>
-        <h1 class="main-title">Crooked Billet Quiz6</h1>
+        <h1 class="main-title">Crooked Billet Quiz7</h1>
         <p class="main-subtitle">Pick A Table Top</p>
         <div class="menu-buttons">
             <!-- Set 1 button - dynamically populated from CONFIG -->
@@ -1894,6 +1894,7 @@ function closeIndependentFullscreen() {
     // Hide overlay first
     overlay.style.display = 'none';
     document.body.style.overflow = 'auto';
+    document.body.style.transform = ''; // Failsafe to reset any leaked transforms //added by me
     isFullscreenOpen = false;
     
     // Completely destroy the container contents
@@ -2125,6 +2126,7 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
+
 
 
 
