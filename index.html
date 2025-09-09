@@ -6,7 +6,7 @@
     <title>Crooked Billet Collection</title>
     <style>
         /* =================================================== */
-        /* EASY CONFIGURATION                 */
+        /*                 EASY CONFIGURATION                 */
         /* =================================================== */
         /*
         To modify settings, change the values in the JavaScript 
@@ -22,7 +22,7 @@
         */
         
         /* =================================================== */
-        /* CSS RESET                        */
+        /*                   CSS RESET                        */
         /* =================================================== */
         /* Global reset to ensure consistent styling across browsers */
         * {
@@ -32,7 +32,7 @@
         }
 
         /* =================================================== */
-        /* BODY STYLING                      */
+        /*                  BODY STYLING                      */
         /* =================================================== */
         /* Main body container with vibrant gradient background and flex layout */
         body {
@@ -48,7 +48,7 @@
         }
 
         /* =================================================== */
-        /* MAIN MENU STYLES                    */
+        /*                MAIN MENU STYLES                    */
         /* =================================================== */
         /* Container for the main menu screen */
         .main-menu {
@@ -164,7 +164,7 @@
         }
 
         /* =================================================== */
-        /* INSTRUCTIONS PAGE STYLES              */
+        /*              INSTRUCTIONS PAGE STYLES              */
         /* =================================================== */
         /* Main container for instructions screens */
         .instructions-section {
@@ -279,7 +279,7 @@
         }
 
         /* =================================================== */
-        /* SLIDESHOW STYLES                    */
+        /*                SLIDESHOW STYLES                    */
         /* =================================================== */
         /* Main slideshow section container */
         .slideshow-section {
@@ -379,7 +379,7 @@
         }
 
         /* =================================================== */
-        /* CLUE BUTTON STYLES                  */
+        /*                CLUE BUTTON STYLES                  */
         /* =================================================== */
         /* Bright clue button in top-left corner */
         .clue-btn {
@@ -423,7 +423,7 @@
         }
 
         /* =================================================== */
-        /* ANSWER BUTTON STYLES                 */
+        /*               ANSWER BUTTON STYLES                 */
         /* =================================================== */
         /* Updated answer button with vibrant colors */
         .answer-btn {
@@ -464,7 +464,7 @@
         }
 
         /* =================================================== */
-        /* MODAL STYLES                      */
+        /*                  MODAL STYLES                      */
         /* =================================================== */
         /* Modal overlay for clues and answers */
         .modal {
@@ -584,7 +584,7 @@
         }
 
         /* =================================================== */
-        /* SLIDE IMAGE STYLES                   */
+        /*               SLIDE IMAGE STYLES                   */
         /* =================================================== */
         /* Container for slide images */
         .slide-image-container {
@@ -615,7 +615,7 @@
         }
 
         /* =================================================== */
-        /* FULLSCREEN OVERLAY STYLES             */
+        /*              FULLSCREEN OVERLAY STYLES             */
         /* =================================================== */
         /* Fullscreen image overlay */
         .fullscreen-overlay {
@@ -676,7 +676,7 @@
         }
 
         /* =================================================== */
-        /* SLIDE BOTTOM SECTION                 */
+        /*               SLIDE BOTTOM SECTION                 */
         /* =================================================== */
         /* Container for answer button at bottom of slide */
         .slide-bottom-section {
@@ -687,7 +687,7 @@
         }
 
         /* =================================================== */
-        /* NAVIGATION STYLES                    */
+        /*               NAVIGATION STYLES                    */
         /* =================================================== */
         /* Bottom navigation bar with prev/next buttons */
         .navigation {
@@ -757,7 +757,7 @@
         }
 
         /* =================================================== */
-        /* DOT NAVIGATION                      */
+        /*                 DOT NAVIGATION                      */
         /* =================================================== */
         /* Container for dot navigation at bottom */
         .dots-container {
@@ -791,7 +791,7 @@
         }
 
         /* =================================================== */
-        /* SWIPE INDICATOR                       */
+        /*               SWIPE INDICATOR                       */
         /* =================================================== */
         /* Animated swipe instruction text */
         .swipe-indicator {
@@ -814,7 +814,7 @@
         }
 
         /* =================================================== */
-        /* UTILITY CLASSES                       */
+        /*               UTILITY CLASSES                       */
         /* =================================================== */
         /* Hide elements completely */
         .hidden {
@@ -822,7 +822,7 @@
         }
 
         /* =================================================== */
-        /* RESPONSIVE DESIGN                     */
+        /*               RESPONSIVE DESIGN                     */
         /* =================================================== */
 
         /* Desktop specific styles (1200px and above) */
@@ -1161,28 +1161,41 @@
     </style>
 </head>
 <body>
+    <!-- =================================================== -->
+    <!--                  MAIN MENU SCREEN                  -->
+    <!-- =================================================== -->
+    <!-- Landing page with title and navigation buttons -->
     <div class="main-menu" id="main-menu">
         <div class="logo-container">
             <img src="https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png" alt="RumHam" />
         </div>
-        <h1 class="main-title">Crooked Billet Quiz7</h1>
+        <h1 class="main-title">Crooked Billet Quiz6</h1>
         <p class="main-subtitle">Pick A Table Top</p>
         <div class="menu-buttons">
+            <!-- Set 1 button - dynamically populated from CONFIG -->
             <button class="menu-btn" onclick="showInstructions('set1')">Set1</button>
+            <!-- Set 2 button - dynamically populated from CONFIG -->
             <button class="menu-btn" onclick="showInstructions('set2')">Set2</button>
+            <!-- PDF Download button - downloads file from GitHub -->
             <button class="menu-btn" onclick="downloadPDF()">Download PDF</button>
         </div>
     </div>
 
+    <!-- =================================================== -->
+    <!--              INSTRUCTIONS PAGE 1                   -->
+    <!-- =================================================== -->
+    <!-- Instructions screen for Set 1 -->
     <div class="instructions-section hidden" id="instructions-set1">
         <div class="instructions-container">
             <h2 class="instructions-title">Set 1</h2>
+            <!-- Instructions content - dynamically populated from CONFIG -->
             <div class="instructions-content">
                 <h3>How to Play:</h3>
                 <ul>
                     <li>Instruction1</li>
                 </ul>
             </div>
+            <!-- Action buttons for instructions page -->
             <div class="instructions-buttons">
                 <button class="instructions-btn" onclick="startSlideshow('set1')">Start Slideshow</button>
                 <button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
@@ -1190,16 +1203,26 @@
         </div>
     </div>
 
+    <!-- =================================================== -->
+    <!--                SLIDESHOW SECTION 1                 -->
+    <!-- =================================================== -->
+    <!-- Main slideshow interface for Set 1 -->
     <div class="slideshow-section hidden" id="slideshow-set1">
+        <!-- Clickable title returns to main menu -->
         <h1 class="slideshow-title" onclick="showMainMenu()">Set1</h1>
         
+        <!-- Animated swipe instruction indicator -->
         <div class="swipe-indicator" id="swipeIndicator1">← Swipe to navigate →</div>
         
+        <!-- Main slideshow container -->
         <div class="slideshow-container">
+            <!-- Slides wrapper with touch handling -->
             <div class="slides-wrapper" id="slides-wrapper1">
+                <!-- Container for all slides (populated by JavaScript) -->
                 <div class="slides-container" id="slides-container1"></div>
             </div>
             
+            <!-- Bottom navigation bar -->
             <div class="navigation">
                 <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn1">
                     ◀ Prev
@@ -1212,19 +1235,26 @@
                 </button>
             </div>
             
+            <!-- Dot navigation indicators -->
             <div class="dots-container" id="dots-container1"></div>
         </div>
     </div>
 
+    <!-- =================================================== -->
+    <!--              INSTRUCTIONS PAGE 2                   -->
+    <!-- =================================================== -->
+    <!-- Instructions screen for Set 2 -->
     <div class="instructions-section hidden" id="instructions-set2">
         <div class="instructions-container">
             <h2 class="instructions-title">Set2</h2>
+            <!-- Instructions content - dynamically populated from CONFIG -->
             <div class="instructions-content">
                 <h3>How to Play:</h3>
                 <ul>
                     <li>Instruction2</li>
                 </ul>
             </div>
+            <!-- Action buttons for instructions page -->
             <div class="instructions-buttons">
                 <button class="instructions-btn" onclick="startSlideshow('set2')">Start Slideshow</button>
                 <button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
@@ -1232,10 +1262,872 @@
         </div>
     </div>
 
+    <!-- =================================================== -->
+    <!--                SLIDESHOW SECTION 2                 -->
+    <!-- =================================================== -->
+    <!-- Main slideshow interface for Set 2 -->
     <div class="slideshow-section hidden" id="slideshow-set2">
+        <!-- Clickable title returns to main menu -->
         <h1 class="slideshow-title" onclick="showMainMenu()">Set2</h1>
         
+        <!-- Animated swipe instruction indicator -->
         <div class="swipe-indicator" id="swipeIndicator2">← Swipe to navigate →</div>
         
+        <!-- Main slideshow container -->
         <div class="slideshow-container">
-            <div class
+            <!-- Slides wrapper with touch handling -->
+            <div class="slides-wrapper" id="slides-wrapper2">
+                <!-- Container for all slides (populated by JavaScript) -->
+                <div class="slides-container" id="slides-container2"></div>
+            </div>
+            
+            <!-- Bottom navigation bar -->
+            <div class="navigation">
+                <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn2">
+                    ◀ Prev
+                </button>
+                <div class="slide-counter">
+                    <span id="current-slide2">1</span> / <span id="total-slides2">10</span>
+                </div>
+                <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn2">
+                    Next ▶
+                </button>
+            </div>
+            
+            <!-- Dot navigation indicators -->
+            <div class="dots-container" id="dots-container2"></div>
+        </div>
+    </div>
+
+    <!-- =================================================== -->
+    <!--               FULLSCREEN OVERLAY                   -->
+    <!-- =================================================== -->
+    <!-- Fullscreen image viewer with zoom capability -->
+    <div class="fullscreen-overlay" id="fullscreen-overlay" onclick="closeFullscreen()">
+        <!-- Close button -->
+        <div class="fullscreen-close" onclick="closeFullscreen()">&times;</div>
+        <!-- Fullscreen image with pinch-zoom enabled -->
+        <img class="fullscreen-image" id="fullscreen-image" src="" alt="">
+    </div>
+
+<div class="independent-fullscreen-overlay" id="independent-fullscreen-overlay" onclick="closeIndependentFullscreen()">
+    <div class="independent-fullscreen-close" onclick="closeIndependentFullscreen()">&times;</div>
+    <div id="independent-fullscreen-container"></div>
+</div>
+
+
+    
+    <!-- =================================================== -->
+    <!--                UNIVERSAL MODAL                     -->
+    <!-- =================================================== -->
+    <!-- Modal popup for clues and answers -->
+    <div class="modal" id="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <!-- Modal title with icon -->
+            <h3 class="modal-title" id="modal-title"></h3>
+            <!-- Main modal text content -->
+            <div class="modal-text" id="modal-text"></div>
+            <!-- Additional info section -->
+            <div class="modal-info" id="modal-info"></div>
+            <!-- Close button -->
+            <button class="modal-close" onclick="closeModal()">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        /* ===================================================== */
+        /*              🔧 EASY CONFIGURATION                   */
+        /* ===================================================== */
+        
+        const CONFIG = {
+            // 🕐 REVEAL DATE & TIME
+            // Format: 'YYYY-MM-DD HH:MM:SS'
+            revealDateTime: '2025-09-08 23:30:00',
+            
+            // 🌐 GITHUB REPOSITORY URL
+            // Your GitHub Pages base URL (include trailing slash)
+            githubBaseUrl: 'https://philipestevenson-rumham.github.io/CrookedBillet/',
+            
+            // 📄 PDF DOWNLOAD FILENAME
+            // Name of PDF file to download from GitHub repository
+            pdfFileName: 'CrookedBillet.pdf',
+            
+            // 📖 INSTRUCTION CONTENT
+            // Customize the instructions for each collection
+            instructions: {
+                set1: {
+                    title: 'Lego Movies',
+                    content: {
+                        howToPlay: [                            
+                            'Try to identify Movie recreated in Lego',
+                            'Click the lightbulb icon for a clue if you need help',
+                            'Click the "Show Answer" button to reveal the answer',
+                            'Use the navigation buttons or swipe to move between images',
+                            'Click any image to view it in fullscreen with zoom capability',
+                            'Click the Title to return to the Main Menu'
+                        ]
+                    }
+                },
+                set2: {
+                    title: 'OCD Famous Movie Quotes 04',
+                    content: {
+                        howToPlay: [
+                            'Try to identify the Movie from the quote, each word in the quote has had its letters rearranged in alphabetical order',
+                            'Click the lightbulb icon for a clue if you need help',
+                            'Click the "Show Answer" button to reveal the answer',
+                            'Use the navigation buttons or swipe to move between images',
+                            'Click any image to view it in fullscreen with zoom capability',
+                            'Click the Title to return to the Main Menu'
+                        ]
+                    }
+                }
+            },
+            
+            // 🖼️ PICTURE COLLECTIONS
+            collections: {
+                set1: {
+                    title: 'Lego Movies',
+                    buttonText: 'Lego Movies',
+                    pictures: [
+                                { filename: 'R01.Q01.png', description: 'Paul' },
+                                { filename: 'R01.Q02.png', description: 'Anchorman' },
+                                { filename: 'R01.Q03.png', description: 'The Matrix' },
+                                { filename: 'R01.Q04.png', description: 'Ted' },
+                                { filename: 'R01.Q05.png', description: 'Jaws' },
+                                { filename: 'R01.Q06.png', description: 'The Wolf of Wall Street' },
+                                { filename: 'R01.Q07.png', description: 'The Shinning' },
+                                { filename: 'R01.Q08.png', description: 'Shaun of the Dead' },
+                                { filename: 'R01.Q09.png', description: 'Moon' },
+                                { filename: 'R01.Q10.png', description: 'ET' },
+                                { filename: 'R01.Q11.png', description: 'Reservoir Dogs' },
+                                { filename: 'R01.Q12.png', description: 'Forrest Gump' },
+                                { filename: 'R01.Q13.png', description: 'One Flew Over the Cuckoos Nest' },
+                                { filename: 'R01.Q14.png', description: 'The Lord of the Rings' },
+                                { filename: 'R01.Q15.png', description: 'Night at the Museum' },
+                                { filename: 'R01.Q16.png', description: 'Fargo' },
+                                { filename: 'R01.Q17.png', description: 'The Nightmare Before Christmas' },
+                                { filename: 'R01.Q18.png', description: 'The Artist' },
+                                { filename: 'R01.Q19.png', description: 'Armageddon' },
+                                { filename: 'R01.Q20.png', description: 'Catch Me If You Can' },
+                                { filename: 'R01.Q21.png', description: 'Schindlers List' },
+                                { filename: 'R01.Q22.png', description: 'Men in Black' },
+                                { filename: 'R01.Q23.png', description: 'Die Hard' },
+                                { filename: 'R01.Q24.png', description: 'Terminator 2 Judgement Day' },
+                                { filename: 'R01.Q25.png', description: 'American Beauty' }                       
+                    ]
+                },
+
+                
+                 set2: {
+                    title: 'OCD Famous Movie Quotes 04',
+                    buttonText: 'OCD Famous Movie Quotes 04',
+                    pictures: [
+                                { filename: 'R02.Q01.png', description: 'Frankenstein', clue: 'Year: 1931', info: 'Henry Frankenstein (Colin Clive): Its alive! Its alive!' },
+                                { filename: 'R02.Q02.png', description: 'Gone with the Wind', clue: 'Year: 1939', info: 'Rhett Butler (Clark Gable): Frankly, my dear, I dont give a damn.' },
+                                { filename: 'R02.Q03.png', description: 'The Wizard of Oz', clue: 'Year: 1939', info: 'Dorothy Gale (Judy Garland): Toto, Ive a feeling were not in Kansas anymore.' },
+                                { filename: 'R02.Q04.png', description: 'Casablanca', clue: 'Year: 1942', info: 'Rick Blaine (Humphrey Bogart): Heres looking at you, kid.' },
+                                { filename: 'R02.Q05.png', description: 'To Have and Have Not', clue: 'Year: 1944', info: 'Marie Slim Browning (Lauren Bacall): You know how to whistle, dont you, Steve? You just put your lips together and blow.' },
+                                { filename: 'R02.Q06.png', description: 'All About Eve', clue: 'Year: 1950', info: 'Margo Channing (Bette Davis): Fasten your seatbelts. Its going to be a bumpy night.' },
+                                { filename: 'R02.Q07.png', description: 'A Streetcar Named Desire', clue: 'Year: 1951', info: 'Blanche DuBois (Vivien Leigh): I have always depended on the kindness of strangers.' },
+                                { filename: 'R02.Q08.png', description: 'Some Like It Hot', clue: 'Year: 1959', info: 'Osgood Fielding III (Joe E. Brown): Well, nobodys perfect.' },
+                                { filename: 'R02.Q09.png', description: 'Dr. Strangelove', clue: 'Year: 1964', info: 'President Merkin Muffley (Peter Sellers): Gentlemen, you cant fight in here! This is the War Room!' },
+                                { filename: 'R02.Q10.png', description: 'Cool Hand Luke', clue: 'Year: 1967', info: 'Captain (Strother Martin): What weve got here is failure to communicate.' },
+                                { filename: 'R02.Q11.png', description: '2001: A Space Odyssey', clue: 'Year: 1968', info: 'Dave Bowman (Keir Dullea): Open the pod bay doors, HAL.' },
+                                { filename: 'R02.Q12.png', description: 'Love Story', clue: 'Year: 1970', info: 'Jennifer Cavalleri (Ali MacGraw): Love means never having to say youre sorry.' },
+                                { filename: 'R02.Q13.png', description: 'The Godfather Part II', clue: 'Year: 1974', info: 'Michael Corleone (Al Pacino): Keep your friends close, but your enemies closer.' },
+                                { filename: 'R02.Q14.png', description: 'Rocky', clue: 'Year: 1976', info: 'Rocky Balboa (Sylvester Stallone): Yo, Adrian!' },
+                                { filename: 'R02.Q15.png', description: 'National Lampoons Animal House', clue: 'Year: 1978', info: 'John Bluto Blutarsky (John Belushi): Toga! Toga!' },
+                                { filename: 'R02.Q16.png', description: 'E.T. the Extra-Terrestrial', clue: 'Year: 1982', info: 'E.T. (Pat Welsh): E.T. phone home.' },
+                                { filename: 'R02.Q17.png', description: 'The Terminator', clue: 'Year: 1984', info: 'The Terminator (Arnold Schwarzenegger): Ill be back.' },
+                                { filename: 'R02.Q18.png', description: 'The Princess Bride', clue: 'Year: 1987', info: 'Inigo Montoya (Mandy Patinkin): My name is Inigo Montoya. You killed my father. Prepare to die.' },
+                                { filename: 'R02.Q19.png', description: 'Field of Dreams', clue: 'Year: 1989', info: 'Shoeless Joe Jackson (Ray Liotta): If you build it, he will come.' },
+                                { filename: 'R02.Q20.png', description: 'The Silence of the Lambs', clue: 'Year: 1991', info: 'Hannibal Lecter (Anthony Hopkins): A census taker once tried to test me. I ate his liver with some fava beans and a nice Chianti.' },
+                                { filename: 'R02.Q21.png', description: 'Pulp Fiction', clue: 'Year: 1994', info: 'Jules (Samuel L. Jackson): English, motherfucker! Do you speak it?' },
+                                { filename: 'R02.Q22.png', description: 'Jerry Maguire', clue: 'Year: 1996', info: 'Dorothy Boyd (Renée Zellweger): You had me at Hello.' },
+                                { filename: 'R02.Q23.png', description: 'American Pie', clue: 'Year: 1999', info: 'Michelle (Alyson Hannigan): This one time at band camp…' },
+                                { filename: 'R02.Q24.png', description: 'Mean Girls', clue: 'Year: 2004', info: 'Gretchen Weiners (Lacey Chabert): You cant sit with us!' },
+                                { filename: 'R02.Q25.png', description: 'The Dark Knight', clue: 'Year: 2008', info: 'The Joker (Heath Ledge): Why so serious?' },
+
+
+                    ]
+                }
+            }
+        };
+        
+        /* ===================================================== */
+        /*                🔧 SYSTEM CODE BELOW                  */
+        /*            (No need to modify this part)             */
+        /* ===================================================== */
+
+        /* ===================================================== */
+        /*                   GLOBAL VARIABLES                   */
+        /* ===================================================== */
+        let currentSlide = 1;           // Current slide index
+        let activeSet = null;           // Currently active set ('set1' or 'set2')
+        let isRevealed = false;         // Whether answers are revealed based on date
+        let touchStartX = 0;            // Touch start X coordinate for swipe detection
+        let touchEndX = 0;              // Touch end X coordinate for swipe detection
+        let isSwiping = false;          // Whether user is currently swiping
+        let isDragging = false;         // Whether user is currently dragging
+        let isFullscreenOpen = false;   // Track if fullscreen is currently open
+
+        /* ===================================================== */
+        /*                 NAVIGATION FUNCTIONS                  */
+        /* ===================================================== */
+        
+        /**
+         * Show the main menu and hide all other sections
+         */
+        function showMainMenu() {
+            // Hide all slideshow and instruction sections
+            document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show main menu
+            document.getElementById('main-menu').classList.remove('hidden');
+            activeSet = null;
+            currentSlide = 1;
+        }
+
+        /**
+         * Show instructions page for specified set
+         * @param {string} setId - The set identifier ('set1' or 'set2')
+         */
+        function showInstructions(setId) {
+            // Hide main menu
+            document.getElementById('main-menu').classList.add('hidden');
+            
+            // Hide all other sections
+            document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected instructions
+            document.getElementById(`instructions-${setId}`).classList.remove('hidden');
+            activeSet = setId;
+        }
+
+        /**
+         * Start slideshow for specified set
+         * @param {string} setId - The set identifier ('set1' or 'set2')
+         */
+        function startSlideshow(setId) {
+            // Hide all other sections
+            document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected slideshow
+            document.getElementById(`slideshow-${setId}`).classList.remove('hidden');
+            activeSet = setId;
+            
+            // Initialize the slideshow if it hasn't been created yet
+            const setNumber = setId === 'set1' ? '1' : '2';
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            if (!slidesContainer.children.length) {
+                createSlides(setId);
+            }
+            
+            showSlide(1);
+            hideSwipeIndicator(setId);
+        }
+
+        /**
+         * Download PDF file from GitHub repository
+         */
+        function downloadPDF() {
+            const pdfUrl = CONFIG.githubBaseUrl + CONFIG.pdfFileName;
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = CONFIG.pdfFileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        /* ===================================================== */
+        /*                   MODAL FUNCTIONS                    */
+        /* ===================================================== */
+        
+        /**
+         * Show clue modal for specified slide
+         * @param {number} slideIndex - Index of the slide
+         */
+        function showClue(slideIndex) {
+            if (!activeSet) return;
+            
+            const pictures = CONFIG.collections[activeSet].pictures;
+            const picture = pictures[slideIndex];
+            
+            if (picture && picture.clue) {
+                showModal('clue', 'Clue', picture.clue);
+            }
+        }
+
+        /**
+         * Show answer modal for specified slide
+         * @param {number} slideIndex - Index of the slide
+         */
+        function showAnswer(slideIndex) {
+            if (!activeSet) return;
+            
+            const pictures = CONFIG.collections[activeSet].pictures;
+            const picture = pictures[slideIndex];
+            
+            if (!picture) return;
+            
+            checkRevealDate();
+            
+            if (isRevealed) {
+                showModal('answer', 'Answer', picture.description, picture.info);
+            } else {
+                const revealDate = new Date(CONFIG.revealDateTime);
+                const formattedDate = revealDate.toLocaleString();
+                showModal('answer', 'Answer Not Yet Available', `Answers will be revealed on ${formattedDate}`);
+            }
+        }
+
+        /**
+         * Display modal with specified content
+         * @param {string} type - Modal type ('clue' or 'answer')
+         * @param {string} title - Modal title
+         * @param {string} text - Modal text content
+         * @param {string} info - Additional info (optional)
+         */
+        function showModal(type, title, text, info = null) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalText = document.getElementById('modal-text');
+            const modalInfo = document.getElementById('modal-info');
+            
+            // Set title with appropriate icon
+            const iconSvg = type === 'clue' 
+                ? '<svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>'
+                : '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>';
+            
+            modalTitle.innerHTML = `${iconSvg} ${title}`;
+            modalTitle.className = `modal-title ${type}-title`;
+            
+            // Set text content and styling
+            modalText.textContent = text;
+            modalText.className = type === 'answer' && isRevealed ? 'modal-text answer-text' : 'modal-text';
+            
+            // Handle info section
+            if (info && type === 'answer' && isRevealed) {
+                modalInfo.textContent = info;
+                modalInfo.style.display = 'block';
+            } else {
+                modalInfo.style.display = 'none';
+            }
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        /**
+         * Close the modal
+         */
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        /**
+         * Check if any modal is currently open
+         * @returns {boolean} True if modal is open
+         */
+        function isModalOpen() {
+            const modal = document.getElementById('modal');
+            return modal && modal.style.display === 'flex';
+        }
+
+        /* ===================================================== */
+        /*               CORE SLIDESHOW FUNCTIONS               */
+        /* ===================================================== */
+        
+        /**
+         * Check if answers should be revealed based on configured date/time
+         */
+        function checkRevealDate() {
+            const now = new Date();
+            const revealDate = new Date(CONFIG.revealDateTime);
+            isRevealed = now >= revealDate;
+        }
+
+        /**
+         * Create slides for specified set
+         * @param {string} setId - The set identifier
+         */
+        function createSlides(setId) {
+            const setNumber = setId === 'set1' ? '1' : '2';
+            const pictures = CONFIG.collections[setId].pictures;
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            const dotsContainer = document.getElementById(`dots-container${setNumber}`);
+            
+            // Update total slides counter
+            document.getElementById(`total-slides${setNumber}`).textContent = pictures.length;
+            
+            // Clear existing content
+            slidesContainer.innerHTML = '';
+            dotsContainer.innerHTML = '';
+            
+            pictures.forEach((picture, index) => {
+                // Create slide element
+                const slide = document.createElement('div');
+                slide.className = 'slide';
+                
+                // Create clue button HTML (only if clue exists)
+                const clueButtonHTML = picture.clue ? 
+                    `<button class="clue-btn" onclick="showClue(${index})" title="Get a clue">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
+                        </svg>
+                    </button>` : '';
+                
+                // Build slide HTML
+                slide.innerHTML = `
+                    ${clueButtonHTML}
+                    <div class="slide-number">${index + 1} / ${pictures.length}</div>
+                    <div class="slide-image-container">
+                        <img src="${CONFIG.githubBaseUrl}${picture.filename}" 
+                             alt="Picture ${index + 1}" 
+                             onclick="openFullscreen(this)"
+                             loading="lazy"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlICR7aW5kZXggKyAxfTwvdGV4dD48L3N2Zz4='">
+                    </div>
+                    <div class="slide-bottom-section">
+                        <button class="answer-btn" onclick="showAnswer(${index})">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                            </svg>
+                            Show Answer
+                        </button>
+                    </div>
+                `;
+                slidesContainer.appendChild(slide);
+                
+                // Create navigation dot
+                const dot = document.createElement('span');
+                dot.className = `dot ${index === 0 ? 'active' : ''}`;
+                dot.onclick = () => showSlide(index + 1);
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        /**
+         * Show specific slide by number
+         * @param {number} n - Slide number to show
+         */
+        function showSlide(n) {
+            if (!activeSet) return;
+            
+            const setNumber = activeSet === 'set1' ? '1' : '2';
+            const pictures = CONFIG.collections[activeSet].pictures;
+            const slides = document.querySelectorAll(`#slides-container${setNumber} .slide`);
+            const dots = document.querySelectorAll(`#dots-container${setNumber} .dot`);
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            
+            // Handle slide boundaries
+            if (n > slides.length) currentSlide = 1;
+            else if (n < 1) currentSlide = slides.length;
+            else currentSlide = n;
+            
+            // Apply transform to show current slide
+            const translateX = -(currentSlide - 1) * 100;
+            slidesContainer.style.transform = `translateX(${translateX}%)`;
+            
+            // Update active dot
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (dots[currentSlide - 1]) {
+                dots[currentSlide - 1].classList.add('active');
+            }
+            
+            // Update slide counter
+            document.getElementById(`current-slide${setNumber}`).textContent = currentSlide;
+            
+            // Update navigation button states
+            document.getElementById(`prevBtn${setNumber}`).disabled = currentSlide === 1;
+            document.getElementById(`nextBtn${setNumber}`).disabled = currentSlide === slides.length;
+        }
+
+        /**
+         * Change slide by relative amount
+         * @param {number} n - Number of slides to move (+1 for next, -1 for previous)
+         */
+        function changeSlide(n) {
+            if (isDragging || !activeSet || isFullscreenOpen) return;
+            showSlide(currentSlide + n);
+        }
+
+        /* ===================================================== */
+        /*                TOUCH/SWIPE HANDLING                  */
+        /* ===================================================== */
+        
+        /**
+         * Handle touch start event for swipe detection
+         * @param {TouchEvent} e - Touch event
+         */
+        function handleTouchStart(e) {
+            if (!activeSet || isFullscreenOpen) return;
+            
+            touchStartX = e.touches[0].clientX;
+            touchEndX = touchStartX;
+            isDragging = true;
+            isSwiping = false;
+        }
+
+        /**
+         * Handle touch move event for swipe detection and visual feedback
+         * @param {TouchEvent} e - Touch event
+         */
+        function handleTouchMove(e) {
+            if (!isDragging || !activeSet || isFullscreenOpen) return;
+            
+            e.preventDefault();
+            
+            touchEndX = e.touches[0].clientX;
+            const dragDistance = touchEndX - touchStartX;
+            const currentTranslate = -(currentSlide - 1) * 100;
+            const dragPercent = (dragDistance / window.innerWidth) * 100;
+            const newTranslate = currentTranslate + dragPercent;
+            
+            // Apply visual feedback during drag
+            const setNumber = activeSet === 'set1' ? '1' : '2';
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            slidesContainer.style.transition = 'none';
+            slidesContainer.style.transform = `translateX(${newTranslate}%)`;
+        }
+
+        /**
+         * Handle touch end event to complete swipe action
+         * @param {TouchEvent} e - Touch event
+         */
+        function handleTouchEnd(e) {
+            if (!isDragging || !activeSet || isFullscreenOpen) return;
+            
+            isDragging = false;
+            const setNumber = activeSet === 'set1' ? '1' : '2';
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            slidesContainer.style.transition = 'transform 0.3s ease-out';
+            
+            // Determine if swipe was significant enough to change slide
+            const swipeDistance = touchStartX - touchEndX;
+            const swipeThreshold = 50;
+            
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0 && currentSlide < CONFIG.collections[activeSet].pictures.length) {
+                    currentSlide++;
+                } else if (swipeDistance < 0 && currentSlide > 1) {
+                    currentSlide--;
+                }
+            }
+            
+            showSlide(currentSlide);
+            
+            // Reset touch coordinates
+            touchStartX = 0;
+            touchEndX = 0;
+        }
+
+        /* ===================================================== */
+        /*                FULLSCREEN FUNCTIONS                  */
+        /* ===================================================== */
+        
+function openFullscreen(img) {
+    // Use the independent overlay instead
+    const overlay = document.getElementById('independent-fullscreen-overlay');
+    const container = document.getElementById('independent-fullscreen-container');
+    
+    // Completely clear the container
+    container.innerHTML = '';
+    
+    // Create a brand new image element from scratch
+    const newImg = document.createElement('img');
+    
+    // Get the image source and create a completely fresh load
+    const imageSrc = img.src;
+    const timestamp = Date.now();
+    
+    // Set attributes
+    newImg.src = imageSrc + (imageSrc.includes('?') ? '&' : '?') + 'popup=' + timestamp;
+    newImg.alt = img.alt || '';
+    
+    // Apply styles directly to the new element
+    newImg.style.cssText = `
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: contain !important;
+        cursor: default !important;
+        touch-action: manipulation !important;
+        box-shadow: 0 0 50px rgba(6,255,165,0.5) !important;
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        transform: none !important;
+        transform-origin: center center !important;
+        transition: none !important;
+        zoom: 1 !important;
+        scale: 1 !important;
+    `;
+    
+    // Prevent clicks from closing the overlay
+    newImg.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+    
+    // Add the new image to the container
+    container.appendChild(newImg);
+    
+    // Show the overlay
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    isFullscreenOpen = true;
+}
+
+function closeIndependentFullscreen() {
+    const overlay = document.getElementById('independent-fullscreen-overlay');
+    const container = document.getElementById('independent-fullscreen-container');
+    
+    // Hide overlay first
+    overlay.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    isFullscreenOpen = false;
+    
+    // Completely destroy the container contents
+    container.innerHTML = '';
+    
+    // Force all slideshow images to reset (just in case)
+    if (activeSet) {
+        const setNumber = activeSet === 'set1' ? '1' : '2';
+        const slideshowImages = document.querySelectorAll(`#slides-container${setNumber} img`);
+        
+        slideshowImages.forEach(slideImg => {
+            // Remove any transform-related styles that might have been applied
+            slideImg.style.removeProperty('transform');
+            slideImg.style.removeProperty('transform-origin');
+            slideImg.style.removeProperty('scale');
+            slideImg.style.removeProperty('zoom');
+            slideImg.style.removeProperty('transition');
+            
+            // Force reflow
+            void slideImg.offsetHeight;
+        });
+    }
+}
+
+// Also create an alias for the original function name
+function closeFullscreen() {
+    closeIndependentFullscreen();
+}
+
+        /* ===================================================== */
+        /*                 UTILITY FUNCTIONS                    */
+        /* ===================================================== */
+        
+        /**
+         * Hide swipe indicator after delay
+         * @param {string} setId - Set identifier
+         */
+        function hideSwipeIndicator(setId) {
+            const setNumber = setId === 'set1' ? '1' : '2';
+            const indicator = document.getElementById(`swipeIndicator${setNumber}`);
+            setTimeout(() => {
+                if (indicator) {
+                    indicator.style.opacity = '0';
+                    setTimeout(() => {
+                        indicator.style.display = 'none';
+                    }, 1000);
+                }
+            }, 4000);
+        }
+
+        /**
+         * Initialize menu buttons with configured text and functionality
+         */
+        function initializeMenuButtons() {
+            const menuButtons = document.querySelectorAll('.menu-btn');
+            
+            // Update first two buttons with collection names
+            menuButtons.forEach((button, index) => {
+                if (index < 2) {
+                    const setKey = index === 0 ? 'set1' : 'set2';
+                    button.textContent = CONFIG.collections[setKey].buttonText;
+                }
+            });
+            
+            // Update slideshow titles
+            document.querySelector('#slideshow-set1 .slideshow-title').textContent = CONFIG.collections.set1.title;
+            document.querySelector('#slideshow-set2 .slideshow-title').textContent = CONFIG.collections.set2.title;
+            
+            // Initialize instruction pages with dynamic content
+            initializeInstructionPages();
+        }
+
+        /**
+         * Initialize instruction pages with content from CONFIG
+         */
+        function initializeInstructionPages() {
+            // Update instruction page content dynamically from CONFIG
+            Object.keys(CONFIG.instructions).forEach(setKey => {
+                const instructionData = CONFIG.instructions[setKey];
+                const instructionPage = document.getElementById(`instructions-${setKey}`);
+                
+                if (instructionPage && instructionData) {
+                    // Update title
+                    const titleEl = instructionPage.querySelector('.instructions-title');
+                    if (titleEl) titleEl.textContent = instructionData.title;
+                    
+                    // Update content sections
+                    const contentEl = instructionPage.querySelector('.instructions-content');
+                    if (contentEl && instructionData.content) {
+                        let htmlContent = '';
+                        
+                        Object.keys(instructionData.content).forEach(sectionKey => {
+                            const sectionTitle = sectionKey.replace(/([A-Z])/g, ' $1')
+                                .replace(/^./, str => str.toUpperCase());
+                            htmlContent += `<h3>${sectionTitle}:</h3><ul>`;
+                            
+                            instructionData.content[sectionKey].forEach(item => {
+                                htmlContent += `<li>${item}</li>`;
+                            });
+                            
+                            htmlContent += '</ul>';
+                        });
+                        
+                        contentEl.innerHTML = htmlContent;
+                    }
+                }
+            });
+        }
+
+        /* ===================================================== */
+        /*                  EVENT LISTENERS                     */
+        /* ===================================================== */
+        
+        /**
+         * Keyboard navigation handler
+         */
+        document.addEventListener('keydown', (e) => {
+            // Handle modal-specific keys
+            if (isModalOpen() || isFullscreenOpen) {
+                if (e.key === 'Escape') {
+                    closeFullscreen();
+                    closeModal();
+                }
+                return; // Don't allow other keyboard actions when modal/fullscreen is open
+            }
+            
+            // Handle slideshow navigation
+            if (activeSet) {
+                if (e.key === 'ArrowLeft') changeSlide(-1);
+                if (e.key === 'ArrowRight') changeSlide(1);
+            }
+            
+            // Global escape key handling
+            if (e.key === 'Escape') {
+                if (activeSet) showMainMenu();
+            }
+        });
+
+        /**
+         * Touch event listeners for swipe handling
+         * Note: These are set to passive:false for touchmove to allow preventDefault
+         */
+document.addEventListener('touchstart', (e) => {
+    if (!isModalOpen()) {
+        handleTouchStart(e);
+    }
+}, { passive: true });
+
+document.addEventListener('touchmove', (e) => {
+    if (!isModalOpen()) {
+        handleTouchMove(e);
+    }
+}, { passive: false });
+
+document.addEventListener('touchend', (e) => {
+    if (!isModalOpen()) {
+        handleTouchEnd(e);
+    }
+}, { passive: true });
+
+        /**
+         * Prevent fullscreen close when clicking on the image itself
+         */
+        document.getElementById('fullscreen-image').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        /**
+         * Prevent context menu on long press for images
+         */
+        document.addEventListener('contextmenu', (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+
+
+/**
+ * Handle modal overlay touch events to prevent slide navigation
+ */
+document.getElementById('modal').addEventListener('touchstart', (e) => {
+    e.stopPropagation();
+}, { passive: true });
+
+document.getElementById('modal').addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+}, { passive: false });
+
+document.getElementById('modal').addEventListener('touchend', (e) => {
+    e.stopPropagation();
+}, { passive: true });
+
+
+
+
+        /**
+         * Handle fullscreen overlay touch events to prevent slide navigation
+         */
+        document.getElementById('fullscreen-overlay').addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        document.getElementById('fullscreen-overlay').addEventListener('touchmove', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        document.getElementById('fullscreen-overlay').addEventListener('touchend', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        /* ===================================================== */
+        /*                   INITIALIZATION                     */
+        /* ===================================================== */
+        
+        // Check reveal date status on page load
+        checkRevealDate();
+        
+        // Initialize menu buttons and content
+        initializeMenuButtons();
+        
+        // Show main menu on page load
+        showMainMenu();
+        
+        // Check for reveal date every minute
+        setInterval(() => {
+            checkRevealDate();
+        }, 60000);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
