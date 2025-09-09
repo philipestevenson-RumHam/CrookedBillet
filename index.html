@@ -1796,20 +1796,15 @@
     
         
         
-    function closeFullscreen() {
+function closeFullscreen() {
     const overlay = document.getElementById('fullscreen-overlay');
     const fullscreenImg = document.getElementById('fullscreen-image');
 
-    // Reset fullscreen image zoom
-    fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
-    fullscreenImg.style.transformOrigin = 'center center';
-    fullscreenImg.style.transition = '';
-
-    // Clear image source and alt
+    // Fully reset fullscreen image styles
+    fullscreenImg.removeAttribute('style');
     fullscreenImg.src = '';
     fullscreenImg.alt = '';
 
-    // Hide overlay and restore scroll
     overlay.style.display = 'none';
     document.body.style.overflow = 'auto';
     isFullscreenOpen = false;
@@ -2019,6 +2014,7 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
+
 
 
 
