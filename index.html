@@ -1102,59 +1102,54 @@
         }
 
 
-        /* Add these styles to your CSS */
-.independent-fullscreen-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 3000; /* Higher than original */
-    cursor: pointer;
-    backdrop-filter: blur(5px);
+
+/* Add this CSS to your existing styles to prevent zoom persistence */
+
+/* Ensure fullscreen images always reset to default state */
+.fullscreen-image {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    max-width: 95% !important;
+    max-height: 95% !important;
+    object-fit: contain !important;
+    cursor: default !important;
+    touch-action: manipulation !important;
+    animation: resetZoom 0.1s ease-out !important;
 }
 
-.independent-fullscreen-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: #ffffff;
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 3001;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    border: 3px solid #ffd23f;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+/* Animation to force reset any zoom state */
+@keyframes resetZoom {
+    0% {
+        transform: translate(-50%, -50%) scale(var(--current-scale, 1));
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
-.independent-fullscreen-close:hover {
-    background: linear-gradient(135deg, #06ffa5 0%, #1cb5e0 100%);
-    border-color: #ffd23f;
-    transform: scale(1.1);
+/* Prevent any inherited transforms on slideshow images */
+.slide img {
+    transform: none !important;
+    transform-origin: center center !important;
+    transition: transform 0.2s ease !important;
 }
 
-#independent-fullscreen-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 95%;
-    max-height: 95%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Force reset transforms when slideshow container changes */
+.slides-container {
+    transform-style: flat !important;
 }
+
+.slides-container .slide {
+    transform-style: flat !important;
+}
+
+.slides-container .slide img {
+    will-change: auto !important;
+    backface-visibility: visible !important;
+}
+
 
 
         
@@ -1169,7 +1164,7 @@
         <div class="logo-container">
             <img src="https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png" alt="RumHam" />
         </div>
-        <h1 class="main-title">Crooked Billet Quiz3</h1>
+        <h1 class="main-title">Crooked Billet Quiz5</h1>
         <p class="main-subtitle">Pick A Table Top</p>
         <div class="menu-buttons">
             <!-- Set 1 button - dynamically populated from CONFIG -->
@@ -1827,93 +1822,79 @@
         /* ===================================================== */
         /*                FULLSCREEN FUNCTIONS                  */
         /* ===================================================== */
-        
-function openFullscreen(img) {
-    // Use the independent overlay instead
-    const overlay = document.getElementById('independent-fullscreen-overlay');
-    const container = document.getElementById('independent-fullscreen-container');
+        /**
+ * Close fullscreen image viewer with proper zoom reset
+ */
+function closeFullscreen() {
+    const overlay = document.getElementById('fullscreen-overlay');
+    const fullscreenImg = document.getElementById('fullscreen-image');
     
-    // Completely clear the container
-    container.innerHTML = '';
+    // Reset fullscreen image completely
+    fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+    fullscreenImg.style.transformOrigin = 'center center';
+    fullscreenImg.style.transition = 'transform 0.3s ease';
     
-    // Create a brand new image element from scratch
-    const newImg = document.createElement('img');
+    // Clear the image source to ensure clean state
+    fullscreenImg.src = '';
+    fullscreenImg.alt = '';
     
-    // Get the image source and create a completely fresh load
-    const imageSrc = img.src;
-    const timestamp = Date.now();
-    
-    // Set attributes
-    newImg.src = imageSrc + (imageSrc.includes('?') ? '&' : '?') + 'popup=' + timestamp;
-    newImg.alt = img.alt || '';
-    
-    // Apply styles directly to the new element
-    newImg.style.cssText = `
-        max-width: 100% !important;
-        max-height: 100% !important;
-        object-fit: contain !important;
-        cursor: default !important;
-        touch-action: manipulation !important;
-        box-shadow: 0 0 50px rgba(6,255,165,0.5) !important;
-        display: block !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-        transform: none !important;
-        transform-origin: center center !important;
-        transition: none !important;
-        zoom: 1 !important;
-        scale: 1 !important;
-    `;
-    
-    // Prevent clicks from closing the overlay
-    newImg.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
-    
-    // Add the new image to the container
-    container.appendChild(newImg);
-    
-    // Show the overlay
-    overlay.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    isFullscreenOpen = true;
-}
-
-function closeIndependentFullscreen() {
-    const overlay = document.getElementById('independent-fullscreen-overlay');
-    const container = document.getElementById('independent-fullscreen-container');
-    
-    // Hide overlay first
+    // Hide overlay and restore scrolling
     overlay.style.display = 'none';
     document.body.style.overflow = 'auto';
+    
+    // Re-enable swipe handling
     isFullscreenOpen = false;
     
-    // Completely destroy the container contents
-    container.innerHTML = '';
-    
-    // Force all slideshow images to reset (just in case)
-    if (activeSet) {
-        const setNumber = activeSet === 'set1' ? '1' : '2';
-        const slideshowImages = document.querySelectorAll(`#slides-container${setNumber} img`);
-        
-        slideshowImages.forEach(slideImg => {
-            // Remove any transform-related styles that might have been applied
-            slideImg.style.removeProperty('transform');
-            slideImg.style.removeProperty('transform-origin');
-            slideImg.style.removeProperty('scale');
-            slideImg.style.removeProperty('zoom');
-            slideImg.style.removeProperty('transition');
-            
-            // Force reflow
-            void slideImg.offsetHeight;
-        });
-    }
+    // If you have a currentScale variable for zoom, reset it here
+    // currentScale = 1;
 }
 
-// Also create an alias for the original function name
-function closeFullscreen() {
-    closeIndependentFullscreen();
+/**
+ * Enhanced openFullscreen function with aggressive reset
+ */
+function openFullscreen(img) {
+    const overlay = document.getElementById('fullscreen-overlay');
+    const fullscreenImg = document.getElementById('fullscreen-image');
+    
+    // Aggressively reset any existing styles
+    fullscreenImg.removeAttribute('style');
+    
+    // Apply clean positioning styles
+    fullscreenImg.style.position = 'absolute';
+    fullscreenImg.style.top = '50%';
+    fullscreenImg.style.left = '50%';
+    fullscreenImg.style.transform = 'translate(-50%, -50%)';
+    fullscreenImg.style.maxWidth = '95%';
+    fullscreenImg.style.maxHeight = '95%';
+    fullscreenImg.style.objectFit = 'contain';
+    fullscreenImg.style.boxShadow = '0 0 50px rgba(6,255,165,0.5)';
+    fullscreenImg.style.cursor = 'default';
+    fullscreenImg.style.touchAction = 'manipulation';
+    
+    // Reset any zoom variables
+    if (typeof currentScale !== 'undefined') {
+        currentScale = 1;
+    }
+    if (typeof scale !== 'undefined') {
+        scale = 1;
+    }
+    if (typeof zoom !== 'undefined') {
+        zoom = 1;
+    }
+    
+    // Set image source and properties
+    fullscreenImg.src = img.src;
+    fullscreenImg.alt = img.alt;
+    
+    // Force a reflow
+    void fullscreenImg.offsetHeight;
+    
+    // Show overlay and disable background scrolling
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    
+    // Mark fullscreen as open to disable swipe handling
+    isFullscreenOpen = true;
 }
 
         /* ===================================================== */
@@ -2118,8 +2099,6 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
-
-
 
 
 
