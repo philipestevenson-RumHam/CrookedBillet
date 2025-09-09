@@ -1799,6 +1799,10 @@
         function closeFullscreen() {
             const overlay = document.getElementById('fullscreen-overlay');
             const fullscreenImg = document.getElementById('fullscreen-image');
+
+            // Reset the global scale variable to prevent carried-over zoom
+            currentScale = 1;
+
             
             // Complete reset of fullscreen image
             fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
@@ -2027,3 +2031,4 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
+
