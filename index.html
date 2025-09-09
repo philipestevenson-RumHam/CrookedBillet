@@ -1169,7 +1169,7 @@
         <div class="logo-container">
             <img src="https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png" alt="RumHam" />
         </div>
-        <h1 class="main-title">Crooked Billet Quiz2</h1>
+        <h1 class="main-title">Crooked Billet Quiz3</h1>
         <p class="main-subtitle">Pick A Table Top</p>
         <div class="menu-buttons">
             <!-- Set 1 button - dynamically populated from CONFIG -->
@@ -1828,30 +1828,6 @@
         /*                FULLSCREEN FUNCTIONS                  */
         /* ===================================================== */
         
-        /**
-         * Open image in fullscreen mode with zoom capability
-         * @param {HTMLImageElement} img - Image element to show fullscreen
-         */
-        function openFullscreen(img) {
-            const overlay = document.getElementById('fullscreen-overlay');
-            const fullscreenImg = document.getElementById('fullscreen-image');
-            
-            // Reset any previous zoom/transform on the fullscreen image
-            fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
-            
-            // Set image source and properties
-            fullscreenImg.src = img.src;
-            fullscreenImg.alt = img.alt;
-            
-            // Show overlay and disable background scrolling
-            overlay.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            
-            // Mark fullscreen as open to disable swipe handling
-            isFullscreenOpen = true;
-        }
-
-
 function openFullscreen(img) {
     // Use the independent overlay instead
     const overlay = document.getElementById('independent-fullscreen-overlay');
@@ -2142,6 +2118,7 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
+
 
 
 
