@@ -1820,6 +1820,7 @@
                     img.style.transformOrigin = '';
                     img.style.transition = '';
                     img.style.scale = '';
+                    img.removeAttribute('style'); ///remove
                     // Force reflow for each image
                     img.offsetHeight;
                 }
@@ -2044,6 +2045,7 @@ document.getElementById('modal').addEventListener('touchend', (e) => {
     </script>
 </body>
 </html>
+
 
 
 
