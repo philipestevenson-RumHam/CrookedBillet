@@ -1100,64 +1100,6 @@
                 max-width: 220px;
             }
         }
-
-
-        /* Add these styles to your CSS */
-.independent-fullscreen-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 3000; /* Higher than original */
-    cursor: pointer;
-    backdrop-filter: blur(5px);
-}
-
-.independent-fullscreen-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: #ffffff;
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 3001;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    border: 3px solid #ffd23f;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(255,107,53,0.4);
-}
-
-.independent-fullscreen-close:hover {
-    background: linear-gradient(135deg, #06ffa5 0%, #1cb5e0 100%);
-    border-color: #ffd23f;
-    transform: scale(1.1);
-}
-
-#independent-fullscreen-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 95%;
-    max-height: 95%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-        
     </style>
 </head>
 <body>
@@ -1169,7 +1111,7 @@
         <div class="logo-container">
             <img src="https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png" alt="RumHam" />
         </div>
-        <h1 class="main-title">Crooked Billet Quiz7</h1>
+        <h1 class="main-title">Crooked Billet Quiz</h1>
         <p class="main-subtitle">Pick A Table Top</p>
         <div class="menu-buttons">
             <!-- Set 1 button - dynamically populated from CONFIG -->
@@ -1310,13 +1252,6 @@
         <img class="fullscreen-image" id="fullscreen-image" src="" alt="">
     </div>
 
-<div class="independent-fullscreen-overlay" id="independent-fullscreen-overlay" onclick="closeIndependentFullscreen()">
-    <div class="independent-fullscreen-close" onclick="closeIndependentFullscreen()">&times;</div>
-    <div id="independent-fullscreen-container"></div>
-</div>
-
-
-    
     <!-- =================================================== -->
     <!--                UNIVERSAL MODAL                     -->
     <!-- =================================================== -->
@@ -1835,95 +1770,78 @@
         /*                FULLSCREEN FUNCTIONS                  */
         /* ===================================================== */
         
-function openFullscreen(img) {
-    // Use the independent overlay instead
-    const overlay = document.getElementById('independent-fullscreen-overlay');
-    const container = document.getElementById('independent-fullscreen-container');
-    
-    // Completely clear the container
-    container.innerHTML = '';
-    
-    // Create a brand new image element from scratch
-    const newImg = document.createElement('img');
-    
-    // Get the image source and create a completely fresh load
-    const imageSrc = img.src;
-    const timestamp = Date.now();
-    
-    // Set attributes
-    newImg.src = imageSrc + (imageSrc.includes('?') ? '&' : '?') + 'popup=' + timestamp;
-    newImg.alt = img.alt || '';
-    
-    // Apply styles directly to the new element
-    newImg.style.cssText = `
-        max-width: 100% !important;
-        max-height: 100% !important;
-        object-fit: contain !important;
-        cursor: default !important;
-        touch-action: manipulation !important;
-        box-shadow: 0 0 50px rgba(6,255,165,0.5) !important;
-        display: block !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-        transform: none !important;
-        transform-origin: center center !important;
-        transition: none !important;
-        zoom: 1 !important;
-        scale: 1 !important;
-    `;
-    
-    // Prevent clicks from closing the overlay
-    newImg.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
-    
-    // Add the new image to the container
-    container.appendChild(newImg);
-    
-    // Show the overlay
-    overlay.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    isFullscreenOpen = true;
-}
+        /**
+         * Open image in fullscreen mode with zoom capability
+         * @param {HTMLImageElement} img - Image element to show fullscreen
+         */
+        function openFullscreen(img) {
+            const overlay = document.getElementById('fullscreen-overlay');
+            const fullscreenImg = document.getElementById('fullscreen-image');
+            
+            // Reset any previous zoom/transform on the fullscreen image
+            fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+            
+            // Set image source and properties
+            fullscreenImg.src = img.src;
+            fullscreenImg.alt = img.alt;
+            
+            // Show overlay and disable background scrolling
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Mark fullscreen as open to disable swipe handling
+            isFullscreenOpen = true;
+        }
 
-function closeIndependentFullscreen() {
-    const overlay = document.getElementById('independent-fullscreen-overlay');
-    const container = document.getElementById('independent-fullscreen-container');
-    
-    // Hide overlay first
-    overlay.style.display = 'none';
-    document.body.style.overflow = 'auto';
-    document.body.style.transform = ''; // Failsafe to reset any leaked transforms //added by me
-    isFullscreenOpen = false;
-    
-    // Completely destroy the container contents
-    container.innerHTML = '';
-    
-    // Force all slideshow images to reset (just in case)
+
+
+        
+/**
+ * Close fullscreen image viewer
+ */
+function closeFullscreen() {
+    const overlay = document.getElementById('fullscreen-overlay');
+    const fullscreenImg = document.getElementById('fullscreen-image');
+
+    // Reset the fullscreen image itself
+    fullscreenImg.src = '';
+    fullscreenImg.alt = '';
+    fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+    fullscreenImg.style.transformOrigin = 'center center';
+    fullscreenImg.style.transition = '';
+
+    // Reset the slideshow container's transform and transition if they were altered
+    // This handles the case where a drag interaction left the container in a transformed state
     if (activeSet) {
         const setNumber = activeSet === 'set1' ? '1' : '2';
-        const slideshowImages = document.querySelectorAll(`#slides-container${setNumber} img`);
-        
-        slideshowImages.forEach(slideImg => {
-            // Remove any transform-related styles that might have been applied
-            slideImg.style.removeProperty('transform');
-            slideImg.style.removeProperty('transform-origin');
-            slideImg.style.removeProperty('scale');
-            slideImg.style.removeProperty('zoom');
-            slideImg.style.removeProperty('transition');
-            
-            // Force reflow
-            void slideImg.offsetHeight;
-        });
+        const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+        if (slidesContainer) {
+            // Reset the transform and transition to their default values
+            slidesContainer.style.transform = 'translateX(0%)';
+            slidesContainer.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        }
     }
+
+    // Reset the transform on ALL slideshow images to clear any potential residual effects
+    // This is crucial for your specific issue
+    document.querySelectorAll('.slide img').forEach(img => {
+        img.style.transform = '';
+        img.style.transformOrigin = '';
+        img.style.transition = '';
+    });
+
+    // Hide the overlay and re-enable scrolling
+    overlay.style.display = 'none';
+    document.body.style.overflow = 'auto';
+
+    // Re-enable swipe handling
+    isFullscreenOpen = false;
 }
 
-// Also create an alias for the original function name
-function closeFullscreen() {
-    closeIndependentFullscreen();
-}
 
+
+
+        
         /* ===================================================== */
         /*                 UTILITY FUNCTIONS                    */
         /* ===================================================== */
