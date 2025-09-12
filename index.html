@@ -155,7 +155,7 @@
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: center; /* Centers the .instructions-container vertically in the full viewport */
+            justify-content: center;
             min-height: 100vh;
             padding: 20px;
             text-align: center;
@@ -171,12 +171,10 @@
             padding: 40px;
             margin: 20px 0;
             border: 3px solid #06ffa5;
-            /* Ensure content inside is centered vertically and horizontally */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            /* Prevent excessive vertical growth on small screens */
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -1241,6 +1239,7 @@
                 }
             }
         };
+
         /* ===================================================== */
         /*                🔧 SYSTEM CODE BELOW                  */
         /*            (No need to modify this part)             */
@@ -1256,50 +1255,34 @@
         let isSwiping = false;          // Whether user is currently swiping
         let isDragging = false;         // Whether user is currently dragging
         let isFullscreenOpen = false;   // Track if fullscreen is currently open
+
         /* ===================================================== */
         /*                 NAVIGATION FUNCTIONS                  */
         /* ===================================================== */
-        /**
-         * Show the main menu and hide all other sections
-         */
         function showMainMenu() {
-            // Hide all slideshow and instruction sections
             document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
                 section.classList.add('hidden');
             });
-            // Show main menu
             document.getElementById('main-menu').classList.remove('hidden');
             activeSet = null;
             currentSlide = 1;
         }
-        /**
-         * Show instructions page for specified set
-         * @param {string} setId - The set identifier ('set1' or 'set2')
-         */
+
         function showInstructions(setId) {
-            // Hide main menu
             document.getElementById('main-menu').classList.add('hidden');
-            // Hide all other sections
             document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
                 section.classList.add('hidden');
             });
-            // Show selected instructions
             document.getElementById(`instructions-${setId}`).classList.remove('hidden');
             activeSet = setId;
         }
-        /**
-         * Start slideshow for specified set
-         * @param {string} setId - The set identifier ('set1' or 'set2')
-         */
+
         function startSlideshow(setId) {
-            // Hide all other sections
             document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
                 section.classList.add('hidden');
             });
-            // Show selected slideshow
             document.getElementById(`slideshow-${setId}`).classList.remove('hidden');
             activeSet = setId;
-            // Initialize the slideshow if it hasn't been created yet
             const setNumber = setId === 'set1' ? '1' : '2';
             const slidesContainer = document.getElementById(`slides-container${setNumber}`);
             if (!slidesContainer.children.length) {
@@ -1308,9 +1291,7 @@
             showSlide(1);
             hideSwipeIndicator(setId);
         }
-        /**
-         * Download PDF file from GitHub repository
-         */
+
         function downloadPDF() {
             const pdfUrl = CONFIG.githubBaseUrl + CONFIG.pdfFileName;
             const link = document.createElement('a');
@@ -1320,13 +1301,10 @@
             link.click();
             document.body.removeChild(link);
         }
+
         /* ===================================================== */
         /*                   MODAL FUNCTIONS                    */
         /* ===================================================== */
-        /**
-         * Show clue modal for specified slide
-         * @param {number} slideIndex - Index of the slide
-         */
         function showClue(slideIndex) {
             if (!activeSet) return;
             const pictures = CONFIG.collections[activeSet].pictures;
@@ -1335,10 +1313,7 @@
                 showModal('clue', 'Clue', picture.clue);
             }
         }
-        /**
-         * Show answer modal for specified slide
-         * @param {number} slideIndex - Index of the slide
-         */
+
         function showAnswer(slideIndex) {
             if (!activeSet) return;
             const pictures = CONFIG.collections[activeSet].pictures;
@@ -1353,28 +1328,19 @@
                 showModal('answer', 'Answer Not Yet Available', `Answers will be revealed on ${formattedDate}`);
             }
         }
-        /**
-         * Display modal with specified content
-         * @param {string} type - Modal type ('clue' or 'answer')
-         * @param {string} title - Modal title
-         * @param {string} text - Modal text content
-         * @param {string} info - Additional info (optional)
-         */
+
         function showModal(type, title, text, info = null) {
             const modal = document.getElementById('modal');
             const modalTitle = document.getElementById('modal-title');
             const modalText = document.getElementById('modal-text');
             const modalInfo = document.getElementById('modal-info');
-            // Set title with appropriate icon
             const iconSvg = type === 'clue' 
                 ? '<svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>'
                 : '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>';
             modalTitle.innerHTML = `${iconSvg} ${title}`;
             modalTitle.className = `modal-title ${type}-title`;
-            // Set text content and styling
             modalText.textContent = text;
             modalText.className = type === 'answer' && isRevealed ? 'modal-text answer-text' : 'modal-text';
-            // Handle info section
             if (info && type === 'answer' && isRevealed) {
                 modalInfo.textContent = info;
                 modalInfo.style.display = 'block';
@@ -1384,61 +1350,319 @@
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
-        /**
-         * Close the modal
-         */
+
         function closeModal() {
             const modal = document.getElementById('modal');
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-        /**
-         * Check if any modal is currently open
-         * @returns {boolean} True if modal is open
-         */
+
         function isModalOpen() {
             const modal = document.getElementById('modal');
             return modal && modal.style.display === 'flex';
         }
+
         /* ===================================================== */
         /*               CORE SLIDESHOW FUNCTIONS               */
         /* ===================================================== */
-        /**
-         * Check if answers should be revealed based on configured date/time
-         */
         function checkRevealDate() {
             const now = new Date();
             const revealDate = new Date(CONFIG.revealDateTime);
             isRevealed = now >= revealDate;
         }
-        /**
-         * Create slides for specified set
-         * @param {string} setId - The set identifier
-         */
+
         function createSlides(setId) {
             const setNumber = setId === 'set1' ? '1' : '2';
             const pictures = CONFIG.collections[setId].pictures;
             const slidesContainer = document.getElementById(`slides-container${setNumber}`);
             const dotsContainer = document.getElementById(`dots-container${setNumber}`);
-            // Update total slides counter
             document.getElementById(`total-slides${setNumber}`).textContent = pictures.length;
-            // Clear existing content
             slidesContainer.innerHTML = '';
             dotsContainer.innerHTML = '';
             pictures.forEach((picture, index) => {
-                // Create slide element
                 const slide = document.createElement('div');
                 slide.className = 'slide';
-                // Create clue button HTML (only if clue exists)
                 const clueButtonHTML = picture.clue ? 
                     `<button class="clue-btn" onclick="showClue(${index})" title="Get a clue">
                         <svg viewBox="0 0 24 24">
                             <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
                         </svg>
                     </button>` : '';
-                // Build slide HTML
                 slide.innerHTML = `
                     ${clueButtonHTML}
                     <div class="slide-number">${index + 1} / ${pictures.length}</div>
                     <div class="slide-image-container">
-                        <img
+                        <img src="${CONFIG.githubBaseUrl}${picture.filename}" 
+                             alt="Picture ${index + 1}" 
+                             onclick="openFullscreen(this)"
+                             loading="lazy"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlICR7aW5kZXggKyAxfTwvdGV4dD48L3N2Zz4='">
+                    </div>
+                    <div class="slide-bottom-section">
+                        <button class="answer-btn" onclick="showAnswer(${index})">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                            </svg>
+                            Show Answer
+                        </button>
+                    </div>
+                `;
+                slidesContainer.appendChild(slide);
+                const dot = document.createElement('span');
+                dot.className = `dot ${index === 0 ? 'active' : ''}`;
+                dot.onclick = () => showSlide(index + 1);
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function showSlide(n) {
+            if (!activeSet) return;
+            const setNumber = activeSet === 'set1' ? '1' : '2';
+            const pictures = CONFIG.collections[activeSet].pictures;
+            const slides = document.querySelectorAll(`#slides-container${setNumber} .slide`);
+            const dots = document.querySelectorAll(`#dots-container${setNumber} .dot`);
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            if (n > slides.length) currentSlide = 1;
+            else if (n < 1) currentSlide = slides.length;
+            else currentSlide = n;
+            const translateX = -(currentSlide - 1) * 100;
+            slidesContainer.style.transform = `translateX(${translateX}%)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (dots[currentSlide - 1]) {
+                dots[currentSlide - 1].classList.add('active');
+            }
+            document.getElementById(`current-slide${setNumber}`).textContent = currentSlide;
+            document.getElementById(`prevBtn${setNumber}`).disabled = currentSlide === 1;
+            document.getElementById(`nextBtn${setNumber}`).disabled = currentSlide === slides.length;
+        }
+
+        function changeSlide(n) {
+            if (isDragging || !activeSet || isFullscreenOpen) return;
+            showSlide(currentSlide + n);
+        }
+
+        /* ===================================================== */
+        /*                TOUCH/SWIPE HANDLING                  */
+        /* ===================================================== */
+        function handleTouchStart(e) {
+            if (!activeSet || isFullscreenOpen) return;
+            touchStartX = e.touches[0].clientX;
+            touchEndX = touchStartX;
+            isDragging = true;
+            isSwiping = false;
+        }
+
+        function handleTouchMove(e) {
+            if (!isDragging || !activeSet || isFullscreenOpen) return;
+            e.preventDefault();
+            touchEndX = e.touches[0].clientX;
+            const dragDistance = touchEndX - touchStartX;
+            const currentTranslate = -(currentSlide - 1) * 100;
+            const dragPercent = (dragDistance / window.innerWidth) * 100;
+            const newTranslate = currentTranslate + dragPercent;
+            const setNumber = activeSet === 'set1' ? '1' : '2';
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            slidesContainer.style.transition = 'none';
+            slidesContainer.style.transform = `translateX(${newTranslate}%)`;
+        }
+
+        function handleTouchEnd(e) {
+            if (!isDragging || !activeSet || isFullscreenOpen) return;
+            isDragging = false;
+            const setNumber = activeSet === 'set1' ? '1' : '2';
+            const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            slidesContainer.style.transition = 'transform 0.3s ease-out';
+            const swipeDistance = touchStartX - touchEndX;
+            const swipeThreshold = 50;
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0 && currentSlide < CONFIG.collections[activeSet].pictures.length) {
+                    currentSlide++;
+                } else if (swipeDistance < 0 && currentSlide > 1) {
+                    currentSlide--;
+                }
+            }
+            showSlide(currentSlide);
+            touchStartX = 0;
+            touchEndX = 0;
+        }
+
+        /* ===================================================== */
+        /*                FULLSCREEN FUNCTIONS                  */
+        /* ===================================================== */
+        function openFullscreen(img) {
+            const overlay = document.getElementById('fullscreen-overlay');
+            const fullscreenImg = document.getElementById('fullscreen-image');
+            fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+            fullscreenImg.src = img.src;
+            fullscreenImg.alt = img.alt;
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            isFullscreenOpen = true;
+        }
+
+        function closeFullscreen() {
+            const overlay = document.getElementById('fullscreen-overlay');
+            const fullscreenImg = document.getElementById('fullscreen-image');
+            fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
+            fullscreenImg.style.transformOrigin = 'center center';
+            fullscreenImg.style.transition = '';
+            fullscreenImg.src = '';
+            fullscreenImg.alt = '';
+            if (activeSet) {
+                const setNumber = activeSet === 'set1' ? '1' : '2';
+                const slideshowImages = document.querySelectorAll(`#slides-container${setNumber} img`);
+                slideshowImages.forEach(img => {
+                    img.style.transform = '';
+                    img.style.transformOrigin = '';
+                    img.style.transition = '';
+                });
+            }
+            overlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            isFullscreenOpen = false;
+        }
+
+        /* ===================================================== */
+        /*                 UTILITY FUNCTIONS                    */
+        /* ===================================================== */
+        function hideSwipeIndicator(setId) {
+            const setNumber = setId === 'set1' ? '1' : '2';
+            const indicator = document.getElementById(`swipeIndicator${setNumber}`);
+            setTimeout(() => {
+                if (indicator) {
+                    indicator.style.opacity = '0';
+                    setTimeout(() => {
+                        indicator.style.display = 'none';
+                    }, 1000);
+                }
+            }, 4000);
+        }
+
+        function initializeMenuButtons() {
+            const menuButtons = document.querySelectorAll('.menu-btn');
+            menuButtons.forEach((button, index) => {
+                if (index < 2) {
+                    const setKey = index === 0 ? 'set1' : 'set2';
+                    button.textContent = CONFIG.collections[setKey].buttonText;
+                }
+            });
+            document.querySelector('#slideshow-set1 .slideshow-title').textContent = CONFIG.collections.set1.title;
+            document.querySelector('#slideshow-set2 .slideshow-title').textContent = CONFIG.collections.set2.title;
+            initializeInstructionPages();
+        }
+
+        function initializeInstructionPages() {
+            Object.keys(CONFIG.instructions).forEach(setKey => {
+                const instructionData = CONFIG.instructions[setKey];
+                const instructionPage = document.getElementById(`instructions-${setKey}`);
+                if (instructionPage && instructionData) {
+                    const titleEl = instructionPage.querySelector('.instructions-title');
+                    if (titleEl) titleEl.textContent = instructionData.title;
+                    const contentEl = instructionPage.querySelector('.instructions-content');
+                    if (contentEl && instructionData.content) {
+                        let htmlContent = '';
+                        Object.keys(instructionData.content).forEach(sectionKey => {
+                            const sectionTitle = sectionKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                            htmlContent += `<h3>${sectionTitle}:</h3><ul>`;
+                            instructionData.content[sectionKey].forEach(item => {
+                                htmlContent += `<li>${item}</li>`;
+                            });
+                            htmlContent += '</ul>';
+                        });
+                        contentEl.innerHTML = htmlContent;
+                    }
+                }
+            });
+        }
+
+        /* ===================================================== */
+        /*                  EVENT LISTENERS                     */
+        /* ===================================================== */
+        document.addEventListener('keydown', (e) => {
+            if (isModalOpen() || isFullscreenOpen) {
+                if (e.key === 'Escape') {
+                    closeFullscreen();
+                    closeModal();
+                }
+                return;
+            }
+            if (activeSet) {
+                if (e.key === 'ArrowLeft') changeSlide(-1);
+                if (e.key === 'ArrowRight') changeSlide(1);
+            }
+            if (e.key === 'Escape') {
+                if (activeSet) showMainMenu();
+            }
+        });
+
+        document.addEventListener('touchstart', (e) => {
+            if (!isModalOpen()) {
+                handleTouchStart(e);
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isModalOpen()) {
+                handleTouchMove(e);
+            }
+        }, { passive: false });
+
+        document.addEventListener('touchend', (e) => {
+            if (!isModalOpen()) {
+                handleTouchEnd(e);
+            }
+        }, { passive: true });
+
+        document.getElementById('fullscreen-image').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('contextmenu', (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+
+        document.getElementById('modal').addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        document.getElementById('modal').addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        }, { passive: false });
+
+        document.getElementById('modal').addEventListener('touchend', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        document.getElementById('fullscreen-overlay').addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        document.getElementById('fullscreen-overlay').addEventListener('touchmove', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        document.getElementById('fullscreen-overlay').addEventListener('touchend', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        /* ===================================================== */
+        /*                   INITIALIZATION                     */
+        /* ===================================================== */
+        function initApp() {
+            checkRevealDate();
+            initializeMenuButtons();
+            showMainMenu();
+            setInterval(() => {
+                checkRevealDate();
+            }, 60000);
+        }
+
+        // Ensure DOM is fully loaded before initializing
+        document.addEventListener('DOMContentLoaded', initApp);
+
+    </script>
+</body>
+</html>
