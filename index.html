@@ -5,33 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Crooked Billet Collection</title>
     <style>
-        /* =================================================== */
-        /*                 EASY CONFIGURATION                 */
-        /* =================================================== */
-        /*
-        To modify settings, change the values in the JavaScript 
-        CONFIG object at the top of the script section below.
-        You can easily change:
-        - Reveal date and time
-        - GitHub repository URL
-        - Picture collections and descriptions
-        - Collection names and titles
-        - Instruction content for each collection
-        - PDF download file name
-        */
-        /* =================================================== */
-        /*                   CSS RESET                        */
-        /* =================================================== */
-        /* Global reset to ensure consistent styling across browsers */
+        /* Global reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        /* =================================================== */
-        /*                  BODY STYLING                      */
-        /* =================================================== */
-        /* Main body container with vibrant gradient background and flex layout */
+
+        /* Body styling */
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #ffd23f 50%, #06ffa5 75%, #1cb5e0 100%);
@@ -43,10 +24,8 @@
             justify-content: center;
             overflow-x: hidden;
         }
-        /* =================================================== */
-        /*                MAIN MENU STYLES                    */
-        /* =================================================== */
-        /* Container for the main menu screen */
+
+        /* Main menu styles */
         .main-menu {
             display: flex;
             flex-direction: column;
@@ -57,18 +36,19 @@
             max-width: 600px;
             text-align: center;
         }
-        /* Logo container */
+
         .logo-container {
             margin-bottom: 2rem;
             animation: fadeInUp 0.8s ease-out;
         }
+
         .logo-container img {
             max-width: 300px;
             width: 100%;
             height: auto;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
         }
-        /* Main title styling with bright colors */
+
         .main-title {
             color: #ffffff;
             font-size: clamp(2.5rem, 8vw, 4rem);
@@ -78,7 +58,7 @@
             letter-spacing: -0.02em;
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
-        /* Subtitle text below main title */
+
         .main-subtitle {
             color: rgba(255, 255, 255, 0.9);
             font-size: clamp(1rem, 3vw, 1.3rem);
@@ -86,7 +66,7 @@
             font-weight: 600;
             animation: fadeInUp 0.8s ease-out 0.4s both;
         }
-        /* Container for menu buttons */
+
         .menu-buttons {
             display: flex;
             flex-direction: column;
@@ -94,7 +74,7 @@
             width: 100%;
             max-width: 400px;
         }
-        /* Individual menu button styling with vibrant colors */
+
         .menu-btn {
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             backdrop-filter: blur(10px);
@@ -111,32 +91,18 @@
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
-        /* Shimmer effect for menu buttons */
-        .menu-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
-        }
-        /* Menu button hover effects */
+
         .menu-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.3);
             background: linear-gradient(135deg, #06ffa5 0%, #1cb5e0 100%);
             border-color: #ffd23f;
         }
-        .menu-btn:hover::before {
-            left: 100%;
-        }
-        /* Menu button active state */
+
         .menu-btn:active {
             transform: translateY(-1px);
         }
-        /* Fade-in animation keyframes */
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -147,20 +113,19 @@
                 transform: translateY(0);
             }
         }
-        /* =================================================== */
-        /*              INSTRUCTIONS PAGE STYLES              */
-        /* =================================================== */
-        /* Main container for instructions screens */
+
+        /* Instructions styles */
         .instructions-section {
             width: 100%;
             display: flex;
             align-items: center;
+            flex-direction: column;
             justify-content: center;
             min-height: 100vh;
             padding: 20px;
             text-align: center;
         }
-        /* Content box for instructions with glassmorphism */
+
         .instructions-container {
             width: 100%;
             max-width: 800px;
@@ -171,14 +136,8 @@
             padding: 40px;
             margin: 20px 0;
             border: 3px solid #06ffa5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            max-height: 90vh;
-            overflow-y: auto;
         }
-        /* Instructions page title styling */
+
         .instructions-title {
             color: #ff6b35;
             font-size: clamp(2rem, 6vw, 3rem);
@@ -187,7 +146,7 @@
             text-align: center;
             letter-spacing: -0.02em;
         }
-        /* Instructions text content styling */
+
         .instructions-content {
             color: #333;
             font-size: clamp(1.1rem, 2.5vw, 1.3rem);
@@ -195,7 +154,7 @@
             margin-bottom: 40px;
             text-align: left;
         }
-        /* Instructions subheading styling */
+
         .instructions-content h3 {
             color: #1cb5e0;
             font-size: clamp(1.3rem, 3vw, 1.5rem);
@@ -203,22 +162,23 @@
             margin-bottom: 15px;
             margin-top: 25px;
         }
-        /* Instructions list styling */
+
         .instructions-content ul {
             margin: 15px 0;
             padding-left: 25px;
         }
+
         .instructions-content li {
             margin-bottom: 8px;
         }
-        /* Container for instruction page buttons */
+
         .instructions-buttons {
             display: flex;
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
         }
-        /* Primary instruction button styling */
+
         .instructions-btn {
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: #ffffff;
@@ -232,32 +192,28 @@
             min-width: 150px;
             box-shadow: 0 8px 25px rgba(255,107,53,0.4);
         }
-        /* Instruction button hover effect */
+
         .instructions-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 35px rgba(255,107,53,0.6);
             background: linear-gradient(135deg, #06ffa5 0%, #1cb5e0 100%);
             border-color: #ffd23f;
         }
-        .instructions-btn:active {
-            transform: translateY(0);
-        }
-        /* Secondary instruction button variant */
+
         .instructions-btn.secondary {
             background: linear-gradient(135deg, #1cb5e0 0%, #06ffa5 100%);
             border: 3px solid #ffd23f;
             color: #ffffff;
             box-shadow: 0 8px 25px rgba(28,181,224,0.4);
         }
+
         .instructions-btn.secondary:hover {
             background: linear-gradient(135deg, #f7931e 0%, #ff6b35 100%);
             border-color: #ffd23f;
             box-shadow: 0 15px 35px rgba(28,181,224,0.6);
         }
-        /* =================================================== */
-        /*                SLIDESHOW STYLES                    */
-        /* =================================================== */
-        /* Main slideshow section container */
+
+        /* Slideshow styles */
         .slideshow-section {
             width: 100%;
             display: flex;
@@ -267,7 +223,7 @@
             min-height: 100vh;
             padding: 20px 0;
         }
-        /* Slideshow title (clickable to return to menu) */
+
         .slideshow-title {
             color: #ffffff;
             font-size: clamp(1.8rem, 5vw, 2.5rem);
@@ -282,11 +238,12 @@
             transition: all 0.3s ease;
             position: relative;
         }
+
         .slideshow-title:hover {
             transform: scale(1.02);
             text-shadow: 3px 3px 12px rgba(255,210,63,0.8);
         }
-        /* Main slideshow container with white background */
+
         .slideshow-container {
             width: 100%;
             max-width: 900px;
@@ -301,7 +258,7 @@
             display: flex;
             flex-direction: column;
         }
-        /* Wrapper for slides with touch handling */
+
         .slides-wrapper {
             position: relative;
             overflow: hidden;
@@ -311,14 +268,14 @@
             display: flex;
             flex-direction: column;
         }
-        /* Container that holds all slides horizontally */
+
         .slides-container {
             display: flex;
             width: 100%;
             height: 100%;
             transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        /* Individual slide styling */
+
         .slide {
             position: relative;
             text-align: center;
@@ -330,7 +287,7 @@
             flex-shrink: 0;
             height: 100%;
         }
-        /* Slide number indicator in top-right corner */
+
         .slide-number {
             position: absolute;
             top: 20px;
@@ -346,10 +303,7 @@
             border: 2px solid #ffd23f;
             box-shadow: 0 4px 15px rgba(255,107,53,0.4);
         }
-        /* =================================================== */
-        /*                CLUE BUTTON STYLES                  */
-        /* =================================================== */
-        /* Bright clue button in top-left corner */
+
         .clue-btn {
             position: absolute;
             top: 20px;
@@ -368,27 +322,20 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(255,210,63,0.4);
         }
+
         .clue-btn:hover {
             transform: scale(1.1);
             background: linear-gradient(135deg, #06ffa5 0%, #1cb5e0 100%);
             border-color: #ffd23f;
             box-shadow: 0 6px 20px rgba(255,210,63,0.6);
         }
-        .clue-btn:active {
-            transform: scale(0.95);
-        }
+
         .clue-btn svg {
             width: 20px;
             height: 20px;
             fill: #333;
         }
-        .clue-btn.hidden {
-            display: none;
-        }
-        /* =================================================== */
-        /*               ANSWER BUTTON STYLES                 */
-        /* =================================================== */
-        /* Updated answer button with vibrant colors */
+
         .answer-btn {
             background: linear-gradient(135deg, #1cb5e0 0%, #06ffa5 100%);
             color: #ffffff;
@@ -408,24 +355,21 @@
             min-width: 120px;
             align-self: center;
         }
+
         .answer-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(28,181,224,0.6);
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             border-color: #ffd23f;
         }
-        .answer-btn:active {
-            transform: translateY(0);
-        }
+
         .answer-btn svg {
             width: 16px;
             height: 16px;
             fill: #ffffff;
         }
-        /* =================================================== */
-        /*                  MODAL STYLES                      */
-        /* =================================================== */
-        /* Modal overlay for clues and answers */
+
+        /* Modal styles */
         .modal {
             position: fixed;
             top: 0;
@@ -440,7 +384,7 @@
             backdrop-filter: blur(5px);
             padding: 20px;
         }
-        /* Modal content box */
+
         .modal-content {
             background: #ffffff;
             padding: 30px;
@@ -455,7 +399,7 @@
             max-height: 80vh;
             overflow-y: auto;
         }
-        /* Modal slide-in animation */
+
         @keyframes modalSlideIn {
             from {
                 opacity: 0;
@@ -466,7 +410,7 @@
                 transform: scale(1) translateY(0);
             }
         }
-        /* Modal title with icon */
+
         .modal-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -477,32 +421,33 @@
             justify-content: center;
             gap: 10px;
         }
+
         .modal-title svg {
             width: 24px;
             height: 24px;
         }
-        /* Clue modal icon color */
+
         .modal-title.clue-title svg {
             fill: #ffd23f;
         }
-        /* Answer modal icon color */
+
         .modal-title.answer-title svg {
             fill: #1cb5e0;
         }
-        /* Modal text content */
+
         .modal-text {
             font-size: 1.1rem;
             color: #333;
             line-height: 1.6;
             margin-bottom: 25px;
         }
-        /* Answer text styling (bold when revealed) */
+
         .modal-text.answer-text {
             font-weight: 600;
             color: #ff6b35;
             font-size: 1.2rem;
         }
-        /* Additional info section in modals */
+
         .modal-info {
             font-size: 1rem;
             color: #666;
@@ -512,7 +457,7 @@
             border-top: 1px solid rgba(6,255,165,0.3);
             font-style: italic;
         }
-        /* Modal close button */
+
         .modal-close {
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: #ffffff;
@@ -525,15 +470,14 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(255,107,53,0.4);
         }
+
         .modal-close:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(255,107,53,0.6);
             background: linear-gradient(135deg, #1cb5e0 0%, #06ffa5 100%);
         }
-        /* =================================================== */
-        /*               SLIDE IMAGE STYLES                   */
-        /* =================================================== */
-        /* Container for slide images */
+
+        /* Slide image styles */
         .slide-image-container {
             flex: 1;
             display: flex;
@@ -543,7 +487,7 @@
             overflow: hidden;
             min-height: 0;
         }
-        /* Slide image styling - frame matches image size, no rounded corners */
+
         .slide img {
             max-width: 100%;
             max-height: 100%;
@@ -551,84 +495,17 @@
             height: auto;
             object-fit: contain;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            cursor: pointer;
-            transition: transform 0.2s ease;
             border: 3px solid #06ffa5;
         }
-        .slide img:active {
-            transform: scale(0.98);
-        }
-        /* =================================================== */
-        /*              FULLSCREEN OVERLAY STYLES             */
-        /* =================================================== */
-        /* Fullscreen image overlay */
-        .fullscreen-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            touch-action: manipulation;
-        }
-        /* Fullscreen image styling with zoom capability */
-        .fullscreen-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-            box-shadow: 0 0 50px rgba(6,255,165,0.5);
-            cursor: default;
-            touch-action: manipulation;
-        }
-        /* Fullscreen close button */
-        .fullscreen-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #ffffff;
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 2001;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            border: 3px solid #ffd23f;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
-        }
-        .fullscreen-close:hover {
-            background: linear-gradient(135deg, #06ffa5 0%, #1cb5e0 100%);
-            border-color: #ffd23f;
-            transform: scale(1.1);
-        }
-        /* =================================================== */
-        /*               SLIDE BOTTOM SECTION                 */
-        /* =================================================== */
-        /* Container for answer button at bottom of slide */
+
         .slide-bottom-section {
             display: flex;
             flex-direction: column;
             gap: 10px;
             flex-shrink: 0;
         }
-        /* =================================================== */
-        /*               NAVIGATION STYLES                    */
-        /* =================================================== */
-        /* Bottom navigation bar with prev/next buttons */
+
+        /* Navigation styles */
         .navigation {
             display: flex;
             justify-content: space-between;
@@ -639,7 +516,7 @@
             flex-shrink: 0;
             border-top: 3px solid #ffd23f;
         }
-        /* Navigation buttons (prev/next) */
+
         .nav-btn {
             background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
             color: #333;
@@ -657,6 +534,7 @@
             justify-content: center;
             box-shadow: 0 4px 15px rgba(6,255,165,0.4);
         }
+
         .nav-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(6,255,165,0.6);
@@ -664,11 +542,7 @@
             border-color: #06ffa5;
             color: #333;
         }
-        .nav-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 10px rgba(6,255,165,0.4);
-        }
-        /* Disabled navigation button styling */
+
         .nav-btn:disabled {
             background: #ccc;
             color: #666;
@@ -677,7 +551,7 @@
             box-shadow: none;
             border-color: #999;
         }
-        /* Slide counter display */
+
         .slide-counter {
             font-weight: 600;
             color: #ffffff;
@@ -689,10 +563,8 @@
             backdrop-filter: blur(10px);
             border: 2px solid #ffd23f;
         }
-        /* =================================================== */
-        /*                 DOT NAVIGATION                      */
-        /* =================================================== */
-        /* Container for dot navigation at bottom */
+
+        /* Dot navigation */
         .dots-container {
             text-align: center;
             padding: 20px;
@@ -702,7 +574,7 @@
             flex-shrink: 0;
             border-top: 2px solid #ffd23f;
         }
-        /* Individual navigation dots */
+
         .dot {
             height: 10px;
             width: 10px;
@@ -714,16 +586,14 @@
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: 2px solid #ffd23f;
         }
-        /* Active and hover dot styling */
+
         .dot:hover, .dot.active {
             background-color: #ffd23f;
             transform: scale(1.4);
             border-color: #ff6b35;
         }
-        /* =================================================== */
-        /*               SWIPE INDICATOR                       */
-        /* =================================================== */
-        /* Animated swipe instruction text */
+
+        /* Swipe indicator */
         .swipe-indicator {
             position: absolute;
             bottom: 150px;
@@ -736,252 +606,37 @@
             z-index: 10;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
-        /* Fade in/out animation for swipe indicator */
+
         @keyframes fadeInOut {
             0%, 100% { opacity: 0; }
             50% { opacity: 1; }
         }
-        /* =================================================== */
-        /*               UTILITY CLASSES                       */
-        /* =================================================== */
-        /* Hide elements completely */
+
+        /* Utility classes */
         .hidden {
             display: none !important;
         }
-        /* =================================================== */
-        /*               RESPONSIVE DESIGN                     */
-        /* =================================================== */
-        /* Desktop specific styles (1200px and above) */
-        @media (min-width: 1200px) {
-            body {
-                padding: 20px;
-            }
-            .slideshow-container {
-                max-width: 1000px;
-                height: 80vh;
-                min-height: 600px;
-                max-height: 800px;
-            }
-            .slide {
-                padding: 25px;
-            }
-            .logo-container img {
-                max-width: 350px;
-            }
-        }
-        /* Tablet optimizations (768px to 1199px) - More like mobile */
-        @media (max-width: 1199px) and (min-width: 769px) {
-            body {
-                padding: 10px;
-            }
-            .main-menu {
-                min-height: 75vh;
-                padding: 2rem 1rem;
-            }
-            .menu-buttons {
-                gap: 1.2rem;
-                max-width: 350px;
-            }
-            .menu-btn {
-                padding: 1rem 1.5rem;
-                font-size: clamp(1rem, 2.8vw, 1.2rem);
-            }
-            .slideshow-container {
-                border-radius: 15px;
-                margin: 0 10px;
-                height: 85vh;
-                min-height: auto;
-                max-width: 700px;
-            }
-            .slide {
-                padding: 18px;
-            }
-            .slide img {
-                margin-bottom: 10px;
-            }
-            .nav-btn {
-                padding: 12px 16px;
-                font-size: 14px;
-                min-width: 90px;
-            }
-            .slide-counter {
-                font-size: 15px;
-                padding: 6px 14px;
-            }
-            .answer-btn {
-                padding: 10px 16px;
-                font-size: 13px;
-                min-width: 110px;
-            }
-            .slide-number {
-                top: 15px;
-                right: 15px;
-                padding: 6px 12px;
-                font-size: 13px;
-            }
-            .clue-btn {
-                width: 38px;
-                height: 38px;
-                top: 15px;
-                left: 15px;
-            }
-            .clue-btn svg {
-                width: 19px;
-                height: 19px;
-            }
-            .dots-container {
-                padding: 18px 12px;
-            }
-            .dot {
-                height: 9px;
-                width: 9px;
-                margin: 0 3px;
-            }
-            .instructions-container {
-                padding: 35px 30px;
-                margin: 15px;
-                max-width: 650px;
-            }
-            .instructions-buttons {
-                gap: 15px;
-            }
-            .instructions-btn {
-                min-width: 140px;
-            }
-            .modal-content {
-                padding: 28px;
-                margin: 15px;
-                max-width: 450px;
-            }
-            .logo-container img {
-                max-width: 280px;
-            }
-        }
-        /* Mobile optimizations (768px and below) */
+
+        /* Responsive design */
         @media (max-width: 768px) {
-            body {
-                padding: 5px;
-            }
-            .main-menu {
-                min-height: 70vh;
-                padding: 2rem 1rem;
-            }
-            .menu-buttons {
-                gap: 1rem;
-            }
-            .menu-btn {
-                padding: 1rem 1.5rem;
-            }
             .slideshow-container {
-                border-radius: 15px;
-                margin: 0;
                 height: 90vh;
-                min-height: auto;
             }
+            
             .slide {
                 padding: 15px;
             }
-            .slide img {
-                margin-bottom: 8px;
-            }
+            
             .nav-btn {
                 padding: 12px 16px;
                 font-size: 14px;
                 min-width: 80px;
             }
-            .slide-counter {
-                font-size: 14px;
-                padding: 6px 12px;
-            }
-            .answer-btn {
-                padding: 10px 16px;
-                font-size: 13px;
-                min-width: 100px;
-            }
-            .slide-number {
-                top: 15px;
-                right: 15px;
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-            .clue-btn {
-                width: 35px;
-                height: 35px;
-                top: 15px;
-                left: 15px;
-            }
-            .clue-btn svg {
-                width: 18px;
-                height: 18px;
-            }
-            .dots-container {
-                padding: 15px 10px;
-            }
-            .dot {
-                height: 8px;
-                width: 8px;
-                margin: 0 3px;
-            }
-            .instructions-container {
-                padding: 30px 25px;
-                margin: 10px;
-            }
-            .instructions-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            .instructions-btn {
-                width: 100%;
-                max-width: 280px;
-            }
-            .modal-content {
-                padding: 25px;
-                margin: 10px;
-            }
-            .logo-container img {
-                max-width: 250px;
-            }
-        }
-        /* Small mobile optimizations (480px and below) */
-        @media (max-width: 480px) {
-            .navigation {
-                padding: 15px;
-                gap: 10px;
-            }
-            .nav-btn {
-                padding: 10px 12px;
-                font-size: 13px;
-                min-width: 70px;
-            }
-            .slide-counter {
-                font-size: 13px;
-                padding: 5px 10px;
-            }
-            .instructions-container {
-                padding: 25px 20px;
-            }
-            .instructions-content {
-                font-size: 1rem;
-            }
-            .modal-content {
-                padding: 20px;
-            }
-            .answer-btn {
-                padding: 8px 12px;
-                font-size: 12px;
-                min-width: 90px;
-            }
-            .logo-container img {
-                max-width: 220px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- =================================================== -->
-    <!--                  MAIN MENU SCREEN                  -->
-    <!-- =================================================== -->
-    <!-- Landing page with title and navigation buttons -->
+    <!-- Main menu -->
     <div class="main-menu" id="main-menu">
         <div class="logo-container">
             <img src="https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png" alt="RumHam" />
@@ -989,162 +644,99 @@
         <h1 class="main-title">Crooked Billet Quiz</h1>
         <p class="main-subtitle">Pick A Table Top</p>
         <div class="menu-buttons">
-            <!-- Set 1 button - dynamically populated from CONFIG -->
             <button class="menu-btn" onclick="showInstructions('set1')">Set1</button>
-            <!-- Set 2 button - dynamically populated from CONFIG -->
             <button class="menu-btn" onclick="showInstructions('set2')">Set2</button>
-            <!-- PDF Download button - downloads file from GitHub -->
             <button class="menu-btn" onclick="downloadPDF()">Download PDF</button>
         </div>
     </div>
-    <!-- =================================================== -->
-    <!--              INSTRUCTIONS PAGE 1                   -->
-    <!-- =================================================== -->
-    <!-- Instructions screen for Set 1 -->
+
+    <!-- Instructions Set 1 -->
     <div class="instructions-section hidden" id="instructions-set1">
         <div class="instructions-container">
             <h2 class="instructions-title">Set 1</h2>
-            <!-- Instructions content - dynamically populated from CONFIG -->
             <div class="instructions-content">
                 <h3>How to Play:</h3>
                 <ul>
                     <li>Instruction1</li>
                 </ul>
             </div>
-            <!-- Action buttons for instructions page -->
             <div class="instructions-buttons">
                 <button class="instructions-btn" onclick="startSlideshow('set1')">Start Slideshow</button>
                 <button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
             </div>
         </div>
     </div>
-    <!-- =================================================== -->
-    <!--                SLIDESHOW SECTION 1                 -->
-    <!-- =================================================== -->
-    <!-- Main slideshow interface for Set 1 -->
+
+    <!-- Slideshow Set 1 -->
     <div class="slideshow-section hidden" id="slideshow-set1">
-        <!-- Clickable title returns to main menu -->
         <h1 class="slideshow-title" onclick="showMainMenu()">Set1</h1>
-        <!-- Animated swipe instruction indicator -->
         <div class="swipe-indicator" id="swipeIndicator1">← Swipe to navigate →</div>
-        <!-- Main slideshow container -->
         <div class="slideshow-container">
-            <!-- Slides wrapper with touch handling -->
             <div class="slides-wrapper" id="slides-wrapper1">
-                <!-- Container for all slides (populated by JavaScript) -->
                 <div class="slides-container" id="slides-container1"></div>
             </div>
-            <!-- Bottom navigation bar -->
             <div class="navigation">
-                <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn1">
-                    ◀ Prev
-                </button>
+                <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn1">◀ Prev</button>
                 <div class="slide-counter">
                     <span id="current-slide1">1</span> / <span id="total-slides1">25</span>
                 </div>
-                <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn1">
-                    Next ▶
-                </button>
+                <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn1">Next ▶</button>
             </div>
-            <!-- Dot navigation indicators -->
             <div class="dots-container" id="dots-container1"></div>
         </div>
     </div>
-    <!-- =================================================== -->
-    <!--              INSTRUCTIONS PAGE 2                   -->
-    <!-- =================================================== -->
-    <!-- Instructions screen for Set 2 -->
+
+    <!-- Instructions Set 2 -->
     <div class="instructions-section hidden" id="instructions-set2">
         <div class="instructions-container">
             <h2 class="instructions-title">Set2</h2>
-            <!-- Instructions content - dynamically populated from CONFIG -->
             <div class="instructions-content">
                 <h3>How to Play:</h3>
                 <ul>
                     <li>Instruction2</li>
                 </ul>
             </div>
-            <!-- Action buttons for instructions page -->
             <div class="instructions-buttons">
                 <button class="instructions-btn" onclick="startSlideshow('set2')">Start Slideshow</button>
                 <button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
             </div>
         </div>
     </div>
-    <!-- =================================================== -->
-    <!--                SLIDESHOW SECTION 2                 -->
-    <!-- =================================================== -->
-    <!-- Main slideshow interface for Set 2 -->
+
+    <!-- Slideshow Set 2 -->
     <div class="slideshow-section hidden" id="slideshow-set2">
-        <!-- Clickable title returns to main menu -->
         <h1 class="slideshow-title" onclick="showMainMenu()">Set2</h1>
-        <!-- Animated swipe instruction indicator -->
         <div class="swipe-indicator" id="swipeIndicator2">← Swipe to navigate →</div>
-        <!-- Main slideshow container -->
         <div class="slideshow-container">
-            <!-- Slides wrapper with touch handling -->
             <div class="slides-wrapper" id="slides-wrapper2">
-                <!-- Container for all slides (populated by JavaScript) -->
                 <div class="slides-container" id="slides-container2"></div>
             </div>
-            <!-- Bottom navigation bar -->
             <div class="navigation">
-                <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn2">
-                    ◀ Prev
-                </button>
+                <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn2">◀ Prev</button>
                 <div class="slide-counter">
                     <span id="current-slide2">1</span> / <span id="total-slides2">10</span>
                 </div>
-                <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn2">
-                    Next ▶
-                </button>
+                <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn2">Next ▶</button>
             </div>
-            <!-- Dot navigation indicators -->
             <div class="dots-container" id="dots-container2"></div>
         </div>
     </div>
-    <!-- =================================================== -->
-    <!--               FULLSCREEN OVERLAY                   -->
-    <!-- =================================================== -->
-    <!-- Fullscreen image viewer with zoom capability -->
-    <div class="fullscreen-overlay" id="fullscreen-overlay" onclick="closeFullscreen()">
-        <!-- Close button -->
-        <div class="fullscreen-close" onclick="closeFullscreen()">&times;</div>
-        <!-- Fullscreen image with pinch-zoom enabled -->
-        <img class="fullscreen-image" id="fullscreen-image" src="" alt="">
-    </div>
-    <!-- =================================================== -->
-    <!--                UNIVERSAL MODAL                     -->
-    <!-- =================================================== -->
-    <!-- Modal popup for clues and answers -->
+
+    <!-- Modal -->
     <div class="modal" id="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <!-- Modal title with icon -->
             <h3 class="modal-title" id="modal-title"></h3>
-            <!-- Main modal text content -->
             <div class="modal-text" id="modal-text"></div>
-            <!-- Additional info section -->
             <div class="modal-info" id="modal-info"></div>
-            <!-- Close button -->
             <button class="modal-close" onclick="closeModal()">Got it!</button>
         </div>
     </div>
+
     <script>
-        /* ===================================================== */
-        /*              🔧 EASY CONFIGURATION                   */
-        /* ===================================================== */
         const CONFIG = {
-            // 🕐 REVEAL DATE & TIME
-            // Format: 'YYYY-MM-DD HH:MM:SS'
             revealDateTime: '2025-09-08 23:30:00',
-            // 🌐 GITHUB REPOSITORY URL
-            // Your GitHub Pages base URL (include trailing slash)
             githubBaseUrl: 'https://philipestevenson-rumham.github.io/CrookedBillet/',
-            // 📄 PDF DOWNLOAD FILENAME
-            // Name of PDF file to download from GitHub repository
             pdfFileName: 'CrookedBillet.pdf',
-            // 📖 INSTRUCTION CONTENT
-            // Customize the instructions for each collection
             instructions: {
                 set1: {
                     title: "Jack-o'-lantern",
@@ -1154,7 +746,6 @@
                             'Click the lightbulb icon for a clue if you need help',
                             'Click the "Show Answer" button to reveal the answer',
                             'Use the navigation buttons or swipe to move between images',
-                            'Click any image to view it in fullscreen with zoom capability',
                             'Click the Title to return to the Main Menu'
                         ]
                     }
@@ -1167,13 +758,11 @@
                             'Click the lightbulb icon for a clue if you need help',
                             'Click the "Show Answer" button to reveal the answer',
                             'Use the navigation buttons or swipe to move between images',
-                            'Click any image to view it in fullscreen with zoom capability',
                             'Click the Title to return to the Main Menu'
                         ]
                     }
                 }
             },
-            // 🖼️ PICTURE COLLECTIONS
             collections: {
                 set1: {
                     title: "Jack-o'-lantern",
@@ -1203,63 +792,53 @@
 { filename: 'R01.Q22.png', description: 'Jacqueline Kennedy' },
 { filename: 'R01.Q23.png', description: 'Jack Straw' },
 { filename: 'R01.Q24.png', description: 'Jack Davenport' },
-{ filename: 'R01.Q25.png', description: 'Jacqueline Wilson' },
-                      
+{ filename: 'R01.Q25.png', description: 'Jacqueline Wilson' },                      
                     ]
                 },
-                 set2: {
+                set2: {
                     title: 'OCD Famous Movie Quotes 04',
                     buttonText: 'OCD Famous Movie Quotes 04',
                     pictures: [
-                                { filename: 'R02.Q01.png', description: 'Frankenstein', clue: 'Year: 1931', info: 'Henry Frankenstein (Colin Clive): Its alive! Its alive!' },
-                                { filename: 'R02.Q02.png', description: 'Gone with the Wind', clue: 'Year: 1939', info: 'Rhett Butler (Clark Gable): Frankly, my dear, I dont give a damn.' },
-                                { filename: 'R02.Q03.png', description: 'The Wizard of Oz', clue: 'Year: 1939', info: 'Dorothy Gale (Judy Garland): Toto, Ive a feeling were not in Kansas anymore.' },
-                                { filename: 'R02.Q04.png', description: 'Casablanca', clue: 'Year: 1942', info: 'Rick Blaine (Humphrey Bogart): Heres looking at you, kid.' },
-                                { filename: 'R02.Q05.png', description: 'To Have and Have Not', clue: 'Year: 1944', info: 'Marie Slim Browning (Lauren Bacall): You know how to whistle, dont you, Steve? You just put your lips together and blow.' },
-                                { filename: 'R02.Q06.png', description: 'All About Eve', clue: 'Year: 1950', info: 'Margo Channing (Bette Davis): Fasten your seatbelts. Its going to be a bumpy night.' },
-                                { filename: 'R02.Q07.png', description: 'A Streetcar Named Desire', clue: 'Year: 1951', info: 'Blanche DuBois (Vivien Leigh): I have always depended on the kindness of strangers.' },
-                                { filename: 'R02.Q08.png', description: 'Some Like It Hot', clue: 'Year: 1959', info: 'Osgood Fielding III (Joe E. Brown): Well, nobodys perfect.' },
-                                { filename: 'R02.Q09.png', description: 'Dr. Strangelove', clue: 'Year: 1964', info: 'President Merkin Muffley (Peter Sellers): Gentlemen, you cant fight in here! This is the War Room!' },
-                                { filename: 'R02.Q10.png', description: 'Cool Hand Luke', clue: 'Year: 1967', info: 'Captain (Strother Martin): What weve got here is failure to communicate.' },
-                                { filename: 'R02.Q11.png', description: '2001: A Space Odyssey', clue: 'Year: 1968', info: 'Dave Bowman (Keir Dullea): Open the pod bay doors, HAL.' },
-                                { filename: 'R02.Q12.png', description: 'Love Story', clue: 'Year: 1970', info: 'Jennifer Cavalleri (Ali MacGraw): Love means never having to say youre sorry.' },
-                                { filename: 'R02.Q13.png', description: 'The Godfather Part II', clue: 'Year: 1974', info: 'Michael Corleone (Al Pacino): Keep your friends close, but your enemies closer.' },
-                                { filename: 'R02.Q14.png', description: 'Rocky', clue: 'Year: 1976', info: 'Rocky Balboa (Sylvester Stallone): Yo, Adrian!' },
-                                { filename: 'R02.Q15.png', description: 'National Lampoons Animal House', clue: 'Year: 1978', info: 'John Bluto Blutarsky (John Belushi): Toga! Toga!' },
-                                { filename: 'R02.Q16.png', description: 'E.T. the Extra-Terrestrial', clue: 'Year: 1982', info: 'E.T. (Pat Welsh): E.T. phone home.' },
-                                { filename: 'R02.Q17.png', description: 'The Terminator', clue: 'Year: 1984', info: 'The Terminator (Arnold Schwarzenegger): Ill be back.' },
-                                { filename: 'R02.Q18.png', description: 'The Princess Bride', clue: 'Year: 1987', info: 'Inigo Montoya (Mandy Patinkin): My name is Inigo Montoya. You killed my father. Prepare to die.' },
-                                { filename: 'R02.Q19.png', description: 'Field of Dreams', clue: 'Year: 1989', info: 'Shoeless Joe Jackson (Ray Liotta): If you build it, he will come.' },
-                                { filename: 'R02.Q20.png', description: 'The Silence of the Lambs', clue: 'Year: 1991', info: 'Hannibal Lecter (Anthony Hopkins): A census taker once tried to test me. I ate his liver with some fava beans and a nice Chianti.' },
-                                { filename: 'R02.Q21.png', description: 'Pulp Fiction', clue: 'Year: 1994', info: 'Jules (Samuel L. Jackson): English, motherfucker! Do you speak it?' },
-                                { filename: 'R02.Q22.png', description: 'Jerry Maguire', clue: 'Year: 1996', info: 'Dorothy Boyd (Renée Zellweger): You had me at Hello.' },
-                                { filename: 'R02.Q23.png', description: 'American Pie', clue: 'Year: 1999', info: 'Michelle (Alyson Hannigan): This one time at band camp…' },
-                                { filename: 'R02.Q24.png', description: 'Mean Girls', clue: 'Year: 2004', info: 'Gretchen Weiners (Lacey Chabert): You cant sit with us!' },
-                                { filename: 'R02.Q25.png', description: 'The Dark Knight', clue: 'Year: 2008', info: 'The Joker (Heath Ledge): Why so serious?' },
+                        { filename: 'R02.Q01.png', description: 'Frankenstein', clue: 'Year: 1931', info: 'Henry Frankenstein (Colin Clive): Its alive! Its alive!' },
+                        { filename: 'R02.Q02.png', description: 'Gone with the Wind', clue: 'Year: 1939', info: 'Rhett Butler (Clark Gable): Frankly, my dear, I dont give a damn.' },
+                        { filename: 'R02.Q03.png', description: 'The Wizard of Oz', clue: 'Year: 1939', info: 'Dorothy Gale (Judy Garland): Toto, Ive a feeling were not in Kansas anymore.' },
+                        { filename: 'R02.Q04.png', description: 'Casablanca', clue: 'Year: 1942', info: 'Rick Blaine (Humphrey Bogart): Heres looking at you, kid.' },
+                        { filename: 'R02.Q05.png', description: 'To Have and Have Not', clue: 'Year: 1944', info: 'Marie Slim Browning (Lauren Bacall): You know how to whistle, dont you, Steve? You just put your lips together and blow.' },
+                        { filename: 'R02.Q06.png', description: 'All About Eve', clue: 'Year: 1950', info: 'Margo Channing (Bette Davis): Fasten your seatbelts. Its going to be a bumpy night.' },
+                        { filename: 'R02.Q07.png', description: 'A Streetcar Named Desire', clue: 'Year: 1951', info: 'Blanche DuBois (Vivien Leigh): I have always depended on the kindness of strangers.' },
+                        { filename: 'R02.Q08.png', description: 'Some Like It Hot', clue: 'Year: 1959', info: 'Osgood Fielding III (Joe E. Brown): Well, nobodys perfect.' },
+                        { filename: 'R02.Q09.png', description: 'Dr. Strangelove', clue: 'Year: 1964', info: 'President Merkin Muffley (Peter Sellers): Gentlemen, you cant fight in here! This is the War Room!' },
+                        { filename: 'R02.Q10.png', description: 'Cool Hand Luke', clue: 'Year: 1967', info: 'Captain (Strother Martin): What weve got here is failure to communicate.' },
+                        { filename: 'R02.Q11.png', description: '2001: A Space Odyssey', clue: 'Year: 1968', info: 'Dave Bowman (Keir Dullea): Open the pod bay doors, HAL.' },
+                        { filename: 'R02.Q12.png', description: 'Love Story', clue: 'Year: 1970', info: 'Jennifer Cavalleri (Ali MacGraw): Love means never having to say youre sorry.' },
+                        { filename: 'R02.Q13.png', description: 'The Godfather Part II', clue: 'Year: 1974', info: 'Michael Corleone (Al Pacino): Keep your friends close, but your enemies closer.' },
+                        { filename: 'R02.Q14.png', description: 'Rocky', clue: 'Year: 1976', info: 'Rocky Balboa (Sylvester Stallone): Yo, Adrian!' },
+                        { filename: 'R02.Q15.png', description: 'National Lampoons Animal House', clue: 'Year: 1978', info: 'John Bluto Blutarsky (John Belushi): Toga! Toga!' },
+                        { filename: 'R02.Q16.png', description: 'E.T. the Extra-Terrestrial', clue: 'Year: 1982', info: 'E.T. (Pat Welsh): E.T. phone home.' },
+                        { filename: 'R02.Q17.png', description: 'The Terminator', clue: 'Year: 1984', info: 'The Terminator (Arnold Schwarzenegger): Ill be back.' },
+                        { filename: 'R02.Q18.png', description: 'The Princess Bride', clue: 'Year: 1987', info: 'Inigo Montoya (Mandy Patinkin): My name is Inigo Montoya. You killed my father. Prepare to die.' },
+                        { filename: 'R02.Q19.png', description: 'Field of Dreams', clue: 'Year: 1989', info: 'Shoeless Joe Jackson (Ray Liotta): If you build it, he will come.' },
+                        { filename: 'R02.Q20.png', description: 'The Silence of the Lambs', clue: 'Year: 1991', info: 'Hannibal Lecter (Anthony Hopkins): A census taker once tried to test me. I ate his liver with some fava beans and a nice Chianti.' },
+                        { filename: 'R02.Q21.png', description: 'Pulp Fiction', clue: 'Year: 1994', info: 'Jules (Samuel L. Jackson): English, motherfucker! Do you speak it?' },
+                        { filename: 'R02.Q22.png', description: 'Jerry Maguire', clue: 'Year: 1996', info: 'Dorothy Boyd (Renée Zellweger): You had me at Hello.' },
+                        { filename: 'R02.Q23.png', description: 'American Pie', clue: 'Year: 1999', info: 'Michelle (Alyson Hannigan): This one time at band camp…' },
+                        { filename: 'R02.Q24.png', description: 'Mean Girls', clue: 'Year: 2004', info: 'Gretchen Weiners (Lacey Chabert): You cant sit with us!' },
+                        { filename: 'R02.Q25.png', description: 'The Dark Knight', clue: 'Year: 2008', info: 'The Joker (Heath Ledge): Why so serious?' }
                     ]
                 }
             }
         };
+        
+        // Global variables
+        let currentSlide = 1;
+        let activeSet = null;
+        let isRevealed = false;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isSwiping = false;
+        let isDragging = false;
 
-        /* ===================================================== */
-        /*                🔧 SYSTEM CODE BELOW                  */
-        /*            (No need to modify this part)             */
-        /* ===================================================== */
-        /* ===================================================== */
-        /*                   GLOBAL VARIABLES                   */
-        /* ===================================================== */
-        let currentSlide = 1;           // Current slide index
-        let activeSet = null;           // Currently active set ('set1' or 'set2')
-        let isRevealed = false;         // Whether answers are revealed based on date
-        let touchStartX = 0;            // Touch start X coordinate for swipe detection
-        let touchEndX = 0;              // Touch end X coordinate for swipe detection
-        let isSwiping = false;          // Whether user is currently swiping
-        let isDragging = false;         // Whether user is currently dragging
-        let isFullscreenOpen = false;   // Track if fullscreen is currently open
-
-        /* ===================================================== */
-        /*                 NAVIGATION FUNCTIONS                  */
-        /* ===================================================== */
+        // Navigation functions
         function showMainMenu() {
             document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
                 section.classList.add('hidden');
@@ -1284,6 +863,7 @@
             });
             document.getElementById(`slideshow-${setId}`).classList.remove('hidden');
             activeSet = setId;
+            
             const setNumber = setId === 'set1' ? '1' : '2';
             const slidesContainer = document.getElementById(`slides-container${setNumber}`);
             if (!slidesContainer.children.length) {
@@ -1303,9 +883,7 @@
             document.body.removeChild(link);
         }
 
-        /* ===================================================== */
-        /*                   MODAL FUNCTIONS                    */
-        /* ===================================================== */
+        // Modal functions
         function showClue(slideIndex) {
             if (!activeSet) return;
             const pictures = CONFIG.collections[activeSet].pictures;
@@ -1320,6 +898,7 @@
             const pictures = CONFIG.collections[activeSet].pictures;
             const picture = pictures[slideIndex];
             if (!picture) return;
+            
             checkRevealDate();
             if (isRevealed) {
                 showModal('answer', 'Answer', picture.description, picture.info);
@@ -1335,19 +914,23 @@
             const modalTitle = document.getElementById('modal-title');
             const modalText = document.getElementById('modal-text');
             const modalInfo = document.getElementById('modal-info');
+            
             const iconSvg = type === 'clue' 
                 ? '<svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>'
                 : '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>';
+            
             modalTitle.innerHTML = `${iconSvg} ${title}`;
             modalTitle.className = `modal-title ${type}-title`;
             modalText.textContent = text;
             modalText.className = type === 'answer' && isRevealed ? 'modal-text answer-text' : 'modal-text';
+            
             if (info && type === 'answer' && isRevealed) {
                 modalInfo.textContent = info;
                 modalInfo.style.display = 'block';
             } else {
                 modalInfo.style.display = 'none';
             }
+            
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -1363,9 +946,7 @@
             return modal && modal.style.display === 'flex';
         }
 
-        /* ===================================================== */
-        /*               CORE SLIDESHOW FUNCTIONS               */
-        /* ===================================================== */
+        // Core slideshow functions
         function checkRevealDate() {
             const now = new Date();
             const revealDate = new Date(CONFIG.revealDateTime);
@@ -1377,25 +958,28 @@
             const pictures = CONFIG.collections[setId].pictures;
             const slidesContainer = document.getElementById(`slides-container${setNumber}`);
             const dotsContainer = document.getElementById(`dots-container${setNumber}`);
+            
             document.getElementById(`total-slides${setNumber}`).textContent = pictures.length;
             slidesContainer.innerHTML = '';
             dotsContainer.innerHTML = '';
+            
             pictures.forEach((picture, index) => {
                 const slide = document.createElement('div');
                 slide.className = 'slide';
+                
                 const clueButtonHTML = picture.clue ? 
                     `<button class="clue-btn" onclick="showClue(${index})" title="Get a clue">
                         <svg viewBox="0 0 24 24">
                             <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
                         </svg>
                     </button>` : '';
+                
                 slide.innerHTML = `
                     ${clueButtonHTML}
                     <div class="slide-number">${index + 1} / ${pictures.length}</div>
                     <div class="slide-image-container">
                         <img src="${CONFIG.githubBaseUrl}${picture.filename}" 
                              alt="Picture ${index + 1}" 
-                             onclick="openFullscreen(this)"
                              loading="lazy"
                              onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlICR7aW5kZXggKyAxfTwvdGV4dD48L3N2Zz4='">
                     </div>
@@ -1409,6 +993,7 @@
                     </div>
                 `;
                 slidesContainer.appendChild(slide);
+                
                 const dot = document.createElement('span');
                 dot.className = `dot ${index === 0 ? 'active' : ''}`;
                 dot.onclick = () => showSlide(index + 1);
@@ -1423,30 +1008,32 @@
             const slides = document.querySelectorAll(`#slides-container${setNumber} .slide`);
             const dots = document.querySelectorAll(`#dots-container${setNumber} .dot`);
             const slidesContainer = document.getElementById(`slides-container${setNumber}`);
+            
             if (n > slides.length) currentSlide = 1;
             else if (n < 1) currentSlide = slides.length;
             else currentSlide = n;
+            
             const translateX = -(currentSlide - 1) * 100;
             slidesContainer.style.transform = `translateX(${translateX}%)`;
+            
             dots.forEach(dot => dot.classList.remove('active'));
             if (dots[currentSlide - 1]) {
                 dots[currentSlide - 1].classList.add('active');
             }
+            
             document.getElementById(`current-slide${setNumber}`).textContent = currentSlide;
             document.getElementById(`prevBtn${setNumber}`).disabled = currentSlide === 1;
             document.getElementById(`nextBtn${setNumber}`).disabled = currentSlide === slides.length;
         }
 
         function changeSlide(n) {
-            if (isDragging || !activeSet || isFullscreenOpen) return;
+            if (isDragging || !activeSet) return;
             showSlide(currentSlide + n);
         }
 
-        /* ===================================================== */
-        /*                TOUCH/SWIPE HANDLING                  */
-        /* ===================================================== */
+        // Touch handling
         function handleTouchStart(e) {
-            if (!activeSet || isFullscreenOpen) return;
+            if (!activeSet) return;
             touchStartX = e.touches[0].clientX;
             touchEndX = touchStartX;
             isDragging = true;
@@ -1454,13 +1041,15 @@
         }
 
         function handleTouchMove(e) {
-            if (!isDragging || !activeSet || isFullscreenOpen) return;
+            if (!isDragging || !activeSet) return;
             e.preventDefault();
+            
             touchEndX = e.touches[0].clientX;
             const dragDistance = touchEndX - touchStartX;
             const currentTranslate = -(currentSlide - 1) * 100;
             const dragPercent = (dragDistance / window.innerWidth) * 100;
             const newTranslate = currentTranslate + dragPercent;
+            
             const setNumber = activeSet === 'set1' ? '1' : '2';
             const slidesContainer = document.getElementById(`slides-container${setNumber}`);
             slidesContainer.style.transition = 'none';
@@ -1468,13 +1057,15 @@
         }
 
         function handleTouchEnd(e) {
-            if (!isDragging || !activeSet || isFullscreenOpen) return;
+            if (!isDragging || !activeSet) return;
             isDragging = false;
             const setNumber = activeSet === 'set1' ? '1' : '2';
             const slidesContainer = document.getElementById(`slides-container${setNumber}`);
             slidesContainer.style.transition = 'transform 0.3s ease-out';
+            
             const swipeDistance = touchStartX - touchEndX;
             const swipeThreshold = 50;
+            
             if (Math.abs(swipeDistance) > swipeThreshold) {
                 if (swipeDistance > 0 && currentSlide < CONFIG.collections[activeSet].pictures.length) {
                     currentSlide++;
@@ -1482,50 +1073,12 @@
                     currentSlide--;
                 }
             }
+            
             showSlide(currentSlide);
             touchStartX = 0;
             touchEndX = 0;
         }
 
-        /* ===================================================== */
-        /*                FULLSCREEN FUNCTIONS                  */
-        /* ===================================================== */
-        function openFullscreen(img) {
-            const overlay = document.getElementById('fullscreen-overlay');
-            const fullscreenImg = document.getElementById('fullscreen-image');
-            fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
-            fullscreenImg.src = img.src;
-            fullscreenImg.alt = img.alt;
-            overlay.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            isFullscreenOpen = true;
-        }
-
-        function closeFullscreen() {
-            const overlay = document.getElementById('fullscreen-overlay');
-            const fullscreenImg = document.getElementById('fullscreen-image');
-            fullscreenImg.style.transform = 'translate(-50%, -50%) scale(1)';
-            fullscreenImg.style.transformOrigin = 'center center';
-            fullscreenImg.style.transition = '';
-            fullscreenImg.src = '';
-            fullscreenImg.alt = '';
-            if (activeSet) {
-                const setNumber = activeSet === 'set1' ? '1' : '2';
-                const slideshowImages = document.querySelectorAll(`#slides-container${setNumber} img`);
-                slideshowImages.forEach(img => {
-                    img.style.transform = '';
-                    img.style.transformOrigin = '';
-                    img.style.transition = '';
-                });
-            }
-            overlay.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            isFullscreenOpen = false;
-        }
-
-        /* ===================================================== */
-        /*                 UTILITY FUNCTIONS                    */
-        /* ===================================================== */
         function hideSwipeIndicator(setId) {
             const setNumber = setId === 'set1' ? '1' : '2';
             const indicator = document.getElementById(`swipeIndicator${setNumber}`);
@@ -1547,6 +1100,7 @@
                     button.textContent = CONFIG.collections[setKey].buttonText;
                 }
             });
+            
             document.querySelector('#slideshow-set1 .slideshow-title').textContent = CONFIG.collections.set1.title;
             document.querySelector('#slideshow-set2 .slideshow-title').textContent = CONFIG.collections.set2.title;
             initializeInstructionPages();
@@ -1556,14 +1110,17 @@
             Object.keys(CONFIG.instructions).forEach(setKey => {
                 const instructionData = CONFIG.instructions[setKey];
                 const instructionPage = document.getElementById(`instructions-${setKey}`);
+                
                 if (instructionPage && instructionData) {
                     const titleEl = instructionPage.querySelector('.instructions-title');
                     if (titleEl) titleEl.textContent = instructionData.title;
+                    
                     const contentEl = instructionPage.querySelector('.instructions-content');
                     if (contentEl && instructionData.content) {
                         let htmlContent = '';
                         Object.keys(instructionData.content).forEach(sectionKey => {
-                            const sectionTitle = sectionKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                            const sectionTitle = sectionKey.replace(/([A-Z])/g, ' $1')
+                                .replace(/^./, str => str.toUpperCase());
                             htmlContent += `<h3>${sectionTitle}:</h3><ul>`;
                             instructionData.content[sectionKey].forEach(item => {
                                 htmlContent += `<li>${item}</li>`;
@@ -1576,21 +1133,20 @@
             });
         }
 
-        /* ===================================================== */
-        /*                  EVENT LISTENERS                     */
-        /* ===================================================== */
+        // Event listeners
         document.addEventListener('keydown', (e) => {
-            if (isModalOpen() || isFullscreenOpen) {
+            if (isModalOpen()) {
                 if (e.key === 'Escape') {
-                    closeFullscreen();
                     closeModal();
                 }
                 return;
             }
+            
             if (activeSet) {
                 if (e.key === 'ArrowLeft') changeSlide(-1);
                 if (e.key === 'ArrowRight') changeSlide(1);
             }
+            
             if (e.key === 'Escape') {
                 if (activeSet) showMainMenu();
             }
@@ -1614,10 +1170,6 @@
             }
         }, { passive: true });
 
-        document.getElementById('fullscreen-image').addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
-
         document.addEventListener('contextmenu', (e) => {
             if (e.target.tagName === 'IMG') {
                 e.preventDefault();
@@ -1637,34 +1189,13 @@
             e.stopPropagation();
         }, { passive: true });
 
-        document.getElementById('fullscreen-overlay').addEventListener('touchstart', (e) => {
-            e.stopPropagation();
-        }, { passive: true });
-
-        document.getElementById('fullscreen-overlay').addEventListener('touchmove', (e) => {
-            e.stopPropagation();
-        }, { passive: true });
-
-        document.getElementById('fullscreen-overlay').addEventListener('touchend', (e) => {
-            e.stopPropagation();
-        }, { passive: true });
-
-        /* ===================================================== */
-        /*                   INITIALIZATION                     */
-        /* ===================================================== */
-        function initApp() {
+        // Initialize
+        checkRevealDate();
+        initializeMenuButtons();
+        showMainMenu();
+        setInterval(() => {
             checkRevealDate();
-            initializeMenuButtons();
-            showMainMenu();
-            setInterval(() => {
-                checkRevealDate();
-            }, 60000);
-        }
-
-        // Ensure DOM is fully loaded before initializing
-        document.addEventListener('DOMContentLoaded', initApp);
-
+        }, 60000);
     </script>
 </body>
 </html>
-
