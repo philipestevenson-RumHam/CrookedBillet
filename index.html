@@ -663,16 +663,19 @@
         </div>
     </div>
     <script>
+        
+        
+        
         const CONFIG = {
-            revealDateTime: '2025-10-29 23:30:00',
+            revealDateTime: '2026-02-04 23:30:00',
             githubBaseUrl: 'https://philipestevenson-rumham.github.io/CrookedBillet/',
             pdfFileName: 'CrookedBillet.pdf',
             instructions: {
                 set1: {
-                    title: "Jack-o'-lantern",
+                    title: "Film Dingbats",
                     content: {
                         howToPlay: [                            
-                            "Identify the Celebrity behind the Jack-o'lantern mask",
+                            "Crack the picture clue to reveal the film.",
                             //'Click the Lightbulb icon for a clue if you need help',//
                             'Click the "Show Answer" button to reveal the answer',
                             'Use the navigation buttons or swipe to move between images',
@@ -681,10 +684,10 @@
                     }
                 },
                 set2: {
-                    title: "Shakespeare Jukebox",
+                    title: "Name the Celebrity",
                     content: {
                         howToPlay: [
-                            'Try to identify the Artist from the Lyrics that have been converted to Shakespearean',
+                            'Try to identify the Celebrity from the images.',
                             'Click the Lightbulb icon for a clue if you need help',
                             'Click the "Show Answer" button to reveal the answer',
                             'Use the navigation buttons or swipe to move between images',
@@ -695,66 +698,68 @@
             },
             collections: {
                 set1: {
-                    title: "Jack-o'-lantern",
-                    buttonText: "Jack-o'-lantern",
+                    title: "Film Dingbats",
+                    buttonText: "Film Dingbats",
                     pictures: [
-{ filename: "R01.Q01.png", description: "Jack Black", info: "American actor and comedian known for School of Rock and Tenacious D." },
-{ filename: "R01.Q02.png", description: "Jack Grealish", info: "English footballer, plays for Manchester City and England." },
-{ filename: "R01.Q03.png", description: "Jack Nicholson", info: "Iconic American actor, starred in The Shining and One Flew Over the Cuckoo’s Nest." },
-{ filename: "R01.Q04.png", description: "Jack Lemon", info: "Classic Hollywood actor, famous for Some Like It Hot and The Odd Couple." },
-{ filename: "R01.Q05.png", description: "Hugh Jackman", info: "Australian actor and singer, best known as Wolverine and for Les Misérables." },
-{ filename: "R01.Q06.png", description: "Jackie Chan", info: "Hong Kong martial artist and actor, famed for Rush Hour and Police Story." },
-{ filename: "R01.Q07.png", description: "Jack P Shepherd", info: "English actor who plays David Platt in Coronation Street." },
-{ filename: "R01.Q08.png", description: "Jack Palance", info: "American actor with a tough-guy image, won an Oscar for City Slickers." },
-{ filename: "R01.Q09.png", description: "Jack Gleeson", info: "Irish actor who played Joffrey Baratheon in Game of Thrones." },
-{ filename: "R01.Q10.png", description: "Jackie Collins", info: "British author of glamorous novels like Hollywood Wives." },
-{ filename: "R01.Q11.png", description: "Jackie Wilson", info: "American soul singer, known for Reet Petite and Higher and Higher." },
-{ filename: "R01.Q12.png", description: "Jackie Stallone", info: "American astrologer and celebrity, mother of Sylvester Stallone." },
-{ filename: "R01.Q13.png", description: "Peter Jackson", info: "New Zealand director of The Lord of the Rings and The Hobbit trilogies." },
-{ filename: "R01.Q14.png", description: "Jack Charlton", info: "England World Cup-winning defender, later managed Ireland." },
-{ filename: "R01.Q15.png", description: "Jackie Weaver", info: "Gained viral fame for managing a chaotic Zoom council meeting." },
-{ filename: "R01.Q16.png", description: "Jack Lowden", info: "Scottish actor known for Dunkirk and Slow Horses." },
-{ filename: "R01.Q17.png", description: "Jack Whitehall", info: "British comedian and actor, known for Bad Education and Travels with My Father." },
-{ filename: "R01.Q18.png", description: "Jack Osbourne", info: "Reality TV personality, son of Ozzy Osbourne." },
-{ filename: "R01.Q19.png", description: "Colin Jackson", info: "Welsh hurdler, world champion and Olympic silver medallist." },
-{ filename: "R01.Q20.png", description: "La Toya Jackson", info: "American singer and TV personality, sister of Michael Jackson." },
-{ filename: "R01.Q21.png", description: "Jack Dee", info: "British stand-up comedian with a famously dry delivery." },
-{ filename: "R01.Q22.png", description: "Jacqueline Kennedy", info: "Former First Lady of the United States, known for her elegance and influence." },
-{ filename: "R01.Q23.png", description: "Jack Straw", info: "British Labour politician, served as Foreign and Home Secretary." },
-{ filename: "R01.Q24.png", description: "Jack Davenport", info: "English actor from Pirates of the Caribbean and Coupling." },
-{ filename: "R01.Q25.png", description: "Jacqueline Wilson", info: "British children’s author, creator of Tracy Beaker and Hetty Feather." }
+{ filename: "R01.Q01.png", description: "Trainspotting" },
+{ filename: "R01.Q02.png", description: "Blazing Saddles" },
+{ filename: "R01.Q03.png", description: "Ghostbusters" },
+{ filename: "R01.Q04.png", description: "The Devil Wears Prada" },
+{ filename: "R01.Q05.png", description: "Purple Rain" },
+{ filename: "R01.Q06.png", description: "Black Panther" },
+{ filename: "R01.Q07.png", description: "War Horse" },
+{ filename: "R01.Q08.png", description: "The Lion King" },
+{ filename: "R01.Q09.png", description: "Fargo" },
+{ filename: "R01.Q10.png", description: "Blade Runner" },
+{ filename: "R01.Q11.png", description: "The Kings Speach" },
+{ filename: "R01.Q12.png", description: "Superman Returns" },
+{ filename: "R01.Q13.png", description: "The Great Escape" },
+{ filename: "R01.Q14.png", description: "American Graffitti" },
+{ filename: "R01.Q15.png", description: "Raising Arizona" },
+{ filename: "R01.Q16.png", description: "The Empire Strikes Back" },
+{ filename: "R01.Q17.png", description: "Smokey and the Bandit" },
+{ filename: "R01.Q18.png", description: "Wall-E" },
+{ filename: "R01.Q19.png", description: "St Elmos Fire" },
+{ filename: "R01.Q20.png", description: "Who Framed Rodger Rabbit" },
+{ filename: "R01.Q21.png", description: "Pulp Fiction" },
+{ filename: "R01.Q22.png", description: "The Breakfast Club" },
+{ filename: "R01.Q23.png", description: "Scarface" },
+{ filename: "R01.Q24.png", description: "The Mask of Zoro" },
+{ filename: "R01.Q25.png", description: "Seabiscuit" }
+
                   
                     ]
                 },
                 set2: {
-                    title: "Shakespeare Jukebox",
-                    buttonText: "Shakespeare Jukebox",
+                    title: "Name the Celebrity",
+                    buttonText: "Name the Celebrity",
                     pictures: [
-{ filename: "R02.Q01.png", description: "Mr. Sandman - The Chordettes", clue: "1954", info: "Mr. Sandman, bring me a dream\nMake him the cutest that I've ever seen\nGive him two lips like roses and clover\nThen tell him that his lonesome nights are over\nSandman, I'm so alone\nDon't have nobody to call my own\nPlease turn on your magic beam\nMr. Sandman, bring me a dream" },
-{ filename: "R02.Q02.png", description: "(I Can’t Get No) Satisfaction - The Rolling Stones", clue: "1965", info: "I can't get no satisfaction\nI can't get no satisfaction\n'Cause I try, and I try, and I try and I try\nI can't get no, I can't get no" },
-{ filename: "R02.Q03.png", description: "Yellow Submarine - The Beatles", clue: "1966", info: "In the town where I was born\nLived a man who sailed to sea\nAnd he told us of his life\nIn the land of submarines" },
-{ filename: "R02.Q04.png", description: "All Along the Watchtower - Bob Dylan", clue: "1967", info: "\"There must be some way out of here\"\nSaid the joker to the thief\n\"There's too much confusion\nI can't get no relief" },
-{ filename: "R02.Q05.png", description: "Imagine - John Lennon", clue: "1971", info: "Imagine there's no heaven\nIt's easy if you try\nNo hell below us\nAbove us, only sky\nImagine all the people\nLiving for today" },
-{ filename: "R02.Q06.png", description: "American Pie - Don McLean", clue: "1971", info: "A long, long time ago\nI can still remember how that music\nUsed to make me smile\nAnd I knew if I had my chance\nThat I could make those people dance\nAnd maybe they'd be happy for a while" },
-{ filename: "R02.Q07.png", description: "Bohemian Rhapsody - Queen", clue: "1975", info: "Is this the real life? Is this just fantasy?\nCaught in a landslide, no escape from reality\nOpen your eyes, look up to the skies and see\nI'm just a poor boy, I need no sympathy (Ooh, poor boy)\nBecause I'm easy come, easy go, little high, little low\nAny way the wind blows (Ooh, the wind blows)\nDoesn't really matter to me, to me" },
-{ filename: "R02.Q08.png", description: "Dreams - Fleetwood Mac", clue: "1977", info: "Now here you go again You say you want your freedom Well, who am I to keep you down? It's only right that you should Play the way you feel it But listen carefully To the sound of your loneliness" },
-{ filename: "R02.Q09.png", description: "Stayin' Alive - The Bee Gees", clue: "1977", info: "Well, you can tell by the way I use my walk\nI'm a woman's man no time to talk\nMusic loud and women warm, I've been kicked around\nSince I was born\nAnd now it's all right, it's okay\nAnd you may look the other way" },
-{ filename: "R02.Q10.png", description: "Werewolves of London - Warren Zevon", clue: "1978", info: "I saw a werewolf with a Chinese menu in his hand\nWalking through the streets of Soho in the rain\nHe was looking for the place called Lee Ho Fook's\nGonna get a big dish of beef chow mein" },
-{ filename: "R02.Q11.png", description: "I Will Survive - Gloria Gaynor", clue: "1978", info: "At first I was afraid, I was petrified\nKept thinkin' I could never live without you by my side\nBut then I spent so many nights thinkin' how you did me wrong\nAnd I grew strong and I learned how to get along" },
-{ filename: "R02.Q12.png", description: "Another Brick in the Wall, Part 2 - Pink Floyd ", clue: "1979", info: "We don't need no education We don't need no thought control No dark sarcasm in the classroom Teacher, leave them kids alone" },
-{ filename: "R02.Q13.png", description: "Don’t You Want Me - The Human League", clue: "1981", info: "You were workin' as a waitress in a cocktail bar\nWhen I met you\nI picked you out, I shook you up, and turned you around\nTurned you into someone new\nNow five years later on, you've got the world at your feet\nSuccess has been so easy for you\nBut don't forget, it's me who put you where you are now\nAnd I can put you back down too" },
-{ filename: "R02.Q14.png", description: "Don't Stop Believin' - Journey", clue: "1981", info: "Just a small-town girl, livin' in a lonely world\nShe took the midnight train goin' anywhere\nJust a city boy, born and raised in South Detroit\nHe took the midnight train goin' anywhere" },
-{ filename: "R02.Q15.png", description: "Take On Me - A-Ha", clue: "1984", info: "We're talking away\nNo, I don't know what I'm to say\nI'll say it anyway\nToday is another day to find you\nShyin' away\nI'll be comin' for your love, okay?" },
-{ filename: "R02.Q16.png", description: "Addicted to Love - Robert Palmer", clue: "1986", info: "The lights are on, but you're not home\nYour mind is not your own\nYour heart sweats, your body shakes\nAnother kiss is what it takes" },
-{ filename: "R02.Q17.png", description: "Livin’ on a Prayer - Bon Jovi", clue: "1986", info: "Tommy used to work on the docks\nUnion's been on strike, he's down on his luck\nIt's tough\nSo tough\nGina works the diner all day\nWorkin' for her man, she brings home her pay\nFor love\nMm, for love" },
-{ filename: "R02.Q18.png", description: "Kiss - Prince", clue: "1986", info: "You don't have to be beautiful, to turn me on\nI just need your body, baby, from dusk till dawn\nYou don't need experience, to turn me out\nYou just leave it all up to me, I'll show you what it's all about" },
-{ filename: "R02.Q19.png", description: "Smells Like Teen Spirit - Nirvana", clue: "1991", info: "Load up on guns, bring your friends\nIt's fun to lose and to pretend\nShe's over-bored and self-assured\nOh no, I know a dirty word" },
-{ filename: "R02.Q20.png", description: "Losing My Religion - R.EM", clue: "1991", info: "Oh, life, it's bigger\nIt's bigger than you\nAnd you are not me\nThe lengths that I will go to\nThe distance in your eyes\nOh no, I've said too much\nI set it up" },
-{ filename: "R02.Q21.png", description: "I’m Too Sexy - Right Said Fred", clue: "1991", info: "I'm too sexy for my love\nToo sexy for my love\nLove's going to leave me\nI'm too sexy for my shirt\nToo sexy for my shirt\nSo sexy it hurts\nAnd I'm too sexy for Milan\nToo sexy for Milan" },
-{ filename: "R02.Q22.png", description: "Baby Got Back - Sir Mix-a-Lot", clue: "1992", info: "I like big butts and I cannot lie\nYou other brothers can't deny\nThat when a girl walks in with an itty bitty waist\nAnd a round thing in your face, you get sprung\nWanna pull up tough 'cause you notice that butt was stuffed\nDeep in the jeans she's wearin'\nI'm hooked and I can't stop starin'" },
-{ filename: "R02.Q23.png", description: "Zombie - The Cranberries", clue: "1994", info: "Another head hangs lowly\nChild is slowly taken\nAnd the violence caused such silence\nWho are we, mistaken?\nBut you see, it's not me, it's not my family\nIn your head, in your head, they are fightin'\nWith their tanks and their bombs and their bombs and their guns\nIn your head, in your head, they are cryin'" },
-{ filename: "R02.Q24.png", description: "Wonderwall - Oasis", clue: "1995", info: "Today is gonna be the day\nThat they're gonna throw it back to you\nBy now, you should've somehow\nRealised what you gotta do\nI don't believe that anybody\nFeels the way I do about you now" },
-{ filename: "R02.Q25.png", description: "Livin’ La Vida Loca - Ricky Martin", clue: "1999", info: "She's into superstitions\nBlack cats and voodoo dolls\nI feel a premonition\nThat girl's gonna make me fall" }
+{ filename: "R02.Q01.png", description: "Anita Rani" },
+{ filename: "R02.Q02.png", description: "Ardal O’Hanlon" },
+{ filename: "R02.Q03.png", description: "Claudia Winkleman" },
+{ filename: "R02.Q04.png", description: "Charlie Hunnam" },
+{ filename: "R02.Q05.png", description: "Daisy Ridley" },
+{ filename: "R02.Q06.png", description: "Damon Albarn" },
+{ filename: "R02.Q07.png", description: "Emilia Clarke" },
+{ filename: "R02.Q08.png", description: "Eddie Hall" },
+{ filename: "R02.Q09.png", description: "Imelda Staunton" },
+{ filename: "R02.Q10.png", description: "Iain Glen" },
+{ filename: "R02.Q11.png", description: "Ian Watkins" },
+{ filename: "R02.Q12.png", description: "Ian McDonald" },
+{ filename: "R02.Q13.png", description: "Lisa Snowdon" },
+{ filename: "R02.Q14.png", description: "Nick Frost" },
+{ filename: "R02.Q15.png", description: "Neil Tennant" },
+{ filename: "R02.Q16.png", description: "Noel Fielding" },
+{ filename: "R02.Q17.png", description: "Omid Djalili" },
+{ filename: "R02.Q18.png", description: "Ozzy Osbourne" },
+{ filename: "R02.Q19.png", description: "Omar Sharif" },
+{ filename: "R02.Q20.png", description: "Ollie Watkins" },
+{ filename: "R02.Q21.png", description: "Paloma Faith" },
+{ filename: "R02.Q22.png", description: "Paddy Considine" },
+{ filename: "R02.Q23.png", description: "Rose Ayling Ellis" },
+{ filename: "R02.Q24.png", description: "Rebecca Adlington" },
+{ filename: "R02.Q25.png", description: "Tamsin Greig" }
+
                     ]
                 }
             }
@@ -1075,6 +1080,7 @@
     </script>
 </body>
 </html>
+
 
 
 
