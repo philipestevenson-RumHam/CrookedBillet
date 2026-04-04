@@ -276,7 +276,6 @@ object-fit: contain;
 box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 border: 3px solid #FFD700;
 }
-/* FIXED: slide-bottom-section now uses position: relative to anchor absolute clue */
 .slide-bottom-section {
 display: flex;
 justify-content: center;
@@ -284,12 +283,11 @@ align-items: center;
 position: relative;
 width: 100%;
 flex-shrink: 0;
-min-height: 40px; /* prevents layout shift */
+min-height: 40px;
 }
-/* FIXED: clue-btn is now absolutely positioned to the left of answer-btn */
 .clue-btn {
 position: absolute;
-left: calc(-100% + 12px); /* sits 12px left of answer button */
+left: calc(-100% + 12px);
 top: 50%;
 transform: translateY(-50%);
 width: 40px;
@@ -542,6 +540,23 @@ text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
 0%, 100% { opacity: 0; }
 50% { opacity: 1; }
 }
+/* Loading / error */
+.loading-msg {
+color: #FFB6C1;
+font-size: 1.2rem;
+margin-top: 1rem;
+}
+.error-msg {
+color: #FF6B6B;
+font-size: 1rem;
+margin-top: 1rem;
+background: rgba(255,107,107,0.1);
+border: 1px solid #FF6B6B;
+border-radius: 10px;
+padding: 15px;
+max-width: 400px;
+text-align: left;
+}
 /* Utility classes */
 .hidden {
 display: none !important;
@@ -563,505 +578,423 @@ min-width: 80px;
 </style>
 </head>
 <body>
+
 <!-- Main menu -->
 <div class="main-menu" id="main-menu">
-<div class="logo-container">
-<img src="https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png" alt="RumHam" />
+  <div class="logo-container">
+    <img src="https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png" alt="RumHam" />
+  </div>
+  <h1 class="main-title">Crooked Billet Quiz</h1>
+  <p class="main-subtitle">Pick A Table Top</p>
+  <div class="menu-buttons" id="menu-buttons">
+    <p class="loading-msg">Loading quiz data...</p>
+  </div>
 </div>
-<h1 class="main-title">Crooked Billet Quiz</h1>
-<p class="main-subtitle">Pick A Table Top</p>
-<div class="menu-buttons">
-<button class="menu-btn" onclick="showInstructions('set1')">Set1</button>
-<button class="menu-btn" onclick="showInstructions('set2')">Set2</button>
-<button class="menu-btn" onclick="downloadPDF()">Download PDF</button>
-</div>
-</div>
-<!-- Instructions Set 1 -->
-<div class="instructions-section hidden" id="instructions-set1">
-<div class="instructions-container">
-<h2 class="instructions-title">Set 1</h2>
-<div class="instructions-content">
-<h3>How to Play:</h3>
-<ul>
-<li>Instruction1</li>
-</ul>
-</div>
-<div class="instructions-buttons">
-<button class="instructions-btn" onclick="startSlideshow('set1')">Start Slideshow</button>
-<button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
-</div>
-</div>
-</div>
-<!-- Slideshow Set 1 -->
-<div class="slideshow-section hidden" id="slideshow-set1">
-<h1 class="slideshow-title" onclick="showMainMenu()">Set1</h1>
-<div class="swipe-indicator" id="swipeIndicator1">← Swipe to navigate →</div>
-<div class="slideshow-container">
-<div class="slides-wrapper" id="slides-wrapper1">
-<div class="slides-container" id="slides-container1"></div>
-</div>
-<div class="navigation">
-<button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn1">◀ Prev</button>
-<div class="slide-counter">
-<span id="current-slide1">1</span> / <span id="total-slides1">25</span>
-</div>
-<button class="nav-btn" onclick="changeSlide(1)" id="nextBtn1">Next ▶</button>
-</div>
-<div class="dots-container" id="dots-container1"></div>
-</div>
-</div>
-<!-- Instructions Set 2 -->
-<div class="instructions-section hidden" id="instructions-set2">
-<div class="instructions-container">
-<h2 class="instructions-title">Set2</h2>
-<div class="instructions-content">
-<h3>How to Play:</h3>
-<ul>
-<li>Instruction2</li>
-</ul>
-</div>
-<div class="instructions-buttons">
-<button class="instructions-btn" onclick="startSlideshow('set2')">Start Slideshow</button>
-<button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
-</div>
-</div>
-</div>
-<!-- Slideshow Set 2 -->
-<div class="slideshow-section hidden" id="slideshow-set2">
-<h1 class="slideshow-title" onclick="showMainMenu()">Set2</h1>
-<div class="swipe-indicator" id="swipeIndicator2">← Swipe to navigate →</div>
-<div class="slideshow-container">
-<div class="slides-wrapper" id="slides-wrapper2">
-<div class="slides-container" id="slides-container2"></div>
-</div>
-<div class="navigation">
-<button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn2">◀ Prev</button>
-<div class="slide-counter">
-<span id="current-slide2">1</span> / <span id="total-slides2">10</span>
-</div>
-<button class="nav-btn" onclick="changeSlide(1)" id="nextBtn2">Next ▶</button>
-</div>
-<div class="dots-container" id="dots-container2"></div>
-</div>
-</div>
+
+<!-- Round sections injected here dynamically -->
+
 <!-- Modal -->
 <div class="modal" id="modal" onclick="closeModal()">
-<div class="modal-content" onclick="event.stopPropagation()">
-<h3 class="modal-title" id="modal-title"></h3>
-<div class="modal-text" id="modal-text"></div>
-<div class="modal-info" id="modal-info"></div>
-<button class="modal-close" onclick="closeModal()">Got it!</button>
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <h3 class="modal-title" id="modal-title"></h3>
+    <div class="modal-text" id="modal-text"></div>
+    <div class="modal-info" id="modal-info"></div>
+    <button class="modal-close" onclick="closeModal()">Got it!</button>
+  </div>
 </div>
-</div>
+
 <script>
-const CONFIG = {
-revealDateTime: '2026-04-01 23:00:00',
-githubBaseUrl: 'https://philipestevenson-rumham.github.io/CrookedBillet/',
-pdfFileName: 'CrookedBillet.pdf',
-instructions: {
-set1: {
-title: "Mix Bag",
-content: {
-howToPlay: [
-"Name the Celebrity from the pictures.",
-//'Click the Lightbulb icon for a clue if you need help',//
-'Click the "Show Answer" button to reveal the answer',
-'Use the navigation buttons or swipe to move between images',
-'Click the Title to return to the Main Menu'
-]
+// ─── State ───────────────────────────────────────────────────────────────────
+let rounds        = [];
+let githubBaseUrl = '';
+let pdfFileName   = '';
+
+let currentSlide      = 1;
+let activeRoundIndex  = null;
+let isDragging        = false;
+let touchStartX       = 0;
+let touchEndX         = 0;
+
+// ─── Load data ───────────────────────────────────────────────────────────────
+async function loadQuestions() {
+  try {
+    const response = await fetch('questions.json');
+    if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    const data = await response.json();
+
+    githubBaseUrl = data.githubBaseUrl || '';
+    pdfFileName   = data.pdfFileName   || '';
+    rounds        = (data.rounds || []).map(r => ({
+      ...r,
+      // Sort questions by questionNumber
+      questions: (r.questions || []).slice().sort((a, b) => a.questionNumber - b.questionNumber)
+    }));
+
+    buildRoundSections();
+    buildMenuButtons();
+    showMainMenu();
+
+  } catch (err) {
+    const container = document.getElementById('menu-buttons');
+    container.innerHTML = `
+      <div class="error-msg">
+        <strong>Could not load questions.json</strong><br>
+        ${escapeHtml(err.message)}<br><br>
+        Make sure <code>questions.json</code> is in the same folder as <code>index.html</code>.
+      </div>
+      <button class="menu-btn" onclick="loadQuestions()" style="margin-top:1rem">↺ Retry</button>
+    `;
+  }
 }
-},
-set2: {
-title: "UK Sitcoms",
-content: {
-howToPlay: [
-'Name the Sitcom from the pictures.',
-'Click the Lightbulb icon for a clue if you need help',
-'Click the "Show Answer" button to reveal the answer',
-'Use the navigation buttons or swipe to move between images',
-'Click the Title to return to the Main Menu'
-]
+
+// ─── Build dynamic HTML ───────────────────────────────────────────────────────
+function buildMenuButtons() {
+  const container = document.getElementById('menu-buttons');
+  container.innerHTML = '';
+
+  rounds.forEach((round, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'menu-btn';
+    btn.textContent = round.roundTitle;
+    btn.onclick = () => showInstructions(idx);
+    container.appendChild(btn);
+  });
+
+  if (pdfFileName) {
+    const pdfBtn = document.createElement('button');
+    pdfBtn.className = 'menu-btn';
+    pdfBtn.textContent = 'Download PDF';
+    pdfBtn.onclick = downloadPDF;
+    container.appendChild(pdfBtn);
+  }
 }
+
+function buildRoundSections() {
+  const modal = document.getElementById('modal');
+
+  rounds.forEach((round, idx) => {
+    // ── Instructions section ──────────────────────────────────────────────
+    const instrEl = document.createElement('div');
+    instrEl.className = 'instructions-section hidden';
+    instrEl.id = `instructions-round${idx}`;
+
+    const lines = (round.howToPlay || '').split('\n').map(l => l.trim()).filter(Boolean);
+    const listItems = lines.map(l => `<li>${escapeHtml(l)}</li>`).join('');
+
+    instrEl.innerHTML = `
+      <div class="instructions-container">
+        <h2 class="instructions-title">${escapeHtml(round.roundTitle)}</h2>
+        <div class="instructions-content">
+          <h3>How to Play:</h3>
+          <ul>${listItems || '<li>Good luck!</li>'}</ul>
+        </div>
+        <div class="instructions-buttons">
+          <button class="instructions-btn" onclick="startSlideshow(${idx})">Start Slideshow</button>
+          <button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
+        </div>
+      </div>`;
+    document.body.insertBefore(instrEl, modal);
+
+    // ── Slideshow section ─────────────────────────────────────────────────
+    const slideEl = document.createElement('div');
+    slideEl.className = 'slideshow-section hidden';
+    slideEl.id = `slideshow-round${idx}`;
+
+    slideEl.innerHTML = `
+      <h1 class="slideshow-title" onclick="showMainMenu()">${escapeHtml(round.roundTitle)}</h1>
+      <div class="swipe-indicator" id="swipeIndicator${idx}">← Swipe to navigate →</div>
+      <div class="slideshow-container">
+        <div class="slides-wrapper" id="slides-wrapper${idx}">
+          <div class="slides-container" id="slides-container${idx}"></div>
+        </div>
+        <div class="navigation">
+          <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn${idx}">◀ Prev</button>
+          <div class="slide-counter">
+            <span id="current-slide${idx}">1</span> / <span id="total-slides${idx}">0</span>
+          </div>
+          <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn${idx}">Next ▶</button>
+        </div>
+        <div class="dots-container" id="dots-container${idx}"></div>
+      </div>`;
+    document.body.insertBefore(slideEl, modal);
+  });
 }
-},
-collections: {
-set1: {
-title: "Mix Bag",
-buttonText: "Mix Bag",
-pictures: [
-{ filename: "R01.Q01.png", description: "Ellija Woods", info: "Elijah Wood is an American actor best known for playing Frodo Baggins in The Lord of the Rings films." },
-{ filename: "R01.Q02.png", description: "Angellica Bell", info: "Angellica Bell is a British television presenter known for her work on CBBC and The One Show." },
-{ filename: "R01.Q03.png", description: "Mo Gilligan", info: "Mo Gilligan is a British comedian and TV host recognised for his stand up work and The Lateish Show." },
-{ filename: "R01.Q04.png", description: "Kwasi Kwarteng", info: "Kwasi Kwarteng is a British politician who briefly served as Chancellor of the Exchequer in 2022." },
-{ filename: "R01.Q05.png", description: "Ving Rhames", info: "Ving Rhames is an American actor known for roles in Pulp Fiction and the Mission Impossible series." },
-{ filename: "R01.Q06.png", description: "Jada Pinkett Smith", info: "Jada Pinkett Smith is an American actress and talk show host known for films such as The Matrix Reloaded." },
-{ filename: "R01.Q07.png", description: "Terry Crews", info: "Terry Crews is an American actor and former NFL player known for Brooklyn Nine Nine and various comedy roles." },
-{ filename: "R01.Q08.png", description: "Michael Clarke Duncan", info: "Michael Clarke Duncan was an American actor best known for his Oscar nominated role in The Green Mile." },
-{ filename: "R01.Q09.png", description: "Wesley Snipes", info: "Wesley Snipes is an American actor famous for the Blade trilogy and numerous action films." },
-{ filename: "R01.Q10.png", description: "Sade Adu", info: "Sade Adu is a British Nigerian singer and songwriter known for her smooth soul and jazz influenced music." },
-{ filename: "R01.Q11.png", description: "Reece James", info: "Reece James is an English professional footballer who plays as a defender for Chelsea." },
-{ filename: "R01.Q12.png", description: "Laurence Fishburne", info: "Laurence Fishburne is an American actor known for roles in The Matrix and Blackish." },
-{ filename: "R01.Q13.png", description: "Conor Benn", info: "Conor Benn is a British professional boxer competing in the welterweight division." },
-{ filename: "R01.Q14.png", description: "AJ Odudu", info: "AJ Odudu is a British television presenter known for hosting Big Brother and other entertainment shows." },
-{ filename: "R01.Q15.png", description: "Clive Myrie", info: "Clive Myrie is a British journalist and news presenter best known for his work with BBC News." },
-{ filename: "R01.Q16.png", description: "Rudolph Walker", info: "Rudolph Walker is a British actor known for his long running role in EastEnders." },
-{ filename: "R01.Q17.png", description: "Chris Tucker", info: "Chris Tucker is an American comedian and actor best known for the Rush Hour film series." },
-{ filename: "R01.Q18.png", description: "Denise Lewis", info: "Denise Lewis is a British former heptathlete and Olympic gold medallist." },
-{ filename: "R01.Q19.png", description: "Chris Rock", info: "Chris Rock is an American comedian, actor, and filmmaker known for his stand up and film roles." },
-{ filename: "R01.Q20.png", description: "Don Warrington", info: "Don Warrington is a British actor known for Rising Damp and Death in Paradise." },
-{ filename: "R01.Q21.png", description: "Danny John-Jules", info: "Danny John Jules is a British actor best known for playing The Cat in Red Dwarf." },
-{ filename: "R01.Q22.png", description: "Dr Maggie Aderin Pocock", info: "Dr Maggie Aderin Pocock is a British space scientist and science communicator." },
-{ filename: "R01.Q23.png", description: "Viv Anderson", info: "Viv Anderson is a former English footballer who became the first Black player to represent England in a senior competitive match." },
-{ filename: "R01.Q24.png", description: "Rochelle Humes", info: "Rochelle Humes is a British singer and presenter known for The Saturdays and various TV shows." },
-{ filename: "R01.Q25.png", description: "Viggo Mortensen", info: "Viggo Mortensen is an American actor best known for playing Aragorn in The Lord of the Rings films." }
-]
-},
-set2: {
-title: "UK Sitcoms",
-buttonText: "UK Sitcom",
-pictures: [
-{ filename: "R02.Q01.png", description: "Almas Not Normal", info: "Almas Not Normal is a British comedy drama following a young woman navigating chaotic relationships and working class life." },
-{ filename: "R02.Q02.png", description: "Are You Being Served", info: "Are You Being Served is a classic British sitcom set in a department store featuring the comedic misadventures of its staff." },
-{ filename: "R02.Q03.png", description: "As Time Goes By", info: "As Time Goes By is a gentle British sitcom about two former lovers who reunite later in life." },
-{ filename: "R02.Q04.png", description: "Cuckoo", info: "Cuckoo is a British sitcom about a family disrupted when their daughter returns home with an eccentric American husband." },
-{ filename: "R02.Q05.png", description: "Derry Girls", info: "Derry Girls is a comedy set in 1990s Northern Ireland following a group of schoolgirls during the Troubles." },
-{ filename: "R02.Q06.png", description: "Desmonds", info: "Desmonds is a British sitcom centred on a family run barbershop in Peckham." },
-{ filename: "R02.Q07.png", description: "Ever Decreasing Circles", info: "Ever Decreasing Circles is a British sitcom about a fussy suburban man whose life is unsettled by a charming new neighbour." },
-{ filename: "R02.Q08.png", description: "Extras", info: "Extras is a comedy series following struggling actors working as background performers in film and television." },
-{ filename: "R02.Q09.png", description: "Everyone Else Burns", info: "Everyone Else Burns is a British sitcom about a deeply religious family preparing for the apocalypse while dealing with everyday life." },
-{ filename: "R02.Q10.png", description: "Gavin and Stacey", info: "Gavin and Stacey is a romantic comedy about a long distance couple and the quirky families around them." },
-{ filename: "R02.Q11.png", description: "It Aint Half Hot Mum", info: "It Aint Half Hot Mum is a British sitcom about a concert party troupe serving in India during the Second World War." },
-{ filename: "R02.Q12.png", description: "Just Good Friends", info: "Just Good Friends is a British sitcom about former lovers who reconnect years after their breakup." },
-{ filename: "R02.Q13.png", description: "Last of the Summer Wine", info: "Last of the Summer Wine is a long running British sitcom about three elderly men getting into gentle mischief in Yorkshire." },
-{ filename: "R02.Q14.png", description: "Mandy", info: "Mandy is a British comedy following a woman who constantly pursues odd jobs and strange schemes." },
-{ filename: "R02.Q15.png", description: "Nighty Night", info: "Nighty Night is a dark comedy about a manipulative woman who exploits others after her husband is diagnosed with cancer." },
-{ filename: "R02.Q16.png", description: "Outnumbered", info: "Outnumbered is a British sitcom portraying the chaotic everyday life of a family with three outspoken children." },
-{ filename: "R02.Q17.png", description: "Red Dwarf", info: "Red Dwarf is a sci fi comedy about the last human alive travelling through space with a hologram and a humanoid cat." },
-{ filename: "R02.Q18.png", description: "Rising Damp", info: "Rising Damp is a British sitcom set in a rundown boarding house run by a miserly landlord." },
-{ filename: "R02.Q19.png", description: "Robins Nest", info: "Robins Nest is a British sitcom about a young couple running a small bistro together." },
-{ filename: "R02.Q20.png", description: "Rentaghost", info: "Rentaghost is a childrens comedy about a company that hires out ghosts for various tasks." },
-{ filename: "R02.Q21.png", description: "Spaced", info: "Spaced is a cult British sitcom about two strangers who pretend to be a couple to rent a flat and fall into surreal adventures." },
-{ filename: "R02.Q22.png", description: "Stath Lets Flats", info: "Stath Lets Flats is a British comedy about an inept letting agent working in his fathers property business." },
-{ filename: "R02.Q23.png", description: "Steptoe and Son", info: "Steptoe and Son is a British sitcom about a father and son rag and bone business marked by constant bickering." },
-{ filename: "R02.Q24.png", description: "Still Game", info: "Still Game is a Scottish sitcom about two pensioners navigating life friendship and ageing in Glasgow." },
-{ filename: "R02.Q25.png", description: "Yes Minister", info: "Yes Minister is a political satire about a government minister constantly outmanoeuvred by civil servants." }
-]
-}
-}
-};
-// Global variables
-let currentSlide = 1;
-let activeSet = null;
-let isRevealed = false;
-let touchStartX = 0;
-let touchEndX = 0;
-let isSwiping = false;
-let isDragging = false;
-// Navigation functions
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
 function showMainMenu() {
-document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
-section.classList.add('hidden');
-});
-document.getElementById('main-menu').classList.remove('hidden');
-activeSet = null;
-currentSlide = 1;
+  document.querySelectorAll('.slideshow-section, .instructions-section').forEach(s => {
+    s.classList.add('hidden');
+  });
+  document.getElementById('main-menu').classList.remove('hidden');
+  activeRoundIndex = null;
+  currentSlide = 1;
 }
-function showInstructions(setId) {
-document.getElementById('main-menu').classList.add('hidden');
-document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
-section.classList.add('hidden');
-});
-document.getElementById(`instructions-${setId}`).classList.remove('hidden');
-activeSet = setId;
+
+function showInstructions(idx) {
+  document.getElementById('main-menu').classList.add('hidden');
+  document.querySelectorAll('.slideshow-section, .instructions-section').forEach(s => {
+    s.classList.add('hidden');
+  });
+  document.getElementById(`instructions-round${idx}`).classList.remove('hidden');
+  activeRoundIndex = idx;
 }
-function startSlideshow(setId) {
-document.querySelectorAll('.slideshow-section, .instructions-section').forEach(section => {
-section.classList.add('hidden');
-});
-document.getElementById(`slideshow-${setId}`).classList.remove('hidden');
-activeSet = setId;
-const setNumber = setId === 'set1' ? '1' : '2';
-const slidesContainer = document.getElementById(`slides-container${setNumber}`);
-if (!slidesContainer.children.length) {
-createSlides(setId);
+
+function startSlideshow(idx) {
+  document.querySelectorAll('.slideshow-section, .instructions-section').forEach(s => {
+    s.classList.add('hidden');
+  });
+  document.getElementById(`slideshow-round${idx}`).classList.remove('hidden');
+  activeRoundIndex = idx;
+
+  const slidesContainer = document.getElementById(`slides-container${idx}`);
+  if (!slidesContainer.children.length) {
+    createSlides(idx);
+  }
+  currentSlide = 1;
+  showSlide(1);
+  hideSwipeIndicator(idx);
 }
-showSlide(1);
-hideSwipeIndicator(setId);
-}
+
 function downloadPDF() {
-const pdfUrl = CONFIG.githubBaseUrl + CONFIG.pdfFileName;
-const link = document.createElement('a');
-link.href = pdfUrl;
-link.download = CONFIG.pdfFileName;
-document.body.appendChild(link);
-link.click();
-document.body.removeChild(link);
+  const link = document.createElement('a');
+  link.href = githubBaseUrl + pdfFileName;
+  link.download = pdfFileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
-// Modal functions
-function showClue(slideIndex) {
-if (!activeSet) return;
-const pictures = CONFIG.collections[activeSet].pictures;
-const picture = pictures[slideIndex];
-if (picture && picture.clue) {
-showModal('clue', 'Clue', picture.clue);
+
+// ─── Reveal logic ─────────────────────────────────────────────────────────────
+function isAnswerRevealed(idx) {
+  const round = rounds[idx];
+  if (!round || !round.revealAnswer) return true;
+  return new Date() >= new Date(round.revealAnswer);
 }
+
+// ─── Modal ────────────────────────────────────────────────────────────────────
+function showClue(roundIdx, qIdx) {
+  const q = rounds[roundIdx].questions[qIdx];
+  if (q && q.clue) {
+    showModal('clue', 'Clue', q.clue);
+  }
 }
-function showAnswer(slideIndex) {
-if (!activeSet) return;
-const pictures = CONFIG.collections[activeSet].pictures;
-const picture = pictures[slideIndex];
-if (!picture) return;
-checkRevealDate();
-if (isRevealed) {
-showModal('answer', 'Answer', picture.description, picture.info);
-} else {
-const revealDate = new Date(CONFIG.revealDateTime);
-const formattedDate = revealDate.toLocaleString();
-showModal('answer', 'Answer Not Yet Available', `Answers will be revealed on ${formattedDate}`);
+
+function showAnswer(roundIdx, qIdx) {
+  const round = rounds[roundIdx];
+  const q = round.questions[qIdx];
+  if (!q) return;
+
+  if (isAnswerRevealed(roundIdx)) {
+    showModal('answer', 'Answer', q.answer, q.info, true);
+  } else {
+    const revealDate = new Date(round.revealAnswer);
+    showModal('answer', 'Answer Not Yet Available',
+      `Answers will be revealed on ${revealDate.toLocaleString()}`, null, false);
+  }
 }
+
+function showModal(type, title, text, info, revealed) {
+  const modal      = document.getElementById('modal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalText  = document.getElementById('modal-text');
+  const modalInfo  = document.getElementById('modal-info');
+
+  const iconSvg = type === 'clue'
+    ? '<svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>'
+    : '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>';
+
+  modalTitle.innerHTML = `${iconSvg} ${escapeHtml(title)}`;
+  modalTitle.className = `modal-title ${type}-title`;
+  modalText.textContent = text;
+  modalText.className = (type === 'answer' && revealed) ? 'modal-text answer-text' : 'modal-text';
+
+  if (info && type === 'answer' && revealed) {
+    modalInfo.textContent = info;
+    modalInfo.style.display = 'block';
+  } else {
+    modalInfo.style.display = 'none';
+  }
+
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
 }
-function showModal(type, title, text, info = null) {
-const modal = document.getElementById('modal');
-const modalTitle = document.getElementById('modal-title');
-const modalText = document.getElementById('modal-text');
-const modalInfo = document.getElementById('modal-info');
-const iconSvg = type === 'clue'
-? '<svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>'
-: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>';
-modalTitle.innerHTML = `${iconSvg} ${title}`;
-modalTitle.className = `modal-title ${type}-title`;
-modalText.textContent = text;
-modalText.className = type === 'answer' && isRevealed ? 'modal-text answer-text' : 'modal-text';
-if (info && type === 'answer' && isRevealed) {
-modalInfo.textContent = info;
-modalInfo.style.display = 'block';
-} else {
-modalInfo.style.display = 'none';
-}
-modal.style.display = 'flex';
-document.body.style.overflow = 'hidden';
-}
+
 function closeModal() {
-const modal = document.getElementById('modal');
-modal.style.display = 'none';
-document.body.style.overflow = 'auto';
+  document.getElementById('modal').style.display = 'none';
+  document.body.style.overflow = 'auto';
 }
+
 function isModalOpen() {
-const modal = document.getElementById('modal');
-return modal && modal.style.display === 'flex';
+  const modal = document.getElementById('modal');
+  return modal && modal.style.display === 'flex';
 }
-// Core slideshow functions
-function checkRevealDate() {
-const now = new Date();
-const revealDate = new Date(CONFIG.revealDateTime);
-isRevealed = now >= revealDate;
+
+// ─── Slides ───────────────────────────────────────────────────────────────────
+function createSlides(idx) {
+  const round          = rounds[idx];
+  const questions      = round.questions;
+  const slidesContainer = document.getElementById(`slides-container${idx}`);
+  const dotsContainer  = document.getElementById(`dots-container${idx}`);
+
+  document.getElementById(`total-slides${idx}`).textContent = questions.length;
+  slidesContainer.innerHTML = '';
+  dotsContainer.innerHTML   = '';
+
+  questions.forEach((q, qIdx) => {
+    const slide = document.createElement('div');
+    slide.className = 'slide';
+
+    const clueHTML = q.clue
+      ? `<button class="clue-btn" onclick="showClue(${idx}, ${qIdx})" title="Get a clue">
+           <svg viewBox="0 0 24 24">
+             <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
+           </svg>
+         </button>`
+      : '';
+
+    slide.innerHTML = `
+      <div class="slide-image-container">
+        <img src="${escapeHtml(githubBaseUrl)}${escapeHtml(q.fileName)}"
+             alt="Question ${q.questionNumber}"
+             loading="lazy"
+             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMWExYTFhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iI0ZGRDcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4='">
+      </div>
+      <div class="slide-bottom-section">
+        ${clueHTML}
+        <button class="answer-btn" onclick="showAnswer(${idx}, ${qIdx})">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+          </svg>
+          Show Answer
+        </button>
+      </div>`;
+
+    slidesContainer.appendChild(slide);
+
+    const dot = document.createElement('span');
+    dot.className = `dot ${qIdx === 0 ? 'active' : ''}`;
+    dot.onclick = () => showSlide(qIdx + 1);
+    dotsContainer.appendChild(dot);
+  });
 }
-function createSlides(setId) {
-const setNumber = setId === 'set1' ? '1' : '2';
-const pictures = CONFIG.collections[setId].pictures;
-const slidesContainer = document.getElementById(`slides-container${setNumber}`);
-const dotsContainer = document.getElementById(`dots-container${setNumber}`);
-document.getElementById(`total-slides${setNumber}`).textContent = pictures.length;
-slidesContainer.innerHTML = '';
-dotsContainer.innerHTML = '';
-pictures.forEach((picture, index) => {
-const slide = document.createElement('div');
-slide.className = 'slide';
-const clueButtonHTML = picture.clue ?
-`<button class="clue-btn" onclick="showClue(${index})" title="Get a clue">
-<svg viewBox="0 0 24 24">
-<path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
-</svg>
-</button>` : '';
-slide.innerHTML = `
-<div class="slide-image-container">
-<img src="${CONFIG.githubBaseUrl}${picture.filename}"
-alt="Picture ${index + 1}"
-loading="lazy"
-onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlICR7aW5kZXggKyAxfTwvdGV4dD48L3N2Zz4='">
-</div>
-<div class="slide-bottom-section">
-${clueButtonHTML}
-<button class="answer-btn" onclick="showAnswer(${index})">
-<svg viewBox="0 0 24 24">
-<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
-</svg>
-Show Answer
-</button>
-</div>
-`;
-slidesContainer.appendChild(slide);
-const dot = document.createElement('span');
-dot.className = `dot ${index === 0 ? 'active' : ''}`;
-dot.onclick = () => showSlide(index + 1);
-dotsContainer.appendChild(dot);
-});
-}
+
 function showSlide(n) {
-if (!activeSet) return;
-const setNumber = activeSet === 'set1' ? '1' : '2';
-const pictures = CONFIG.collections[activeSet].pictures;
-const slides = document.querySelectorAll(`#slides-container${setNumber} .slide`);
-const dots = document.querySelectorAll(`#dots-container${setNumber} .dot`);
-const slidesContainer = document.getElementById(`slides-container${setNumber}`);
-if (n > slides.length) currentSlide = 1;
-else if (n < 1) currentSlide = slides.length;
-else currentSlide = n;
-const translateX = -(currentSlide - 1) * 100;
-slidesContainer.style.transform = `translateX(${translateX}%)`;
-dots.forEach(dot => dot.classList.remove('active'));
-if (dots[currentSlide - 1]) {
-dots[currentSlide - 1].classList.add('active');
+  if (activeRoundIndex === null) return;
+  const idx      = activeRoundIndex;
+  const questions = rounds[idx].questions;
+  const slides   = document.querySelectorAll(`#slides-container${idx} .slide`);
+  const dots     = document.querySelectorAll(`#dots-container${idx} .dot`);
+  const slidesContainer = document.getElementById(`slides-container${idx}`);
+
+  if (n > slides.length) currentSlide = 1;
+  else if (n < 1)        currentSlide = slides.length;
+  else                   currentSlide = n;
+
+  slidesContainer.style.transform = `translateX(${-(currentSlide - 1) * 100}%)`;
+  dots.forEach(d => d.classList.remove('active'));
+  if (dots[currentSlide - 1]) dots[currentSlide - 1].classList.add('active');
+
+  document.getElementById(`current-slide${idx}`).textContent = currentSlide;
+  document.getElementById(`prevBtn${idx}`).disabled = currentSlide === 1;
+  document.getElementById(`nextBtn${idx}`).disabled = currentSlide === slides.length;
 }
-document.getElementById(`current-slide${setNumber}`).textContent = currentSlide;
-document.getElementById(`prevBtn${setNumber}`).disabled = currentSlide === 1;
-document.getElementById(`nextBtn${setNumber}`).disabled = currentSlide === slides.length;
-}
+
 function changeSlide(n) {
-if (isDragging || !activeSet) return;
-showSlide(currentSlide + n);
+  if (isDragging || activeRoundIndex === null) return;
+  showSlide(currentSlide + n);
 }
-// Touch handling
+
+// ─── Touch / swipe ────────────────────────────────────────────────────────────
 function handleTouchStart(e) {
-if (!activeSet) return;
-touchStartX = e.touches[0].clientX;
-touchEndX = touchStartX;
-isDragging = true;
-isSwiping = false;
+  if (activeRoundIndex === null) return;
+  touchStartX = e.touches[0].clientX;
+  touchEndX   = touchStartX;
+  isDragging  = true;
 }
+
 function handleTouchMove(e) {
-if (!isDragging || !activeSet) return;
-e.preventDefault();
-touchEndX = e.touches[0].clientX;
-const dragDistance = touchEndX - touchStartX;
-const currentTranslate = -(currentSlide - 1) * 100;
-const dragPercent = (dragDistance / window.innerWidth) * 100;
-const newTranslate = currentTranslate + dragPercent;
-const setNumber = activeSet === 'set1' ? '1' : '2';
-const slidesContainer = document.getElementById(`slides-container${setNumber}`);
-slidesContainer.style.transition = 'none';
-slidesContainer.style.transform = `translateX(${newTranslate}%)`;
+  if (!isDragging || activeRoundIndex === null) return;
+  e.preventDefault();
+  touchEndX = e.touches[0].clientX;
+  const dragPercent   = ((touchEndX - touchStartX) / window.innerWidth) * 100;
+  const currentTx     = -(currentSlide - 1) * 100;
+  const idx           = activeRoundIndex;
+  const slidesContainer = document.getElementById(`slides-container${idx}`);
+  slidesContainer.style.transition = 'none';
+  slidesContainer.style.transform  = `translateX(${currentTx + dragPercent}%)`;
 }
+
 function handleTouchEnd(e) {
-if (!isDragging || !activeSet) return;
-isDragging = false;
-const setNumber = activeSet === 'set1' ? '1' : '2';
-const slidesContainer = document.getElementById(`slides-container${setNumber}`);
-slidesContainer.style.transition = 'transform 0.3s ease-out';
-const swipeDistance = touchStartX - touchEndX;
-const swipeThreshold = 50;
-if (Math.abs(swipeDistance) > swipeThreshold) {
-if (swipeDistance > 0 && currentSlide < CONFIG.collections[activeSet].pictures.length) {
-currentSlide++;
-} else if (swipeDistance < 0 && currentSlide > 1) {
-currentSlide--;
+  if (!isDragging || activeRoundIndex === null) return;
+  isDragging = false;
+  const idx  = activeRoundIndex;
+  const slidesContainer = document.getElementById(`slides-container${idx}`);
+  slidesContainer.style.transition = 'transform 0.3s ease-out';
+
+  const swipeDist = touchStartX - touchEndX;
+  if (Math.abs(swipeDist) > 50) {
+    if (swipeDist > 0 && currentSlide < rounds[idx].questions.length) currentSlide++;
+    else if (swipeDist < 0 && currentSlide > 1)                        currentSlide--;
+  }
+  showSlide(currentSlide);
+  touchStartX = 0;
+  touchEndX   = 0;
 }
+
+function hideSwipeIndicator(idx) {
+  const el = document.getElementById(`swipeIndicator${idx}`);
+  setTimeout(() => {
+    if (el) {
+      el.style.opacity = '0';
+      setTimeout(() => { el.style.display = 'none'; }, 1000);
+    }
+  }, 4000);
 }
-showSlide(currentSlide);
-touchStartX = 0;
-touchEndX = 0;
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function escapeHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
-function hideSwipeIndicator(setId) {
-const setNumber = setId === 'set1' ? '1' : '2';
-const indicator = document.getElementById(`swipeIndicator${setNumber}`);
-setTimeout(() => {
-if (indicator) {
-indicator.style.opacity = '0';
-setTimeout(() => {
-indicator.style.display = 'none';
-}, 1000);
-}
-}, 4000);
-}
-function initializeMenuButtons() {
-const menuButtons = document.querySelectorAll('.menu-btn');
-menuButtons.forEach((button, index) => {
-if (index < 2) {
-const setKey = index === 0 ? 'set1' : 'set2';
-button.textContent = CONFIG.collections[setKey].buttonText;
-}
+
+// ─── Event listeners ──────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (isModalOpen()) {
+    if (e.key === 'Escape') closeModal();
+    return;
+  }
+  if (activeRoundIndex !== null) {
+    if (e.key === 'ArrowLeft')  changeSlide(-1);
+    if (e.key === 'ArrowRight') changeSlide(1);
+    if (e.key === 'Escape')     showMainMenu();
+  }
 });
-document.querySelector('#slideshow-set1 .slideshow-title').textContent = CONFIG.collections.set1.title;
-document.querySelector('#slideshow-set2 .slideshow-title').textContent = CONFIG.collections.set2.title;
-initializeInstructionPages();
-}
-function initializeInstructionPages() {
-Object.keys(CONFIG.instructions).forEach(setKey => {
-const instructionData = CONFIG.instructions[setKey];
-const instructionPage = document.getElementById(`instructions-${setKey}`);
-if (instructionPage && instructionData) {
-const titleEl = instructionPage.querySelector('.instructions-title');
-if (titleEl) titleEl.textContent = instructionData.title;
-const contentEl = instructionPage.querySelector('.instructions-content');
-if (contentEl && instructionData.content) {
-let htmlContent = '';
-Object.keys(instructionData.content).forEach(sectionKey => {
-const sectionTitle = sectionKey.replace(/([A-Z])/g, ' $1')
-.replace(/^./, str => str.toUpperCase());
-htmlContent += `<h3>${sectionTitle}:</h3><ul>`;
-instructionData.content[sectionKey].forEach(item => {
-htmlContent += `<li>${item}</li>`;
-});
-htmlContent += '</ul>';
-});
-contentEl.innerHTML = htmlContent;
-}
-}
-});
-}
-// Event listeners
-document.addEventListener('keydown', (e) => {
-if (isModalOpen()) {
-if (e.key === 'Escape') {
-closeModal();
-}
-return;
-}
-if (activeSet) {
-if (e.key === 'ArrowLeft') changeSlide(-1);
-if (e.key === 'ArrowRight') changeSlide(1);
-}
-if (e.key === 'Escape') {
-if (activeSet) showMainMenu();
-}
-});
-document.addEventListener('touchstart', (e) => {
-if (!isModalOpen()) {
-handleTouchStart(e);
-}
+
+document.addEventListener('touchstart', e => {
+  if (!isModalOpen()) handleTouchStart(e);
 }, { passive: true });
-document.addEventListener('touchmove', (e) => {
-if (!isModalOpen()) {
-handleTouchMove(e);
-}
+
+document.addEventListener('touchmove', e => {
+  if (!isModalOpen()) handleTouchMove(e);
 }, { passive: false });
-document.addEventListener('touchend', (e) => {
-if (!isModalOpen()) {
-handleTouchEnd(e);
-}
+
+document.addEventListener('touchend', e => {
+  if (!isModalOpen()) handleTouchEnd(e);
 }, { passive: true });
-document.addEventListener('contextmenu', (e) => {
-if (e.target.tagName === 'IMG') {
-e.preventDefault();
-}
+
+document.addEventListener('contextmenu', e => {
+  if (e.target.tagName === 'IMG') e.preventDefault();
 });
-document.getElementById('modal').addEventListener('touchstart', (e) => {
-e.stopPropagation();
-}, { passive: true });
-document.getElementById('modal').addEventListener('touchmove', (e) => {
-e.preventDefault();
-e.stopPropagation();
-}, { passive: false });
-document.getElementById('modal').addEventListener('touchend', (e) => {
-e.stopPropagation();
-}, { passive: true });
-// Initialize
-checkRevealDate();
-initializeMenuButtons();
-showMainMenu();
-setInterval(() => {
-checkRevealDate();
-}, 60000);
+
+document.getElementById('modal').addEventListener('touchstart', e => e.stopPropagation(), { passive: true });
+document.getElementById('modal').addEventListener('touchmove',  e => { e.preventDefault(); e.stopPropagation(); }, { passive: false });
+document.getElementById('modal').addEventListener('touchend',   e => e.stopPropagation(), { passive: true });
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+loadQuestions();
 </script>
 </body>
 </html>
