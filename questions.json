@@ -36,14 +36,14 @@
     },
     {
       "roundTitle": "One Letter Changed Musical Acts",
-      "howToPlay": "Identify the Musical Act from the Images.\n\nA single letter in their name has been substituted for another.\nThe picture depicts the changed name.\nExample: Muse would become Mute.",
+      "howToPlay": "Identify the Musical Act from the Images.\n\nA single letter in their name has been substituted for another.\nThe picture depicts the changed name.",
       "revealAnswer": "2026-04-11 14:30:00",
       "questions": [
         { "questionNumber": 1, "fileName": "01 - Talking Heads.png", "answer": "Talking Heads (Talking Beads)", "clue": "", "info": "Art‑rock innovators who blended new wave funk and eccentric stagecraft under David Byrne." },
         { "questionNumber": 2, "fileName": "02 - Cheap Trick.png", "answer": "Cheap Trick (Cheap Truck)", "clue": "", "info": "American power‑pop band known for huge hooks and a legendary live album recorded in Japan." },
         { "questionNumber": 3, "fileName": "03 - Cats Domino.png", "answer": "Cats Domino (Fats Domino)", "clue": "", "info": "Rock 'n' roll pioneer whose piano‑driven hits shaped the sound of the 1950s." },
         { "questionNumber": 4, "fileName": "04 - Spice Girls.png", "answer": "Spice Girls (Space Girls)", "clue": "", "info": "British pop phenomenon who defined 90s girl power with global chart‑topping hits." },
-        { "questionNumber": 5, "fileName": "05 - Three Dog Night.png", "answer": "Three Dog Night (Three Dog Night)", "clue": "", "info": "American rock group famous for harmony‑rich 70s radio staples." },
+        { "questionNumber": 5, "fileName": "05 - Three Dog Night.png", "answer": "Three Dog Night (Three Dog Fight)", "clue": "", "info": "American rock group famous for harmony‑rich 70s radio staples." },
         { "questionNumber": 6, "fileName": "06 - Crowded Horse.png", "answer": "Crowded House (Crowded Horse)", "clue": "", "info": "Australian–New Zealand band led by Neil Finn known for melodic songwriting and soaring choruses." },
         { "questionNumber": 7, "fileName": "07 - Foo Fighters.png", "answer": "Foo Fighters (Poo Fighters)", "clue": "", "info": "Rock band founded by Dave Grohl delivering stadium anthems and relentless touring energy." },
         { "questionNumber": 8, "fileName": "08 - Rage Against The Machine.png", "answer": "Rage Against The Machine (Sage Against the Machine)", "clue": "", "info": "Politically charged rap‑rock band known for explosive riffs and uncompromising activism." },
