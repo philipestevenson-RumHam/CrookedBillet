@@ -1,11 +1,11 @@
-{
+﻿{
   "githubBaseUrl": "https://philipestevenson-rumham.github.io/CrookedBillet/",
   "pdfFileName": "CrookedBillet.pdf",
   "rounds": [
     {
       "roundTitle": "Gingers",
       "howToPlay": "Identify the Celebrity from the picture.",
-      "revealAnswer": "2026-04-11 16:30:00",
+      "revealAnswer": "2026-04-11 14:30:00",
       "questions": [
         { "questionNumber": 1, "fileName": "01 - Brendan Gleeson.png", "answer": "Brendan Gleeson", "clue": "", "info": "Irish actor known for roles in films like In Bruges and the Harry Potter series." },
         { "questionNumber": 2, "fileName": "02 - Karen Gillan.png", "answer": "Karen Gillan", "clue": "", "info": "Scottish actress best known for Doctor Who and Marvel's Guardians of the Galaxy." },
@@ -37,7 +37,7 @@
     {
       "roundTitle": "One Letter Changed Musical Acts",
       "howToPlay": "Identify the Musical Act from the Images.\n\nA single letter in their name has been substituted for another.\nThe picture depicts the changed name.\nExample: Muse would become Mute.",
-      "revealAnswer": "2026-04-11 16:30:00",
+      "revealAnswer": "2026-04-11 14:30:00",
       "questions": [
         { "questionNumber": 1, "fileName": "01 - Talking Heads.png", "answer": "Talking Heads (Talking Beads)", "clue": "", "info": "Art‑rock innovators who blended new wave funk and eccentric stagecraft under David Byrne." },
         { "questionNumber": 2, "fileName": "02 - Cheap Trick.png", "answer": "Cheap Trick (Cheap Truck)", "clue": "", "info": "American power‑pop band known for huge hooks and a legendary live album recorded in Japan." },
