@@ -302,6 +302,22 @@ z-index: 1;
 -webkit-touch-callout: none;
 user-select: none;
 }
+/* Diagonal watermark */
+.img-watermark {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) rotate(-30deg);
+color: rgba(255, 215, 0, 0.13);
+font-size: clamp(0.85rem, 3.5vw, 1.35rem);
+font-weight: 900;
+white-space: nowrap;
+pointer-events: none;
+user-select: none;
+letter-spacing: 0.12em;
+z-index: 2;
+text-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
 
 /* ── Zoom lightbox ──────────────────────────────────────────────────────────── */
 .zoom-lightbox {
@@ -338,10 +354,10 @@ user-select: none;
 border: 3px solid #FFD700;
 box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
-.zoom-close-btn,
-.zoom-center-btn {
+.zoom-close-btn {
 position: absolute;
 top: 14px;
+right: 14px;
 width: 46px;
 height: 46px;
 background: linear-gradient(135deg, #FFD700, #FFA500);
@@ -360,10 +376,7 @@ touch-action: none;
 transition: background 0.2s;
 line-height: 1;
 }
-.zoom-close-btn  { right: 14px; }
-.zoom-center-btn { right: 68px; font-size: 18px; }
-.zoom-close-btn:hover,
-.zoom-center-btn:hover {
+.zoom-close-btn:hover {
 background: linear-gradient(135deg, #FFB6C1, #FF69B4);
 }
 .zoom-hint {
@@ -701,7 +714,6 @@ min-width: 80px;
   <div class="zoom-lightbox-inner" id="zoom-lightbox-inner">
     <img id="zoom-img" src="" alt="Zoomed image">
   </div>
-  <button class="zoom-center-btn" id="zoom-center-btn" title="Centre image">⊙</button>
   <button class="zoom-close-btn" id="zoom-close-btn">✕</button>
   <p class="zoom-hint">Pinch or double-tap to zoom &nbsp;•&nbsp; Drag to pan when zoomed</p>
 </div>
@@ -977,6 +989,7 @@ function createSlides(idx) {
                draggable="false"
                onerror="this.src='${fallback}'">
           <div class="img-overlay" data-zoom-src="${escapeHtml(imgSrc)}" onclick="openZoom(this.dataset.zoomSrc)"></div>
+          <div class="img-watermark">CROOKED BILLET QUIZ</div>
         </div>
       </div>
       <div class="slide-bottom-section">
@@ -1216,17 +1229,6 @@ document.getElementById('zoom-close-btn').addEventListener('click', closeZoom);
 document.getElementById('zoom-close-btn').addEventListener('touchend', function(e) {
   e.preventDefault();
   closeZoom();
-});
-
-// Centre button — resets pan & zoom to fit-in-view
-function centerZoom() {
-  ZL.scale = 1; ZL.panX = 0; ZL.panY = 0;
-  applyZoomTransform();
-}
-document.getElementById('zoom-center-btn').addEventListener('click', centerZoom);
-document.getElementById('zoom-center-btn').addEventListener('touchend', function(e) {
-  e.preventDefault();
-  centerZoom();
 });
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
