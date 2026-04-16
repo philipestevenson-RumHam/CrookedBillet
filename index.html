@@ -267,7 +267,17 @@ margin-bottom: 20px;
 overflow: hidden;
 min-height: 0;
 }
-.slide img {
+
+/* ── Image protection ───────────────────────────────────────────────────────── */
+.img-protect-wrapper {
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100%;
+height: 100%;
+}
+.img-protect-wrapper img {
 max-width: 95%;
 max-height: 95%;
 width: auto;
@@ -275,7 +285,113 @@ height: auto;
 object-fit: contain;
 box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 border: 3px solid #FFD700;
+/* Prevent native drag, selection, callout */
+pointer-events: none;
+user-select: none;
+-webkit-user-select: none;
+-webkit-user-drag: none;
+-webkit-touch-callout: none;
+draggable: false;
 }
+/* Transparent overlay — captures right-click and touch, forwards tap to zoom */
+.img-overlay {
+position: absolute;
+inset: 0;
+cursor: zoom-in;
+z-index: 1;
+-webkit-touch-callout: none;
+user-select: none;
+}
+/* Diagonal watermark */
+.img-watermark {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) rotate(-30deg);
+color: rgba(255, 215, 0, 0.13);
+font-size: clamp(0.85rem, 3.5vw, 1.35rem);
+font-weight: 900;
+white-space: nowrap;
+pointer-events: none;
+user-select: none;
+letter-spacing: 0.12em;
+z-index: 2;
+text-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
+
+/* ── Zoom lightbox ──────────────────────────────────────────────────────────── */
+.zoom-lightbox {
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, 0.97);
+z-index: 3000;
+display: none;
+overflow: hidden;
+touch-action: none;
+}
+.zoom-lightbox.active {
+display: block;
+}
+.zoom-lightbox-inner {
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+}
+.zoom-lightbox-inner img {
+max-width: 95vw;
+max-height: 92vh;
+object-fit: contain;
+transform-origin: center center;
+will-change: transform;
+pointer-events: none;
+user-select: none;
+-webkit-user-select: none;
+-webkit-user-drag: none;
+-webkit-touch-callout: none;
+border: 3px solid #FFD700;
+box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+.zoom-close-btn {
+position: absolute;
+top: 14px;
+right: 14px;
+width: 46px;
+height: 46px;
+background: linear-gradient(135deg, #FFD700, #FFA500);
+border: 2px solid #000;
+border-radius: 50%;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 20px;
+font-weight: 900;
+color: #0a0a0a;
+z-index: 10;
+box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+touch-action: none;
+transition: background 0.2s;
+line-height: 1;
+}
+.zoom-close-btn:hover {
+background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+}
+.zoom-hint {
+position: absolute;
+bottom: 18px;
+left: 50%;
+transform: translateX(-50%);
+color: rgba(255, 215, 0, 0.65);
+font-size: 13px;
+pointer-events: none;
+text-align: center;
+white-space: nowrap;
+text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
 .slide-bottom-section {
 display: flex;
 justify-content: center;
@@ -593,6 +709,15 @@ min-width: 80px;
 
 <!-- Round sections injected here dynamically -->
 
+<!-- Zoom lightbox -->
+<div id="zoom-lightbox" class="zoom-lightbox">
+  <div class="zoom-lightbox-inner" id="zoom-lightbox-inner">
+    <img id="zoom-img" src="" alt="Zoomed image">
+  </div>
+  <button class="zoom-close-btn" id="zoom-close-btn">✕</button>
+  <p class="zoom-hint">Pinch or double-tap to zoom &nbsp;•&nbsp; Drag to pan when zoomed</p>
+</div>
+
 <!-- Modal -->
 <div class="modal" id="modal" onclick="closeModal()">
   <div class="modal-content" onclick="event.stopPropagation()">
@@ -626,7 +751,6 @@ async function loadQuestions() {
     pdfFileName   = data.pdfFileName   || '';
     rounds        = (data.rounds || []).map(r => ({
       ...r,
-      // Sort questions by questionNumber
       questions: (r.questions || []).slice().sort((a, b) => a.questionNumber - b.questionNumber)
     }));
 
@@ -831,10 +955,10 @@ function isModalOpen() {
 
 // ─── Slides ───────────────────────────────────────────────────────────────────
 function createSlides(idx) {
-  const round          = rounds[idx];
-  const questions      = round.questions;
+  const round           = rounds[idx];
+  const questions       = round.questions;
   const slidesContainer = document.getElementById(`slides-container${idx}`);
-  const dotsContainer  = document.getElementById(`dots-container${idx}`);
+  const dotsContainer   = document.getElementById(`dots-container${idx}`);
 
   document.getElementById(`total-slides${idx}`).textContent = questions.length;
   slidesContainer.innerHTML = '';
@@ -852,12 +976,21 @@ function createSlides(idx) {
          </button>`
       : '';
 
+    // Build src safely — store on a data-attribute to avoid inline quote issues
+    const imgSrc = githubBaseUrl + (q.fileName || '');
+    const fallback = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMWExYTFhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iI0ZGRDcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=";
+
     slide.innerHTML = `
       <div class="slide-image-container">
-        <img src="${escapeHtml(githubBaseUrl)}${escapeHtml(q.fileName)}"
-             alt="Question ${q.questionNumber}"
-             loading="lazy"
-             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMWExYTFhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iI0ZGRDcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4='">
+        <div class="img-protect-wrapper">
+          <img src="${escapeHtml(imgSrc)}"
+               alt="Question ${q.questionNumber}"
+               loading="lazy"
+               draggable="false"
+               onerror="this.src='${fallback}'">
+          <div class="img-overlay" data-zoom-src="${escapeHtml(imgSrc)}" onclick="openZoom(this.dataset.zoomSrc)"></div>
+          <div class="img-watermark">CROOKED BILLET QUIZ</div>
+        </div>
       </div>
       <div class="slide-bottom-section">
         ${clueHTML}
@@ -951,6 +1084,153 @@ function hideSwipeIndicator(idx) {
   }, 4000);
 }
 
+// ─── Zoom Lightbox ────────────────────────────────────────────────────────────
+const ZL = {
+  scale:      1,
+  panX:       0,
+  panY:       0,
+  lastTapTime: 0,
+  pinchDist:  0,
+  dragStartX: 0,
+  dragStartY: 0,
+  isPanning:  false,
+  isActive:   false,
+  // Mouse drag
+  mouseDown:  false,
+  mouseDragStartX: 0,
+  mouseDragStartY: 0,
+};
+
+function openZoom(src) {
+  if (!src) return;
+  const lb  = document.getElementById('zoom-lightbox');
+  const img = document.getElementById('zoom-img');
+  img.src = src;
+  ZL.scale = 1; ZL.panX = 0; ZL.panY = 0;
+  img.style.transform = '';
+  ZL.isActive = true;
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeZoom() {
+  const lb  = document.getElementById('zoom-lightbox');
+  const img = document.getElementById('zoom-img');
+  lb.classList.remove('active');
+  img.style.transform = '';
+  ZL.scale = 1; ZL.panX = 0; ZL.panY = 0;
+  ZL.isActive = false;
+  ZL.isPanning = false;
+  ZL.mouseDown = false;
+  document.body.style.overflow = 'auto';
+}
+
+function applyZoomTransform() {
+  document.getElementById('zoom-img').style.transform =
+    `translate(${ZL.panX}px, ${ZL.panY}px) scale(${ZL.scale})`;
+}
+
+function zlPinchDist(touches) {
+  return Math.hypot(
+    touches[1].clientX - touches[0].clientX,
+    touches[1].clientY - touches[0].clientY
+  );
+}
+
+// Touch events
+const zlInner = document.getElementById('zoom-lightbox-inner');
+
+zlInner.addEventListener('touchstart', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (e.touches.length === 2) {
+    ZL.isPanning  = false;
+    ZL.pinchDist  = zlPinchDist(e.touches);
+  } else if (e.touches.length === 1) {
+    const now = Date.now();
+    if (now - ZL.lastTapTime < 300) {
+      // Double-tap: toggle zoom
+      ZL.lastTapTime = 0;
+      if (ZL.scale > 1.5) {
+        ZL.scale = 1; ZL.panX = 0; ZL.panY = 0;
+      } else {
+        ZL.scale = 2.5;
+      }
+      applyZoomTransform();
+      return;
+    }
+    ZL.lastTapTime  = now;
+    ZL.dragStartX   = e.touches[0].clientX - ZL.panX;
+    ZL.dragStartY   = e.touches[0].clientY - ZL.panY;
+    ZL.isPanning    = true;
+  }
+}, { passive: false });
+
+zlInner.addEventListener('touchmove', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (e.touches.length === 2) {
+    ZL.isPanning = false;
+    const dist   = zlPinchDist(e.touches);
+    const ratio  = dist / ZL.pinchDist;
+    ZL.pinchDist = dist;
+    ZL.scale     = Math.max(1, Math.min(6, ZL.scale * ratio));
+    applyZoomTransform();
+  } else if (e.touches.length === 1 && ZL.isPanning && ZL.scale > 1.05) {
+    ZL.panX = e.touches[0].clientX - ZL.dragStartX;
+    ZL.panY = e.touches[0].clientY - ZL.dragStartY;
+    applyZoomTransform();
+  }
+}, { passive: false });
+
+zlInner.addEventListener('touchend', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  ZL.isPanning = false;
+  if (ZL.scale < 1.05) {
+    ZL.scale = 1; ZL.panX = 0; ZL.panY = 0;
+    applyZoomTransform();
+  }
+}, { passive: false });
+
+// Mouse wheel zoom (desktop)
+document.getElementById('zoom-lightbox').addEventListener('wheel', function(e) {
+  if (!ZL.isActive) return;
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? 0.9 : 1.1;
+  ZL.scale    = Math.max(1, Math.min(6, ZL.scale * delta));
+  if (ZL.scale <= 1.05) { ZL.scale = 1; ZL.panX = 0; ZL.panY = 0; }
+  applyZoomTransform();
+}, { passive: false });
+
+// Mouse drag (desktop)
+zlInner.addEventListener('mousedown', function(e) {
+  if (ZL.scale <= 1.05) return;
+  ZL.mouseDown      = true;
+  ZL.mouseDragStartX = e.clientX - ZL.panX;
+  ZL.mouseDragStartY = e.clientY - ZL.panY;
+  zlInner.style.cursor = 'grabbing';
+});
+window.addEventListener('mousemove', function(e) {
+  if (!ZL.mouseDown || !ZL.isActive) return;
+  ZL.panX = e.clientX - ZL.mouseDragStartX;
+  ZL.panY = e.clientY - ZL.mouseDragStartY;
+  applyZoomTransform();
+});
+window.addEventListener('mouseup', function() {
+  ZL.mouseDown = false;
+  zlInner.style.cursor = '';
+});
+
+// Close button
+document.getElementById('zoom-close-btn').addEventListener('click', closeZoom);
+document.getElementById('zoom-close-btn').addEventListener('touchend', function(e) {
+  e.preventDefault();
+  closeZoom();
+});
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function escapeHtml(str) {
   return String(str || '')
@@ -962,6 +1242,20 @@ function escapeHtml(str) {
 
 // ─── Event listeners ──────────────────────────────────────────────────────────
 document.addEventListener('keydown', e => {
+  // Block common save/view-source shortcuts (best-effort anti-cheat)
+  if (e.ctrlKey || e.metaKey) {
+    if (['s', 'u', 'p'].includes(e.key.toLowerCase())) {
+      e.preventDefault();
+      return;
+    }
+  }
+
+  // Close zoom lightbox with Escape
+  if (ZL.isActive) {
+    if (e.key === 'Escape') closeZoom();
+    return; // don't process other keys while zoom is open
+  }
+
   if (isModalOpen()) {
     if (e.key === 'Escape') closeModal();
     return;
@@ -974,17 +1268,18 @@ document.addEventListener('keydown', e => {
 });
 
 document.addEventListener('touchstart', e => {
-  if (!isModalOpen()) handleTouchStart(e);
+  if (!isModalOpen() && !ZL.isActive) handleTouchStart(e);
 }, { passive: true });
 
 document.addEventListener('touchmove', e => {
-  if (!isModalOpen()) handleTouchMove(e);
+  if (!isModalOpen() && !ZL.isActive) handleTouchMove(e);
 }, { passive: false });
 
 document.addEventListener('touchend', e => {
-  if (!isModalOpen()) handleTouchEnd(e);
+  if (!isModalOpen() && !ZL.isActive) handleTouchEnd(e);
 }, { passive: true });
 
+// Disable right-click on images (extra layer on top of overlay)
 document.addEventListener('contextmenu', e => {
   if (e.target.tagName === 'IMG') e.preventDefault();
 });
