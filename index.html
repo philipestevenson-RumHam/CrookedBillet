@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Crooked Billet Collection</title>
+<style>
+/* Global reset */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+/* Body styling */
+body {
+font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0a0a0a 100%);
+min-height: 100vh;
+padding: 10px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+overflow-x: hidden;
+}
+/* Main menu styles */
+.main-menu {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+min-height: 80vh;
+width: 100%;
+max-width: 600px;
+text-align: center;
+}
+.logo-container {
+margin-bottom: 2rem;
+animation: fadeInUp 0.8s ease-out;
+}
+.logo-container img {
+max-width: 300px;
+width: 100%;
+height: auto;
+filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+}
+.main-title {
+color: #FFD700;
+font-size: clamp(2.5rem, 8vw, 4rem);
+font-weight: 1000;
+margin-bottom: 2rem;
+text-shadow: 3px 3px 12px rgba(0,0,0,0.8);
+letter-spacing: -0.02em;
+animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+.main-subtitle {
+color: #FFB6C1;
+font-size: clamp(1rem, 3vw, 1.3rem);
+margin-bottom: 3rem;
+font-weight: 600;
+animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+.menu-buttons {
+display: flex;
+flex-direction: column;
+gap: 1.5rem;
+width: 100%;
+max-width: 400px;
+}
+.menu-btn {
+background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+backdrop-filter: blur(10px);
+color: #0a0a0a;
+border: 3px solid #000;
+padding: 1.2rem 2rem;
+border-radius: 15px;
+cursor: pointer;
+font-size: clamp(1.1rem, 3vw, 1.3rem);
+font-weight: 600;
+transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+letter-spacing: 0.5px;
+position: relative;
+overflow: hidden;
+box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+.menu-btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+border-color: #000;
+}
+.menu-btn:active {
+transform: translateY(-1px);
+}
+@keyframes fadeInUp {
+from {
+opacity: 0;
+transform: translateY(30px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+/* Instructions styles */
+.instructions-section {
+width: 100%;
+display: flex;
+align-items: center;
+flex-direction: column;
+justify-content: center;
+min-height: 100vh;
+padding: 20px;
+text-align: center;
+}
+.instructions-container {
+width: 100%;
+max-width: 800px;
+background: rgba(26, 26, 26, 0.95);
+backdrop-filter: blur(20px);
+border-radius: 20px;
+box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+padding: 40px;
+margin: 20px 0;
+border: 3px solid #FFD700;
+}
+.instructions-title {
+color: #FFD700;
+font-size: clamp(2rem, 6vw, 3rem);
+font-weight: 800;
+margin-bottom: 30px;
+text-align: center;
+letter-spacing: -0.02em;
+}
+.instructions-content {
+color: #FFB6C1;
+font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+line-height: 1.6;
+margin-bottom: 40px;
+text-align: left;
+}
+.instructions-content h3 {
+color: #FFD700;
+font-size: clamp(1.3rem, 3vw, 1.5rem);
+font-weight: 700;
+margin-bottom: 15px;
+margin-top: 25px;
+}
+.instructions-content ul {
+margin: 15px 0;
+padding-left: 25px;
+}
+.instructions-content li {
+margin-bottom: 8px;
+}
+.instructions-buttons {
+display: flex;
+gap: 20px;
+justify-content: center;
+flex-wrap: wrap;
+}
+.instructions-btn {
+background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+color: #0a0a0a;
+border: 3px solid #000;
+padding: 15px 30px;
+border-radius: 25px;
+cursor: pointer;
+font-size: clamp(1rem, 2.5vw, 1.2rem);
+font-weight: 600;
+transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+min-width: 150px;
+box-shadow: 0 8px 25px rgba(255,215,0,0.4);
+}
+.instructions-btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 15px 35px rgba(255,215,0,0.6);
+background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+border-color: #000;
+}
+.instructions-btn.secondary {
+background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+border: 3px solid #000;
+color: #0a0a0a;
+box-shadow: 0 8px 25px rgba(255,182,193,0.4);
+}
+.instructions-btn.secondary:hover {
+background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+border-color: #000;
+box-shadow: 0 15px 35px rgba(255,182,193,0.6);
+}
+/* Slideshow styles */
+.slideshow-section {
+width: 100%;
+display: flex;
+align-items: center;
+flex-direction: column;
+justify-content: center;
+min-height: 100vh;
+padding: 20px 0;
+}
+.slideshow-title {
+color: #FFD700;
+font-size: clamp(1.8rem, 5vw, 2.5rem);
+font-weight: 700;
+margin-bottom: 20px;
+text-align: center;
+text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+width: 100%;
+max-width: 800px;
+letter-spacing: -0.02em;
+cursor: pointer;
+transition: all 0.3s ease;
+position: relative;
+}
+.slideshow-title:hover {
+transform: scale(1.02);
+text-shadow: 3px 3px 12px rgba(255,215,0,0.8);
+}
+.slideshow-container {
+width: 100%;
+max-width: 900px;
+position: relative;
+background: #1a1a1a;
+border-radius: 20px;
+box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+border: 3px solid #FFD700;
+overflow: hidden;
+backdrop-filter: blur(10px);
+height: min(85vh, 700px);
+display: flex;
+flex-direction: column;
+}
+.slides-wrapper {
+position: relative;
+overflow: hidden;
+touch-action: pan-x;
+user-select: none;
+flex: 1;
+display: flex;
+flex-direction: column;
+}
+.slides-container {
+display: flex;
+width: 100%;
+height: 100%;
+transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.slide {
+position: relative;
+text-align: center;
+padding: 15px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+width: 100%;
+flex-shrink: 0;
+height: 100%;
+box-sizing: border-box;
+}
+.slide-image-container {
+flex: 1;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 20px;
+overflow: hidden;
+min-height: 0;
+}
+
+/* ── Image protection ───────────────────────────────────────────────────────── */
+.img-protect-wrapper {
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100%;
+height: 100%;
+}
+.img-protect-wrapper img {
+max-width: 95%;
+max-height: 95%;
+width: auto;
+height: auto;
+object-fit: contain;
+box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+border: 3px solid #FFD700;
+/* Prevent native drag, selection, callout */
+pointer-events: none;
+user-select: none;
+-webkit-user-select: none;
+-webkit-user-drag: none;
+-webkit-touch-callout: none;
+draggable: false;
+}
+/* Transparent overlay — captures right-click and touch, forwards tap to zoom */
+.img-overlay {
+position: absolute;
+inset: 0;
+cursor: zoom-in;
+z-index: 1;
+-webkit-touch-callout: none;
+user-select: none;
+}
+
+/* ── Video ───────────────────────────────────────────────────────────────── */
+.video-protect-wrapper {
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100%;
+height: 100%;
+}
+.slide-video {
+max-width: 95%;
+max-height: 95%;
+width: auto;
+height: auto;
+background: #000;
+box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+border: 3px solid #FFD700;
+border-radius: 6px;
+-webkit-user-select: none;
+user-select: none;
+-webkit-user-drag: none;
+-webkit-touch-callout: none;
+}
+
+/* ── Audio (CD graphic) ─────────────────────────────────────────────────── */
+.cd-wrapper {
+position: relative;
+width: min(60vw, 60vh, 380px);
+aspect-ratio: 1 / 1;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.cd-disc {
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+background: #0a0a0a;
+border: 3px solid #FFD700;
+border-radius: 12px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+overflow: hidden;
+}
+.cd-disc svg {
+width: 78%;
+height: 78%;
+-webkit-user-select: none;
+user-select: none;
+-webkit-user-drag: none;
+}
+.cd-disc.spinning svg {
+animation: cdSpin 3s linear infinite;
+}
+@keyframes cdSpin {
+from { transform: rotate(0deg); }
+to   { transform: rotate(360deg); }
+}
+.slide-audio {
+display: none;
+}
+
+/* ── Play button (video + audio) ────────────────────────────────────────── */
+.media-play-btn {
+position: absolute;
+width: 64px;
+height: 64px;
+border-radius: 50%;
+background: rgba(0,0,0,0.55);
+border: 3px solid #FFD700;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+z-index: 2;
+transition: all 0.25s ease;
+}
+.media-play-btn svg {
+width: 28px;
+height: 28px;
+fill: #FFD700;
+}
+.video-protect-wrapper .media-play-btn {
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+.video-protect-wrapper .media-play-btn:hover {
+background: rgba(0,0,0,0.75);
+transform: translate(-50%, -50%) scale(1.08);
+}
+.video-protect-wrapper .media-play-btn.is-playing {
+display: none;
+}
+.cd-wrapper .media-play-btn {
+bottom: -12px;
+left: 50%;
+transform: translateX(-50%);
+}
+.cd-wrapper .media-play-btn:hover {
+background: rgba(0,0,0,0.75);
+transform: translateX(-50%) scale(1.08);
+}
+
+/* ── Zoom lightbox ──────────────────────────────────────────────────────────── */
+.zoom-lightbox {
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, 0.97);
+z-index: 3000;
+display: none;
+overflow: hidden;
+touch-action: none;
+}
+.zoom-lightbox.active {
+display: block;
+}
+.zoom-lightbox-inner {
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+}
+.zoom-lightbox-inner img {
+max-width: 95vw;
+max-height: 92vh;
+object-fit: contain;
+transform-origin: center center;
+will-change: transform;
+pointer-events: none;
+user-select: none;
+-webkit-user-select: none;
+-webkit-user-drag: none;
+-webkit-touch-callout: none;
+border: 3px solid #FFD700;
+box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+.zoom-close-btn,
+.zoom-center-btn {
+position: absolute;
+top: 14px;
+width: 46px;
+height: 46px;
+background: linear-gradient(135deg, #FFD700, #FFA500);
+border: 2px solid #000;
+border-radius: 50%;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 20px;
+font-weight: 900;
+color: #0a0a0a;
+z-index: 10;
+box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+touch-action: none;
+transition: background 0.2s;
+line-height: 1;
+}
+.zoom-close-btn  { right: 14px; }
+.zoom-center-btn { right: 68px; font-size: 18px; }
+.zoom-close-btn:hover,
+.zoom-center-btn:hover {
+background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+}
+.zoom-hint {
+position: absolute;
+bottom: 18px;
+left: 50%;
+transform: translateX(-50%);
+color: rgba(255, 215, 0, 0.65);
+font-size: 13px;
+pointer-events: none;
+text-align: center;
+white-space: nowrap;
+text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.slide-bottom-section {
+display: flex;
+justify-content: center;
+align-items: center;
+position: relative;
+width: 100%;
+flex-shrink: 0;
+min-height: 40px;
+}
+.clue-btn {
+position: absolute;
+left: 10px;
+top: 50%;
+transform: translateY(-50%);
+width: 40px;
+height: 40px;
+background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+border: 2px solid #000;
+border-radius: 50%;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+backdrop-filter: blur(10px);
+transition: all 0.3s ease;
+box-shadow: 0 4px 15px rgba(255,215,0,0.4);
+flex-shrink: 0;
+z-index: 2;
+}
+.clue-btn:hover {
+transform: translateY(-50%) scale(1.1);
+background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+border-color: #000;
+box-shadow: 0 6px 20px rgba(255,215,0,0.6);
+}
+.clue-btn svg {
+width: 20px;
+height: 20px;
+fill: #0a0a0a;
+}
+.answer-btn {
+height: 40px;
+padding: 0 16px;
+background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+color: #0a0a0a;
+border: 3px solid #000;
+border-radius: 25px;
+cursor: pointer;
+font-size: 14px;
+font-weight: 600;
+transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+box-shadow: 0 4px 15px rgba(255,182,193,0.4);
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+min-width: 120px;
+flex-shrink: 0;
+}
+.answer-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(255,182,193,0.6);
+background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+border-color: #000;
+}
+.answer-btn svg {
+width: 16px;
+height: 16px;
+fill: #0a0a0a;
+}
+/* Modal styles */
+.modal {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.9);
+display: none;
+align-items: center;
+justify-content: center;
+z-index: 1000;
+backdrop-filter: blur(5px);
+padding: 20px;
+}
+.modal-content {
+background: #1a1a1a;
+border-radius: 20px;
+max-width: 500px;
+width: 100%;
+text-align: center;
+box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+border: 3px solid #FFD700;
+position: relative;
+animation: modalSlideIn 0.3s ease-out;
+max-height: 85vh;
+display: flex;
+flex-direction: column;
+overflow: hidden;
+}
+.modal-body {
+padding: 30px 30px 20px 30px;
+overflow-y: auto;
+flex: 1;
+-webkit-overflow-scrolling: touch;
+}
+.modal-footer {
+padding: 15px 30px 25px 30px;
+flex-shrink: 0;
+border-top: 1px solid rgba(255,215,0,0.2);
+background: #1a1a1a;
+border-radius: 0 0 17px 17px;
+}
+@keyframes modalSlideIn {
+from {
+opacity: 0;
+transform: scale(0.8) translateY(50px);
+}
+to {
+opacity: 1;
+transform: scale(1) translateY(0);
+}
+}
+.modal-title {
+font-size: 1.5rem;
+font-weight: 700;
+color: #FFD700;
+margin-bottom: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+}
+.modal-title svg {
+width: 24px;
+height: 24px;
+}
+.modal-title.clue-title svg {
+fill: #FFD700;
+}
+.modal-title.answer-title svg {
+fill: #FFB6C1;
+}
+.modal-text {
+font-size: 1.1rem;
+color: #FFB6C1;
+line-height: 1.6;
+margin-bottom: 25px;
+}
+.modal-text.answer-text {
+font-weight: 600;
+color: #FFD700;
+font-size: 1.2rem;
+}
+.modal-info {
+font-size: 1rem;
+color: #FFB6C1;
+line-height: 1.5;
+margin-top: 25px;
+padding-top: 15px;
+border-top: 1px solid rgba(255,215,0,0.3);
+font-style: italic;
+}
+.modal-close {
+background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+color: #0a0a0a;
+border: 3px solid #000;
+padding: 12px 30px;
+border-radius: 25px;
+cursor: pointer;
+font-size: 1rem;
+font-weight: 600;
+transition: all 0.3s ease;
+box-shadow: 0 4px 15px rgba(255,215,0,0.4);
+margin-top: 10px;
+}
+.modal-close:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 20px rgba(255,215,0,0.6);
+background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+}
+/* Navigation styles */
+.navigation {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 20px;
+background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+gap: 15px;
+flex-shrink: 0;
+border-top: 3px solid #000;
+}
+.nav-btn {
+background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+color: #FFD700;
+border: 3px solid #000;
+padding: 14px 20px;
+border-radius: 25px;
+cursor: pointer;
+font-size: 15px;
+font-weight: 600;
+transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+display: flex;
+align-items: center;
+gap: 8px;
+min-width: 100px;
+justify-content: center;
+box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+.nav-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+border-color: #000;
+color: #0a0a0a;
+}
+.nav-btn:disabled {
+background: #2d2d2d;
+color: #666;
+cursor: not-allowed;
+transform: none;
+box-shadow: none;
+border-color: #444;
+}
+.slide-counter {
+font-weight: 600;
+color: #0a0a0a;
+font-size: 16px;
+white-space: nowrap;
+background: rgba(0, 0, 0, 0.2);
+padding: 8px 16px;
+border-radius: 20px;
+backdrop-filter: blur(10px);
+border: 2px solid #000;
+}
+/* Dot navigation */
+.dots-container {
+text-align: center;
+padding: 20px;
+background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+overflow-x: auto;
+white-space: nowrap;
+flex-shrink: 0;
+border-top: 2px solid #000;
+}
+.dot {
+height: 10px;
+width: 10px;
+margin: 0 4px;
+background-color: rgba(0,0,0,0.3);
+border-radius: 50%;
+display: inline-block;
+cursor: pointer;
+transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+border: 2px solid #000;
+}
+.dot:hover, .dot.active {
+background-color: #FFD700;
+transform: scale(1.4);
+border-color: #FFB6C1;
+}
+/* Swipe indicator */
+.swipe-indicator {
+position: absolute;
+bottom: 150px;
+left: 50%;
+transform: translateX(-50%);
+color: rgba(255, 215, 0, 0.8);
+font-size: 14px;
+animation: fadeInOut 3s infinite;
+pointer-events: none;
+z-index: 10;
+text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+@keyframes fadeInOut {
+0%, 100% { opacity: 0; }
+50% { opacity: 1; }
+}
+/* Loading / error */
+.loading-msg {
+color: #FFB6C1;
+font-size: 1.2rem;
+margin-top: 1rem;
+}
+.error-msg {
+color: #FF6B6B;
+font-size: 1rem;
+margin-top: 1rem;
+background: rgba(255,107,107,0.1);
+border: 1px solid #FF6B6B;
+border-radius: 10px;
+padding: 15px;
+max-width: 400px;
+text-align: left;
+}
+/* Utility classes */
+.hidden {
+display: none !important;
+}
+/* Responsive design */
+@media (max-width: 768px) {
+.slideshow-container {
+height: 90vh;
+}
+.slide {
+padding: 12px;
+}
+.nav-btn {
+padding: 12px 16px;
+font-size: 14px;
+min-width: 80px;
+}
+}
+</style>
+</head>
+<body>
+
+<!-- Main menu -->
+<div class="main-menu" id="main-menu">
+  <div class="logo-container">
+    <img src="https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png" alt="RumHam" />
+  </div>
+  <h1 class="main-title">Crooked Billet Quiz</h1>
+  <p class="main-subtitle">Pick A Table Top</p>
+  <div class="menu-buttons" id="menu-buttons">
+    <p class="loading-msg">Loading quiz data...</p>
+  </div>
+</div>
+
+<!-- Round sections injected here dynamically -->
+
+<!-- Zoom lightbox -->
+<div id="zoom-lightbox" class="zoom-lightbox">
+  <div class="zoom-lightbox-inner" id="zoom-lightbox-inner">
+    <img id="zoom-img" src="" alt="Zoomed image">
+  </div>
+  <button class="zoom-center-btn" id="zoom-center-btn" title="Centre image">⊙</button>
+  <button class="zoom-close-btn" id="zoom-close-btn">✕</button>
+  <p class="zoom-hint">Pinch or double-tap to zoom &nbsp;•&nbsp; Drag to pan when zoomed</p>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal" onclick="closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-body">
+      <h3 class="modal-title" id="modal-title"></h3>
+      <div class="modal-text" id="modal-text"></div>
+      <div class="modal-info" id="modal-info"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-close" onclick="closeModal()">Got it!</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── State ───────────────────────────────────────────────────────────────────
+let rounds        = [];
+let githubBaseUrl = '';
+let pdfFileName   = '';
+
+let currentSlide      = 1;
+let activeRoundIndex  = null;
+let isDragging        = false;
+let touchStartX       = 0;
+let touchEndX         = 0;
+
+// ─── Load data ───────────────────────────────────────────────────────────────
+async function loadQuestions() {
+  try {
+    const response = await fetch('questions.json');
+    if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    const data = await response.json();
+
+    githubBaseUrl = data.githubBaseUrl || '';
+    pdfFileName   = data.pdfFileName   || '';
+    rounds        = (data.rounds || []).map(r => ({
+      ...r,
+      questions: (r.questions || []).slice().sort((a, b) => a.questionNumber - b.questionNumber)
+    }));
+
+    buildRoundSections();
+    buildMenuButtons();
+    showMainMenu();
+
+  } catch (err) {
+    const container = document.getElementById('menu-buttons');
+    container.innerHTML = `
+      <div class="error-msg">
+        <strong>Could not load questions.json</strong><br>
+        ${escapeHtml(err.message)}<br><br>
+        Make sure <code>questions.json</code> is in the same folder as <code>index.html</code>.
+      </div>
+      <button class="menu-btn" onclick="loadQuestions()" style="margin-top:1rem">↺ Retry</button>
+    `;
+  }
+}
+
+// ─── Media type detection ──────────────────────────────────────────────────
+const VIDEO_EXTS = ['mp4', 'webm', 'mov', 'm4v', 'ogv'];
+const AUDIO_EXTS = ['mp3', 'wav', 'm4a', 'aac', 'ogg', 'oga', 'flac'];
+
+function getMediaType(fileName) {
+  const ext = String(fileName || '').split('.').pop().toLowerCase();
+  if (VIDEO_EXTS.includes(ext)) return 'video';
+  if (AUDIO_EXTS.includes(ext)) return 'audio';
+  return 'image';
+}
+
+function pauseAllMedia() {
+  document.querySelectorAll('video.slide-video, audio.slide-audio').forEach(el => {
+    el.pause();
+  });
+}
+
+const PLAY_ICON_SVG  = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+const PAUSE_ICON_SVG = '<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+
+function toggleMedia(btn) {
+  const media = document.getElementById(btn.dataset.target);
+  if (!media) return;
+  if (media.paused) {
+    media.play().catch(() => {});
+  } else {
+    media.pause();
+  }
+}
+
+// ─── Build dynamic HTML ───────────────────────────────────────────────────────
+function buildMenuButtons() {
+  const container = document.getElementById('menu-buttons');
+  container.innerHTML = '';
+
+  rounds.forEach((round, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'menu-btn';
+    btn.textContent = round.roundTitle;
+    btn.onclick = () => showInstructions(idx);
+    container.appendChild(btn);
+  });
+
+  if (pdfFileName) {
+    const pdfBtn = document.createElement('button');
+    pdfBtn.className = 'menu-btn';
+    pdfBtn.textContent = 'Download PDF';
+    pdfBtn.onclick = downloadPDF;
+    container.appendChild(pdfBtn);
+  }
+}
+
+function buildRoundSections() {
+  const modal = document.getElementById('modal');
+
+  rounds.forEach((round, idx) => {
+    // ── Instructions section ──────────────────────────────────────────────
+    const instrEl = document.createElement('div');
+    instrEl.className = 'instructions-section hidden';
+    instrEl.id = `instructions-round${idx}`;
+
+    const lines = (round.howToPlay || '').split('\n').map(l => l.trim()).filter(Boolean);
+    const listItems = lines.map(l => `<li>${escapeHtml(l)}</li>`).join('');
+
+    instrEl.innerHTML = `
+      <div class="instructions-container">
+        <h2 class="instructions-title">${escapeHtml(round.roundTitle)}</h2>
+        <div class="instructions-content">
+          <h3>How to Play:</h3>
+          <ul>${listItems || '<li>Good luck!</li>'}</ul>
+        </div>
+        <div class="instructions-buttons">
+          <button class="instructions-btn" onclick="startSlideshow(${idx})">Start Slideshow</button>
+          <button class="instructions-btn secondary" onclick="showMainMenu()">Back to Menu</button>
+        </div>
+      </div>`;
+    document.body.insertBefore(instrEl, modal);
+
+    // ── Slideshow section ─────────────────────────────────────────────────
+    const slideEl = document.createElement('div');
+    slideEl.className = 'slideshow-section hidden';
+    slideEl.id = `slideshow-round${idx}`;
+
+    slideEl.innerHTML = `
+      <h1 class="slideshow-title" onclick="showMainMenu()">${escapeHtml(round.roundTitle)}</h1>
+      <div class="swipe-indicator" id="swipeIndicator${idx}">← Swipe to navigate →</div>
+      <div class="slideshow-container">
+        <div class="slides-wrapper" id="slides-wrapper${idx}">
+          <div class="slides-container" id="slides-container${idx}"></div>
+        </div>
+        <div class="navigation">
+          <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn${idx}">◀ Prev</button>
+          <div class="slide-counter">
+            <span id="current-slide${idx}">1</span> / <span id="total-slides${idx}">0</span>
+          </div>
+          <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn${idx}">Next ▶</button>
+        </div>
+        <div class="dots-container" id="dots-container${idx}"></div>
+      </div>`;
+    document.body.insertBefore(slideEl, modal);
+  });
+}
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
+function showMainMenu() {
+  pauseAllMedia();
+  document.querySelectorAll('.slideshow-section, .instructions-section').forEach(s => {
+    s.classList.add('hidden');
+  });
+  document.getElementById('main-menu').classList.remove('hidden');
+  activeRoundIndex = null;
+  currentSlide = 1;
+}
+
+function showInstructions(idx) {
+  pauseAllMedia();
+  document.getElementById('main-menu').classList.add('hidden');
+  document.querySelectorAll('.slideshow-section, .instructions-section').forEach(s => {
+    s.classList.add('hidden');
+  });
+  document.getElementById(`instructions-round${idx}`).classList.remove('hidden');
+  activeRoundIndex = idx;
+}
+
+function startSlideshow(idx) {
+  document.querySelectorAll('.slideshow-section, .instructions-section').forEach(s => {
+    s.classList.add('hidden');
+  });
+  document.getElementById(`slideshow-round${idx}`).classList.remove('hidden');
+  activeRoundIndex = idx;
+
+  const slidesContainer = document.getElementById(`slides-container${idx}`);
+  if (!slidesContainer.children.length) {
+    createSlides(idx);
+  }
+  currentSlide = 1;
+  showSlide(1);
+  hideSwipeIndicator(idx);
+}
+
+function downloadPDF() {
+  const link = document.createElement('a');
+  link.href = githubBaseUrl + pdfFileName;
+  link.download = pdfFileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+// ─── Reveal logic ─────────────────────────────────────────────────────────────
+function isAnswerRevealed(idx) {
+  const round = rounds[idx];
+  if (!round || !round.revealAnswer) return true;
+  return new Date() >= new Date(round.revealAnswer);
+}
+
+// ─── Modal ────────────────────────────────────────────────────────────────────
+function showClue(roundIdx, qIdx) {
+  const q = rounds[roundIdx].questions[qIdx];
+  if (q && q.clue) {
+    showModal('clue', 'Clue', q.clue);
+  }
+}
+
+function showAnswer(roundIdx, qIdx) {
+  const round = rounds[roundIdx];
+  const q = round.questions[qIdx];
+  if (!q) return;
+
+  if (isAnswerRevealed(roundIdx)) {
+    showModal('answer', 'Answer', q.answer, q.info, true);
+  } else {
+    const revealDate = new Date(round.revealAnswer);
+    showModal('answer', 'Answer Not Yet Available',
+      `Answers will be revealed on ${revealDate.toLocaleString()}`, null, false);
+  }
+}
+
+function showModal(type, title, text, info, revealed) {
+  const modal      = document.getElementById('modal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalText  = document.getElementById('modal-text');
+  const modalInfo  = document.getElementById('modal-info');
+
+  const iconSvg = type === 'clue'
+    ? '<svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>'
+    : '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>';
+
+  modalTitle.innerHTML = `${iconSvg} ${escapeHtml(title)}`;
+  modalTitle.className = `modal-title ${type}-title`;
+  modalText.textContent = text;
+  modalText.className = (type === 'answer' && revealed) ? 'modal-text answer-text' : 'modal-text';
+
+  if (info && type === 'answer' && revealed) {
+    modalInfo.textContent = info;
+    modalInfo.style.display = 'block';
+  } else {
+    modalInfo.style.display = 'none';
+  }
+
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+function isModalOpen() {
+  const modal = document.getElementById('modal');
+  return modal && modal.style.display === 'flex';
+}
+
+// ─── Slides ───────────────────────────────────────────────────────────────────
+function createSlides(idx) {
+  const round           = rounds[idx];
+  const questions       = round.questions;
+  const slidesContainer = document.getElementById(`slides-container${idx}`);
+  const dotsContainer   = document.getElementById(`dots-container${idx}`);
+
+  document.getElementById(`total-slides${idx}`).textContent = questions.length;
+  slidesContainer.innerHTML = '';
+  dotsContainer.innerHTML   = '';
+
+  questions.forEach((q, qIdx) => {
+    const slide = document.createElement('div');
+    slide.className = 'slide';
+
+    const clueHTML = q.clue
+      ? `<button class="clue-btn" onclick="showClue(${idx}, ${qIdx})" title="Get a clue">
+           <svg viewBox="0 0 24 24">
+             <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
+           </svg>
+         </button>`
+      : '';
+
+    // Build src safely — store on a data-attribute to avoid inline quote issues
+    const mediaSrc = githubBaseUrl + (q.fileName || '');
+    const fallback = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMWExYTFhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iI0ZGRDcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=";
+
+    const mediaType = getMediaType(q.fileName);
+    let mediaHTML;
+
+    if (mediaType === 'video') {
+      const videoId = `video-${idx}-${qIdx}`;
+      mediaHTML = `
+        <div class="video-protect-wrapper">
+          <video id="${videoId}" class="slide-video"
+                 src="${escapeHtml(mediaSrc)}"
+                 playsinline webkit-playsinline="true"
+                 controls controlsList="nodownload noremoteplayback" disablepictureinpicture
+                 oncontextmenu="return false"></video>
+          <button class="media-play-btn" data-target="${videoId}" onclick="toggleMedia(this)">
+            ${PLAY_ICON_SVG}
+          </button>
+        </div>`;
+    } else if (mediaType === 'audio') {
+      const audioId = `audio-${idx}-${qIdx}`;
+      mediaHTML = `
+        <div class="cd-wrapper">
+          <div class="cd-disc">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="cdGrad${idx}-${qIdx}" cx="50%" cy="50%" r="70%">
+                  <stop offset="0%" stop-color="#f0f0f0"/>
+                  <stop offset="40%" stop-color="#c0c0d0"/>
+                  <stop offset="55%" stop-color="#8890a8"/>
+                  <stop offset="70%" stop-color="#d0d8e8"/>
+                  <stop offset="85%" stop-color="#9098b0"/>
+                  <stop offset="100%" stop-color="#e0e0f0"/>
+                </radialGradient>
+                <linearGradient id="cdShine${idx}-${qIdx}" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fff" stop-opacity="0.8"/>
+                  <stop offset="50%" stop-color="#fff" stop-opacity="0"/>
+                  <stop offset="100%" stop-color="#fff" stop-opacity="0.35"/>
+                </linearGradient>
+              </defs>
+              <circle cx="100" cy="100" r="98" fill="url(#cdGrad${idx}-${qIdx})" stroke="#666" stroke-width="1"/>
+              <circle cx="100" cy="100" r="98" fill="url(#cdShine${idx}-${qIdx})"/>
+              <circle cx="100" cy="100" r="70" fill="none" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
+              <circle cx="100" cy="100" r="55" fill="none" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
+              <circle cx="100" cy="100" r="40" fill="#FFD700" stroke="#000" stroke-width="2"/>
+              <circle cx="100" cy="100" r="10" fill="#0a0a0a" stroke="#FFD700" stroke-width="2"/>
+            </svg>
+          </div>
+          <audio id="${audioId}" class="slide-audio"
+                 src="${escapeHtml(mediaSrc)}"
+                 oncontextmenu="return false"></audio>
+          <button class="media-play-btn" data-target="${audioId}" onclick="toggleMedia(this)">
+            ${PLAY_ICON_SVG}
+          </button>
+        </div>`;
+    } else {
+      mediaHTML = `
+        <div class="img-protect-wrapper">
+          <img src="${escapeHtml(mediaSrc)}"
+               alt="Question ${q.questionNumber}"
+               loading="lazy"
+               draggable="false"
+               onerror="this.src='${fallback}'">
+          <div class="img-overlay" data-zoom-src="${escapeHtml(mediaSrc)}" onclick="openZoom(this.dataset.zoomSrc)"></div>
+        </div>`;
+    }
+
+    slide.innerHTML = `
+      <div class="slide-image-container">
+        ${mediaHTML}
+      </div>
+      <div class="slide-bottom-section">
+        ${clueHTML}
+        <button class="answer-btn" onclick="showAnswer(${idx}, ${qIdx})">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+          </svg>
+          Show Answer
+        </button>
+      </div>`;
+
+    slidesContainer.appendChild(slide);
+
+    if (mediaType === 'video' || mediaType === 'audio') {
+      const media = slide.querySelector(mediaType === 'video' ? '.slide-video' : '.slide-audio');
+      const btn   = slide.querySelector('.media-play-btn');
+      const discEl = mediaType === 'audio' ? slide.querySelector('.cd-disc') : null;
+
+      const setPlayingUI = () => {
+        btn.classList.add('is-playing');
+        btn.innerHTML = PAUSE_ICON_SVG;
+        if (discEl) discEl.classList.add('spinning');
+      };
+      const setPausedUI = () => {
+        btn.classList.remove('is-playing');
+        btn.innerHTML = PLAY_ICON_SVG;
+        if (discEl) discEl.classList.remove('spinning');
+      };
+
+      media.addEventListener('play',  setPlayingUI);
+      media.addEventListener('pause', setPausedUI);
+      media.addEventListener('ended', setPausedUI);
+    }
+
+    const dot = document.createElement('span');
+    dot.className = `dot ${qIdx === 0 ? 'active' : ''}`;
+    dot.onclick = () => showSlide(qIdx + 1);
+    dotsContainer.appendChild(dot);
+  });
+}
+
+function showSlide(n) {
+  if (activeRoundIndex === null) return;
+  const idx      = activeRoundIndex;
+  const questions = rounds[idx].questions;
+  const slides   = document.querySelectorAll(`#slides-container${idx} .slide`);
+  const dots     = document.querySelectorAll(`#dots-container${idx} .dot`);
+  const slidesContainer = document.getElementById(`slides-container${idx}`);
+
+  if (n > slides.length) currentSlide = 1;
+  else if (n < 1)        currentSlide = slides.length;
+  else                   currentSlide = n;
+
+  slidesContainer.style.transform = `translateX(${-(currentSlide - 1) * 100}%)`;
+  dots.forEach(d => d.classList.remove('active'));
+  if (dots[currentSlide - 1]) dots[currentSlide - 1].classList.add('active');
+
+  document.getElementById(`current-slide${idx}`).textContent = currentSlide;
+  document.getElementById(`prevBtn${idx}`).disabled = currentSlide === 1;
+  document.getElementById(`nextBtn${idx}`).disabled = currentSlide === slides.length;
+
+  slides.forEach(slideEl => {
+    const media = slideEl.querySelector('video.slide-video, audio.slide-audio');
+    if (media) {
+      media.pause();
+      media.currentTime = 0;
+    }
+  });
+}
+
+function changeSlide(n) {
+  if (isDragging || activeRoundIndex === null) return;
+  showSlide(currentSlide + n);
+}
+
+// ─── Touch / swipe ────────────────────────────────────────────────────────────
+function handleTouchStart(e) {
+  if (activeRoundIndex === null) return;
+  touchStartX = e.touches[0].clientX;
+  touchEndX   = touchStartX;
+  isDragging  = true;
+}
+
+function handleTouchMove(e) {
+  if (!isDragging || activeRoundIndex === null) return;
+  e.preventDefault();
+  touchEndX = e.touches[0].clientX;
+  const dragPercent   = ((touchEndX - touchStartX) / window.innerWidth) * 100;
+  const currentTx     = -(currentSlide - 1) * 100;
+  const idx           = activeRoundIndex;
+  const slidesContainer = document.getElementById(`slides-container${idx}`);
+  slidesContainer.style.transition = 'none';
+  slidesContainer.style.transform  = `translateX(${currentTx + dragPercent}%)`;
+}
+
+function handleTouchEnd(e) {
+  if (!isDragging || activeRoundIndex === null) return;
+  isDragging = false;
+  const idx  = activeRoundIndex;
+  const slidesContainer = document.getElementById(`slides-container${idx}`);
+  slidesContainer.style.transition = 'transform 0.3s ease-out';
+
+  const swipeDist = touchStartX - touchEndX;
+  if (Math.abs(swipeDist) > 50) {
+    if (swipeDist > 0 && currentSlide < rounds[idx].questions.length) currentSlide++;
+    else if (swipeDist < 0 && currentSlide > 1)                        currentSlide--;
+  }
+  showSlide(currentSlide);
+  touchStartX = 0;
+  touchEndX   = 0;
+}
+
+function hideSwipeIndicator(idx) {
+  const el = document.getElementById(`swipeIndicator${idx}`);
+  setTimeout(() => {
+    if (el) {
+      el.style.opacity = '0';
+      setTimeout(() => { el.style.display = 'none'; }, 1000);
+    }
+  }, 4000);
+}
+
+// ─── Zoom Lightbox ────────────────────────────────────────────────────────────
+const ZL = {
+  scale:      1,
+  panX:       0,
+  panY:       0,
+  lastTapTime: 0,
+  pinchDist:  0,
+  dragStartX: 0,
+  dragStartY: 0,
+  isPanning:  false,
+  isActive:   false,
+  // Mouse drag
+  mouseDown:  false,
+  mouseDragStartX: 0,
+  mouseDragStartY: 0,
+};
+
+function openZoom(src) {
+  if (!src) return;
+  const lb  = document.getElementById('zoom-lightbox');
+  const img = document.getElementById('zoom-img');
+  img.src = src;
+  ZL.scale = 1; ZL.panX = 0; ZL.panY = 0;
+  img.style.transform = '';
+  ZL.isActive = true;
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeZoom() {
+  const lb  = document.getElementById('zoom-lightbox');
+  const img = document.getElementById('zoom-img');
+  lb.classList.remove('active');
+  img.style.transform = '';
+  ZL.scale = 1; ZL.panX = 0; ZL.panY = 0;
+  ZL.isActive = false;
+  ZL.isPanning = false;
+  ZL.mouseDown = false;
+  document.body.style.overflow = 'auto';
+}
+
+function applyZoomTransform() {
+  document.getElementById('zoom-img').style.transform =
+    `translate(${ZL.panX}px, ${ZL.panY}px) scale(${ZL.scale})`;
+}
+
+function zlPinchDist(touches) {
+  return Math.hypot(
+    touches[1].clientX - touches[0].clientX,
+    touches[1].clientY - touches[0].clientY
+  );
+}
+
+// Touch events
+const zlInner = document.getElementById('zoom-lightbox-inner');
+
+zlInner.addEventListener('touchstart', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (e.touches.length === 2) {
+    ZL.isPanning  = false;
+    ZL.pinchDist  = zlPinchDist(e.touches);
+  } else if (e.touches.length === 1) {
+    const now = Date.now();
+    if (now - ZL.lastTapTime < 300) {
+      // Double-tap: toggle zoom
+      ZL.lastTapTime = 0;
+      if (ZL.scale > 1.5) {
+        ZL.scale = 1; ZL.panX = 0; ZL.panY = 0;
+      } else {
+        ZL.scale = 2.5;
+      }
+      applyZoomTransform();
+      return;
+    }
+    ZL.lastTapTime  = now;
+    ZL.dragStartX   = e.touches[0].clientX - ZL.panX;
+    ZL.dragStartY   = e.touches[0].clientY - ZL.panY;
+    ZL.isPanning    = true;
+  }
+}, { passive: false });
+
+zlInner.addEventListener('touchmove', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (e.touches.length === 2) {
+    ZL.isPanning = false;
+    const dist   = zlPinchDist(e.touches);
+    const ratio  = dist / ZL.pinchDist;
+    ZL.pinchDist = dist;
+    ZL.scale     = Math.max(1, Math.min(6, ZL.scale * ratio));
+    applyZoomTransform();
+  } else if (e.touches.length === 1 && ZL.isPanning && ZL.scale > 1.05) {
+    ZL.panX = e.touches[0].clientX - ZL.dragStartX;
+    ZL.panY = e.touches[0].clientY - ZL.dragStartY;
+    applyZoomTransform();
+  }
+}, { passive: false });
+
+zlInner.addEventListener('touchend', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  ZL.isPanning = false;
+  if (ZL.scale < 1.05) {
+    ZL.scale = 1; ZL.panX = 0; ZL.panY = 0;
+    applyZoomTransform();
+  }
+}, { passive: false });
+
+// Mouse wheel zoom (desktop)
+document.getElementById('zoom-lightbox').addEventListener('wheel', function(e) {
+  if (!ZL.isActive) return;
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? 0.9 : 1.1;
+  ZL.scale    = Math.max(1, Math.min(6, ZL.scale * delta));
+  if (ZL.scale <= 1.05) { ZL.scale = 1; ZL.panX = 0; ZL.panY = 0; }
+  applyZoomTransform();
+}, { passive: false });
+
+// Mouse drag (desktop)
+zlInner.addEventListener('mousedown', function(e) {
+  if (ZL.scale <= 1.05) return;
+  ZL.mouseDown      = true;
+  ZL.mouseDragStartX = e.clientX - ZL.panX;
+  ZL.mouseDragStartY = e.clientY - ZL.panY;
+  zlInner.style.cursor = 'grabbing';
+});
+window.addEventListener('mousemove', function(e) {
+  if (!ZL.mouseDown || !ZL.isActive) return;
+  ZL.panX = e.clientX - ZL.mouseDragStartX;
+  ZL.panY = e.clientY - ZL.mouseDragStartY;
+  applyZoomTransform();
+});
+window.addEventListener('mouseup', function() {
+  ZL.mouseDown = false;
+  zlInner.style.cursor = '';
+});
+
+// Close button
+document.getElementById('zoom-close-btn').addEventListener('click', closeZoom);
+document.getElementById('zoom-close-btn').addEventListener('touchend', function(e) {
+  e.preventDefault();
+  closeZoom();
+});
+
+// Centre button — resets pan & zoom to fit-in-view
+function centerZoom() {
+  ZL.scale = 1; ZL.panX = 0; ZL.panY = 0;
+  applyZoomTransform();
+}
+document.getElementById('zoom-center-btn').addEventListener('click', centerZoom);
+document.getElementById('zoom-center-btn').addEventListener('touchend', function(e) {
+  e.preventDefault();
+  centerZoom();
+});
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function escapeHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// ─── Event listeners ──────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  // Block common save/view-source shortcuts (best-effort anti-cheat)
+  if (e.ctrlKey || e.metaKey) {
+    if (['s', 'u', 'p'].includes(e.key.toLowerCase())) {
+      e.preventDefault();
+      return;
+    }
+  }
+
+  // Close zoom lightbox with Escape
+  if (ZL.isActive) {
+    if (e.key === 'Escape') closeZoom();
+    return; // don't process other keys while zoom is open
+  }
+
+  if (isModalOpen()) {
+    if (e.key === 'Escape') closeModal();
+    return;
+  }
+  if (activeRoundIndex !== null) {
+    if (e.key === 'ArrowLeft')  changeSlide(-1);
+    if (e.key === 'ArrowRight') changeSlide(1);
+    if (e.key === 'Escape')     showMainMenu();
+  }
+});
+
+document.addEventListener('touchstart', e => {
+  if (!isModalOpen() && !ZL.isActive) handleTouchStart(e);
+}, { passive: true });
+
+document.addEventListener('touchmove', e => {
+  if (!isModalOpen() && !ZL.isActive) handleTouchMove(e);
+}, { passive: false });
+
+document.addEventListener('touchend', e => {
+  if (!isModalOpen() && !ZL.isActive) handleTouchEnd(e);
+}, { passive: true });
+
+// Disable right-click on images/video/audio (extra layer on top of overlay)
+document.addEventListener('contextmenu', e => {
+  if (['IMG', 'VIDEO', 'AUDIO'].includes(e.target.tagName)) e.preventDefault();
+});
+
+document.getElementById('modal').addEventListener('touchstart', e => e.stopPropagation(), { passive: true });
+document.getElementById('modal').addEventListener('touchmove',  e => { e.preventDefault(); e.stopPropagation(); }, { passive: false });
+document.getElementById('modal').addEventListener('touchend',   e => e.stopPropagation(), { passive: true });
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+loadQuestions();
+</script>
+</body>
+</html>
