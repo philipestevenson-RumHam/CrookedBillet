@@ -309,14 +309,16 @@ position: relative;
 display: flex;
 align-items: center;
 justify-content: center;
-width: 100%;
-height: 100%;
+width: 95%;
+max-width: 100%;
+max-height: 95%;
+aspect-ratio: 16 / 9;
+margin: 0 auto;
 }
 .slide-video {
-max-width: 95%;
-max-height: 95%;
-width: auto;
-height: auto;
+width: 100%;
+height: 100%;
+object-fit: contain;
 background: #000;
 box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 border: 3px solid #FFD700;
@@ -1120,6 +1122,7 @@ function createSlides(idx) {
         <div class="video-protect-wrapper">
           <video id="${videoId}" class="slide-video"
                  src="${escapeHtml(mediaSrc)}"
+                 preload="metadata"
                  playsinline webkit-playsinline="true"
                  controls controlsList="nodownload noremoteplayback" disablepictureinpicture
                  oncontextmenu="return false"></video>
