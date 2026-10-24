@@ -1,4 +1,4 @@
-﻿{
+{
   "githubBaseUrl": "https://philipestevenson-rumham.github.io/CrookedBillet/",
   "pdfFileName": "CrookedBillet.pdf",
   "rounds": [
@@ -7,36 +7,216 @@
       "howToPlay": "Name the celebrity, most have a variation of the name David in their name.",
       "revealAnswer": "2026-11-11 22:45:00",
       "questions": [
-        { "questionNumber": 1, "fileName": "01 - Dave Bautista.png", "answer": "Dave Bautista", "clue": "Actor", "info": "Former WWE star who became known for Guardians of the Galaxy and major action films." },
-        { "questionNumber": 2, "fileName": "02 - Dave Berry.png", "answer": "Dave Berry", "clue": "Presenter", "info": "British radio presenter known for hosting shows on Absolute Radio." },
-        { "questionNumber": 3, "fileName": "03 - Dave Allen.png", "answer": "Dave Allen", "clue": "Comedian", "info": "Legendary Irish stand‑up famous for his dry humour and storytelling." },
-        { "questionNumber": 4, "fileName": "04 - Dave Franco.png", "answer": "Dave Franco", "clue": "Actor", "info": "Known for Now You See Me, Neighbors and various comedy roles." },
-        { "questionNumber": 5, "fileName": "05 - Dave Chappelle.png", "answer": "Dave Chappelle", "clue": "Comedian", "info": "Influential stand‑up known for sharp social commentary and Chappelle's Show." },
-        { "questionNumber": 6, "fileName": "06 - Dave Grohl.png", "answer": "Dave Grohl", "clue": "Musician", "info": "Frontman of Foo Fighters and former drummer of Nirvana." },
-        { "questionNumber": 7, "fileName": "07 - David Arquette.png", "answer": "David Arquette", "clue": "Actor", "info": "Best known for playing Dewey Riley in the Scream film franchise." },
-        { "questionNumber": 8, "fileName": "08 - David Boreanaz.png", "answer": "David Boreanaz", "clue": "Actor", "info": "Star of Buffy, Angel, Bones and SEAL Team." },
-        { "questionNumber": 9, "fileName": "09 - David Carradine.png", "answer": "David Carradine", "clue": "Actor", "info": "Known for the TV series Kung Fu and his role in Kill Bill." },
-        { "questionNumber": 10, "fileName": "10 - David Cassidy.png", "answer": "David Cassidy", "clue": "Musician/Actor", "info": "Teen idol from The Partridge Family and successful 1970s pop singer." },
-        { "questionNumber": 11, "fileName": "11 - David Corenswet.png", "answer": "David Corenswet", "clue": "Actor", "info": "Rising star cast as Superman in James Gunn's upcoming DC films." },
-        { "questionNumber": 12, "fileName": "12 - Dave Stewart.png", "answer": "Dave Stewart", "clue": "Musician", "info": "Co‑founder of Eurythmics and acclaimed pop producer." },
-        { "questionNumber": 13, "fileName": "13 - David Crosby.png", "answer": "David Crosby", "clue": "Musician", "info": "Member of The Byrds and Crosby, Stills & Nash, a key figure in folk‑rock." },
-        { "questionNumber": 14, "fileName": "14 - David Dastmalchian.png", "answer": "David Dastmalchian", "clue": "Actor", "info": "Known for roles in Dune, The Suicide Squad and Ant‑Man." },
-        { "questionNumber": 15, "fileName": "15 - David Essex.png", "answer": "David Essex", "clue": "Musician/Actor", "info": "Pop star known for Rock On and star of stage musicals and films." },
-        { "questionNumber": 16, "fileName": "16 - David Spade.png", "answer": "David Spade", "clue": "Actor/Comedian", "info": "Known for SNL, Just Shoot Me! and numerous comedy films." },
-        { "questionNumber": 17, "fileName": "17 - David Guetta.png", "answer": "David Guetta", "clue": "Musician", "info": "World‑famous DJ and producer behind many global dance hits." },
-        { "questionNumber": 18, "fileName": "18 - David Niven.png", "answer": "David Niven", "clue": "Actor", "info": "Classic Hollywood star known for The Pink Panther and A Matter of Life and Death." },
-        { "questionNumber": 19, "fileName": "19 - David Harbour.png", "answer": "David Harbour", "clue": "Actor", "info": "Plays Jim Hopper in Stranger Things and appears in major films." },
-        { "questionNumber": 20, "fileName": "20 - David Hyde Pierce.png", "answer": "David Hyde Pierce", "clue": "Actor", "info": "Famous for playing Niles Crane in Frasier." },
-        { "questionNumber": 21, "fileName": "21 - David Mitchell.png", "answer": "David Mitchell", "clue": "Comedian", "info": "Known for Peep Show and panel shows like Would I Lie to You." },
-        { "questionNumber": 22, "fileName": "22 - David Morrissey.png", "answer": "David Morrissey", "clue": "Actor", "info": "Known for The Walking Dead and numerous British dramas." },
-        { "questionNumber": 23, "fileName": "23 - David Schwimmer.png", "answer": "David Schwimmer", "clue": "Actor", "info": "Played Ross Geller in Friends, one of TV's most iconic sitcom roles." },
-        { "questionNumber": 24, "fileName": "24 - David Soul.png", "answer": "David Soul", "clue": "Musician/Actor", "info": "Star of Starsky & Hutch and successful singer in the 1970s." },
-        { "questionNumber": 25, "fileName": "25 - Dave Benson Phillips.png", "answer": "Dave Benson Phillips", "clue": "Presenter", "info": "British children's TV presenter best known for Get Your Own Back." },
-        { "questionNumber": 26, "fileName": "26 - David Suchet.png", "answer": "David Suchet", "clue": "Actor", "info": "Renowned for his definitive portrayal of Hercule Poirot." },
-        { "questionNumber": 27, "fileName": "27 - David Tennant.png", "answer": "David Tennant", "clue": "Actor", "info": "Known for Doctor Who, Broadchurch and Good Omens." },
-        { "questionNumber": 28, "fileName": "28 - David Warner.png", "answer": "David Warner", "clue": "Cricketer", "info": "Australian international batsman known for explosive scoring." },
-        { "questionNumber": 29, "fileName": "29 - Keith David.png", "answer": "Keith David", "clue": "Actor", "info": "Known for his deep voice and roles in The Thing, Platoon and many animations." },
-        { "questionNumber": 30, "fileName": "30 - Nicholas Lyndhurst.png", "answer": "Nicholas Lyndhurst", "clue": "Actor", "info": "Star of Only Fools and Horses and Goodnight Sweetheart." }
+        {
+          "questionNumber": 1,
+          "fileName": "01 - Dave Bautista.webp",
+          "answer": "Dave Bautista",
+          "clue": "Actor",
+          "info": "Former WWE star who became known for Guardians of the Galaxy and major action films."
+        },
+        {
+          "questionNumber": 2,
+          "fileName": "02 - Dave Berry.webp",
+          "answer": "Dave Berry",
+          "clue": "Presenter",
+          "info": "British radio presenter known for hosting shows on Absolute Radio."
+        },
+        {
+          "questionNumber": 3,
+          "fileName": "03 - Dave Allen.webp",
+          "answer": "Dave Allen",
+          "clue": "Comedian",
+          "info": "Legendary Irish stand‑up famous for his dry humour and storytelling."
+        },
+        {
+          "questionNumber": 4,
+          "fileName": "04 - Dave Franco.webp",
+          "answer": "Dave Franco",
+          "clue": "Actor",
+          "info": "Known for Now You See Me, Neighbors and various comedy roles."
+        },
+        {
+          "questionNumber": 5,
+          "fileName": "05 - Dave Chappelle.webp",
+          "answer": "Dave Chappelle",
+          "clue": "Comedian",
+          "info": "Influential stand‑up known for sharp social commentary and Chappelle's Show."
+        },
+        {
+          "questionNumber": 6,
+          "fileName": "06 - Dave Grohl.webp",
+          "answer": "Dave Grohl",
+          "clue": "Musician",
+          "info": "Frontman of Foo Fighters and former drummer of Nirvana."
+        },
+        {
+          "questionNumber": 7,
+          "fileName": "07 - David Arquette.webp",
+          "answer": "David Arquette",
+          "clue": "Actor",
+          "info": "Best known for playing Dewey Riley in the Scream film franchise."
+        },
+        {
+          "questionNumber": 8,
+          "fileName": "08 - David Boreanaz.webp",
+          "answer": "David Boreanaz",
+          "clue": "Actor",
+          "info": "Star of Buffy, Angel, Bones and SEAL Team."
+        },
+        {
+          "questionNumber": 9,
+          "fileName": "09 - David Carradine.webp",
+          "answer": "David Carradine",
+          "clue": "Actor",
+          "info": "Known for the TV series Kung Fu and his role in Kill Bill."
+        },
+        {
+          "questionNumber": 10,
+          "fileName": "10 - David Cassidy.webp",
+          "answer": "David Cassidy",
+          "clue": "Musician/Actor",
+          "info": "Teen idol from The Partridge Family and successful 1970s pop singer."
+        },
+        {
+          "questionNumber": 11,
+          "fileName": "11 - David Corenswet.webp",
+          "answer": "David Corenswet",
+          "clue": "Actor",
+          "info": "Rising star cast as Superman in James Gunn's upcoming DC films."
+        },
+        {
+          "questionNumber": 12,
+          "fileName": "12 - Dave Stewart.webp",
+          "answer": "Dave Stewart",
+          "clue": "Musician",
+          "info": "Co‑founder of Eurythmics and acclaimed pop producer."
+        },
+        {
+          "questionNumber": 13,
+          "fileName": "13 - David Crosby.webp",
+          "answer": "David Crosby",
+          "clue": "Musician",
+          "info": "Member of The Byrds and Crosby, Stills & Nash, a key figure in folk‑rock."
+        },
+        {
+          "questionNumber": 14,
+          "fileName": "14 - David Dastmalchian.webp",
+          "answer": "David Dastmalchian",
+          "clue": "Actor",
+          "info": "Known for roles in Dune, The Suicide Squad and Ant‑Man."
+        },
+        {
+          "questionNumber": 15,
+          "fileName": "15 - David Essex.webp",
+          "answer": "David Essex",
+          "clue": "Musician/Actor",
+          "info": "Pop star known for Rock On and star of stage musicals and films."
+        },
+        {
+          "questionNumber": 16,
+          "fileName": "16 - David Spade.webp",
+          "answer": "David Spade",
+          "clue": "Actor/Comedian",
+          "info": "Known for SNL, Just Shoot Me! and numerous comedy films."
+        },
+        {
+          "questionNumber": 17,
+          "fileName": "17 - David Guetta.webp",
+          "answer": "David Guetta",
+          "clue": "Musician",
+          "info": "World‑famous DJ and producer behind many global dance hits."
+        },
+        {
+          "questionNumber": 18,
+          "fileName": "18 - David Niven.webp",
+          "answer": "David Niven",
+          "clue": "Actor",
+          "info": "Classic Hollywood star known for The Pink Panther and A Matter of Life and Death."
+        },
+        {
+          "questionNumber": 19,
+          "fileName": "19 - David Harbour.webp",
+          "answer": "David Harbour",
+          "clue": "Actor",
+          "info": "Plays Jim Hopper in Stranger Things and appears in major films."
+        },
+        {
+          "questionNumber": 20,
+          "fileName": "20 - David Hyde Pierce.webp",
+          "answer": "David Hyde Pierce",
+          "clue": "Actor",
+          "info": "Famous for playing Niles Crane in Frasier."
+        },
+        {
+          "questionNumber": 21,
+          "fileName": "21 - David Mitchell.webp",
+          "answer": "David Mitchell",
+          "clue": "Comedian",
+          "info": "Known for Peep Show and panel shows like Would I Lie to You."
+        },
+        {
+          "questionNumber": 22,
+          "fileName": "22 - David Morrissey.webp",
+          "answer": "David Morrissey",
+          "clue": "Actor",
+          "info": "Known for The Walking Dead and numerous British dramas."
+        },
+        {
+          "questionNumber": 23,
+          "fileName": "23 - David Schwimmer.webp",
+          "answer": "David Schwimmer",
+          "clue": "Actor",
+          "info": "Played Ross Geller in Friends, one of TV's most iconic sitcom roles."
+        },
+        {
+          "questionNumber": 24,
+          "fileName": "24 - David Soul.webp",
+          "answer": "David Soul",
+          "clue": "Musician/Actor",
+          "info": "Star of Starsky & Hutch and successful singer in the 1970s."
+        },
+        {
+          "questionNumber": 25,
+          "fileName": "25 - Dave Benson Phillips.webp",
+          "answer": "Dave Benson Phillips",
+          "clue": "Presenter",
+          "info": "British children's TV presenter best known for Get Your Own Back."
+        },
+        {
+          "questionNumber": 26,
+          "fileName": "26 - David Suchet.webp",
+          "answer": "David Suchet",
+          "clue": "Actor",
+          "info": "Renowned for his definitive portrayal of Hercule Poirot."
+        },
+        {
+          "questionNumber": 27,
+          "fileName": "27 - David Tennant.webp",
+          "answer": "David Tennant",
+          "clue": "Actor",
+          "info": "Known for Doctor Who, Broadchurch and Good Omens."
+        },
+        {
+          "questionNumber": 28,
+          "fileName": "28 - David Warner.webp",
+          "answer": "David Warner",
+          "clue": "Cricketer",
+          "info": "Australian international batsman known for explosive scoring."
+        },
+        {
+          "questionNumber": 29,
+          "fileName": "29 - Keith David.webp",
+          "answer": "Keith David",
+          "clue": "Actor",
+          "info": "Known for his deep voice and roles in The Thing, Platoon and many animations."
+        },
+        {
+          "questionNumber": 30,
+          "fileName": "30 - Nicholas Lyndhurst.webp",
+          "answer": "Nicholas Lyndhurst",
+          "clue": "Actor",
+          "info": "Star of Only Fools and Horses and Goodnight Sweetheart."
+        }
       ]
     },
     {
@@ -44,31 +224,181 @@
       "howToPlay": "Each picture is a rebus clue representing the title of a TV show. Can you work out the\nprogramme from the images?",
       "revealAnswer": "2026-11-11 22:45:00",
       "questions": [
-        { "questionNumber": 1, "fileName": "01 - DIY SOS.png", "answer": "DIY SOS", "clue": "", "info": "Presented by Nick Knowles since the show began in 1999." },
-        { "questionNumber": 2, "fileName": "02 - Flog It.png", "answer": "Flog It", "clue": "", "info": "Antiques programme hosted for many years by Paul Martin." },
-        { "questionNumber": 3, "fileName": "03 - Grand Designs.png", "answer": "Grand Designs", "clue": "", "info": "The series has been presented by Kevin McCloud since 1999." },
-        { "questionNumber": 4, "fileName": "04 - Killing Eve.png", "answer": "Killing Eve", "clue": "", "info": "Jodie Comer won two BAFTAs for her role as Villanelle." },
-        { "questionNumber": 5, "fileName": "05 - Last One Laughing.png", "answer": "Last One Laughing", "clue": "", "info": "Comedians compete to avoid laughing and win a cash prize for charity." },
-        { "questionNumber": 6, "fileName": "06 - Phoenix Nights.png", "answer": "Phoenix Nights", "clue": "", "info": "Set in The Phoenix Club, a fictional working men's club in Bolton." },
-        { "questionNumber": 7, "fileName": "07 - Prime Suspect.png", "answer": "Prime Suspect", "clue": "", "info": "Helen Mirren played Detective Chief Inspector Jane Tennison." },
-        { "questionNumber": 8, "fileName": "08 - Seinfield.png", "answer": "Seinfeld", "clue": "", "info": "Often described as \"a show about nothing\"." },
-        { "questionNumber": 9, "fileName": "09 - Springwatch.png", "answer": "Springwatch", "clue": "", "info": "Broadcast live each year from different wildlife locations around the UK." },
-        { "questionNumber": 10, "fileName": "10 - Take Me Out.png", "answer": "Take Me Out", "clue": "", "info": "Famous for the catchphrase \"No likey, no lighty!\"" },
-        { "questionNumber": 11, "fileName": "11 - The Inbetweeners.png", "answer": "The Inbetweeners", "clue": "", "info": "The four main characters attended the fictional Rudge Park Comprehensive." },
-        { "questionNumber": 12, "fileName": "12 - The Masked Singer.png", "answer": "The Masked Singer", "clue": "", "info": "Based on a South Korean television format." },
-        { "questionNumber": 13, "fileName": "13 - The Young Ones.png", "answer": "The Young Ones", "clue": "", "info": "Helped pioneer the alternative comedy movement of the 1980s." },
-        { "questionNumber": 14, "fileName": "14 - Twin Peaks.png", "answer": "Twin Peaks", "clue": "", "info": "Co-created by David Lynch and Mark Frost." },
-        { "questionNumber": 15, "fileName": "15 - Two Point Four Children.png", "answer": "Two Point Four Children", "clue": "", "info": "The title refers to the average British family size at the time." },
-        { "questionNumber": 16, "fileName": "16 - Are You Being Served.png", "answer": "Are You Being Served?", "clue": "", "info": "Set in the fictional Grace Brothers department store." },
-        { "questionNumber": 17, "fileName": "17 - 'Allo 'Allo.png", "answer": "'Allo 'Allo", "clue": "", "info": "Inspired by the wartime sitcom Secret Army." },
-        { "questionNumber": 18, "fileName": "18 - Breaking Bad.png", "answer": "Breaking Bad", "clue": "", "info": "Bryan Cranston won four Emmys for playing Walter White." },
-        { "questionNumber": 19, "fileName": "19 - Brideshead Revisited.png", "answer": "Brideshead Revisited", "clue": "", "info": "Based on the novel by Evelyn Waugh." },
-        { "questionNumber": 20, "fileName": "20 - Cadfael.png", "answer": "Cadfael", "clue": "", "info": "Features a crime-solving Benedictine monk in 12th-century England." },
-        { "questionNumber": 21, "fileName": "21 - Call the Midwife.png", "answer": "Call the Midwife", "clue": "", "info": "Based on the memoirs of Jennifer Worth." },
-        { "questionNumber": 22, "fileName": "22 - Changing Rooms.png", "answer": "Changing Rooms", "clue": "", "info": "Helped launch the television careers of Laurence Llewelyn-Bowen and Carol Smillie." },
-        { "questionNumber": 23, "fileName": "23 - Countdown.png", "answer": "Countdown", "clue": "", "info": "The first programme broadcast on Channel 4 in 1982." },
-        { "questionNumber": 24, "fileName": "24 - Black Adder Goes Forth.png", "answer": "Blackadder Goes Forth", "clue": "", "info": "Ends with the famous depiction of soldiers going \"over the top\" in WWI." },
-        { "questionNumber": 25, "fileName": "25 - Bargain Loving Brits In The Sun.png", "answer": "Bargain Loving Brits In The Sun", "clue": "", "info": "Follows British expatriates living and working in Spain." }
+        {
+          "questionNumber": 1,
+          "fileName": "01 - DIY SOS.webp",
+          "answer": "DIY SOS",
+          "clue": "",
+          "info": "Presented by Nick Knowles since the show began in 1999."
+        },
+        {
+          "questionNumber": 2,
+          "fileName": "02 - Flog It.webp",
+          "answer": "Flog It",
+          "clue": "",
+          "info": "Antiques programme hosted for many years by Paul Martin."
+        },
+        {
+          "questionNumber": 3,
+          "fileName": "03 - Grand Designs.webp",
+          "answer": "Grand Designs",
+          "clue": "",
+          "info": "The series has been presented by Kevin McCloud since 1999."
+        },
+        {
+          "questionNumber": 4,
+          "fileName": "04 - Killing Eve.webp",
+          "answer": "Killing Eve",
+          "clue": "",
+          "info": "Jodie Comer won two BAFTAs for her role as Villanelle."
+        },
+        {
+          "questionNumber": 5,
+          "fileName": "05 - Last One Laughing.webp",
+          "answer": "Last One Laughing",
+          "clue": "",
+          "info": "Comedians compete to avoid laughing and win a cash prize for charity."
+        },
+        {
+          "questionNumber": 6,
+          "fileName": "06 - Phoenix Nights.webp",
+          "answer": "Phoenix Nights",
+          "clue": "",
+          "info": "Set in The Phoenix Club, a fictional working men's club in Bolton."
+        },
+        {
+          "questionNumber": 7,
+          "fileName": "07 - Prime Suspect.webp",
+          "answer": "Prime Suspect",
+          "clue": "",
+          "info": "Helen Mirren played Detective Chief Inspector Jane Tennison."
+        },
+        {
+          "questionNumber": 8,
+          "fileName": "08 - Seinfield.webp",
+          "answer": "Seinfeld",
+          "clue": "",
+          "info": "Often described as \"a show about nothing\"."
+        },
+        {
+          "questionNumber": 9,
+          "fileName": "09 - Springwatch.webp",
+          "answer": "Springwatch",
+          "clue": "",
+          "info": "Broadcast live each year from different wildlife locations around the UK."
+        },
+        {
+          "questionNumber": 10,
+          "fileName": "10 - Take Me Out.webp",
+          "answer": "Take Me Out",
+          "clue": "",
+          "info": "Famous for the catchphrase \"No likey, no lighty!\""
+        },
+        {
+          "questionNumber": 11,
+          "fileName": "11 - The Inbetweeners.webp",
+          "answer": "The Inbetweeners",
+          "clue": "",
+          "info": "The four main characters attended the fictional Rudge Park Comprehensive."
+        },
+        {
+          "questionNumber": 12,
+          "fileName": "12 - The Masked Singer.webp",
+          "answer": "The Masked Singer",
+          "clue": "",
+          "info": "Based on a South Korean television format."
+        },
+        {
+          "questionNumber": 13,
+          "fileName": "13 - The Young Ones.webp",
+          "answer": "The Young Ones",
+          "clue": "",
+          "info": "Helped pioneer the alternative comedy movement of the 1980s."
+        },
+        {
+          "questionNumber": 14,
+          "fileName": "14 - Twin Peaks.webp",
+          "answer": "Twin Peaks",
+          "clue": "",
+          "info": "Co-created by David Lynch and Mark Frost."
+        },
+        {
+          "questionNumber": 15,
+          "fileName": "15 - Two Point Four Children.webp",
+          "answer": "Two Point Four Children",
+          "clue": "",
+          "info": "The title refers to the average British family size at the time."
+        },
+        {
+          "questionNumber": 16,
+          "fileName": "16 - Are You Being Served.webp",
+          "answer": "Are You Being Served?",
+          "clue": "",
+          "info": "Set in the fictional Grace Brothers department store."
+        },
+        {
+          "questionNumber": 17,
+          "fileName": "17 - 'Allo 'Allo.webp",
+          "answer": "'Allo 'Allo",
+          "clue": "",
+          "info": "Inspired by the wartime sitcom Secret Army."
+        },
+        {
+          "questionNumber": 18,
+          "fileName": "18 - Breaking Bad.webp",
+          "answer": "Breaking Bad",
+          "clue": "",
+          "info": "Bryan Cranston won four Emmys for playing Walter White."
+        },
+        {
+          "questionNumber": 19,
+          "fileName": "19 - Brideshead Revisited.webp",
+          "answer": "Brideshead Revisited",
+          "clue": "",
+          "info": "Based on the novel by Evelyn Waugh."
+        },
+        {
+          "questionNumber": 20,
+          "fileName": "20 - Cadfael.webp",
+          "answer": "Cadfael",
+          "clue": "",
+          "info": "Features a crime-solving Benedictine monk in 12th-century England."
+        },
+        {
+          "questionNumber": 21,
+          "fileName": "21 - Call the Midwife.webp",
+          "answer": "Call the Midwife",
+          "clue": "",
+          "info": "Based on the memoirs of Jennifer Worth."
+        },
+        {
+          "questionNumber": 22,
+          "fileName": "22 - Changing Rooms.webp",
+          "answer": "Changing Rooms",
+          "clue": "",
+          "info": "Helped launch the television careers of Laurence Llewelyn-Bowen and Carol Smillie."
+        },
+        {
+          "questionNumber": 23,
+          "fileName": "23 - Countdown.webp",
+          "answer": "Countdown",
+          "clue": "",
+          "info": "The first programme broadcast on Channel 4 in 1982."
+        },
+        {
+          "questionNumber": 24,
+          "fileName": "24 - Black Adder Goes Forth.webp",
+          "answer": "Blackadder Goes Forth",
+          "clue": "",
+          "info": "Ends with the famous depiction of soldiers going \"over the top\" in WWI."
+        },
+        {
+          "questionNumber": 25,
+          "fileName": "25 - Bargain Loving Brits In The Sun.webp",
+          "answer": "Bargain Loving Brits In The Sun",
+          "clue": "",
+          "info": "Follows British expatriates living and working in Spain."
+        }
       ]
     }
   ]
