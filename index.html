@@ -16,6 +16,7 @@ body {
 font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0a0a0a 100%);
 min-height: 100vh;
+min-height: 100dvh;
 padding: 10px;
 display: flex;
 flex-direction: column;
@@ -30,6 +31,7 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 min-height: 80vh;
+min-height: 80dvh;
 width: 100%;
 max-width: 600px;
 text-align: center;
@@ -110,6 +112,7 @@ align-items: center;
 flex-direction: column;
 justify-content: center;
 min-height: 100vh;
+min-height: 100dvh;
 padding: 20px;
 text-align: center;
 }
@@ -197,6 +200,7 @@ align-items: center;
 flex-direction: column;
 justify-content: center;
 min-height: 100vh;
+min-height: 100dvh;
 padding: 20px 0;
 }
 .slideshow-title {
@@ -228,6 +232,7 @@ border: 3px solid #FFD700;
 overflow: hidden;
 backdrop-filter: blur(10px);
 height: min(85vh, 700px);
+height: min(85dvh, 700px);
 display: flex;
 flex-direction: column;
 }
@@ -310,6 +315,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 width: min(85vw, 75vh);
+width: min(85vw, 75dvh);
 max-width: 700px;
 max-height: 95%;
 aspect-ratio: 1 / 1;
@@ -333,6 +339,7 @@ user-select: none;
 .cd-wrapper {
 position: relative;
 width: min(85vw, 75vh);
+width: min(85vw, 75dvh);
 max-width: 700px;
 aspect-ratio: 1 / 1;
 display: flex;
@@ -425,6 +432,7 @@ overflow: hidden;
 .zoom-lightbox-inner img {
 max-width: 95vw;
 max-height: 92vh;
+max-height: 92dvh;
 object-fit: contain;
 transform-origin: center center;
 will-change: transform;
@@ -573,6 +581,7 @@ border: 3px solid #FFD700;
 position: relative;
 animation: modalSlideIn 0.3s ease-out;
 max-height: 85vh;
+max-height: 85dvh;
 display: flex;
 flex-direction: column;
 overflow: hidden;
@@ -723,6 +732,8 @@ flex-shrink: 0;
 border-top: 2px solid #000;
 }
 .dot {
+padding: 0;
+font-size: 0;
 height: 10px;
 width: 10px;
 margin: 0 4px;
@@ -780,6 +791,7 @@ display: none !important;
 @media (max-width: 768px) {
 .slideshow-container {
 height: 90vh;
+height: 90dvh;
 }
 .slide {
 padding: 12px;
@@ -790,6 +802,42 @@ font-size: 14px;
 min-width: 80px;
 }
 }
+/* Focus visibility */
+button:focus-visible, .img-overlay:focus-visible, .dot:focus-visible {
+outline: 3px solid #fff;
+outline-offset: 3px;
+}
+/* Slideshow top bar */
+.slideshow-topbar {
+display: flex;
+align-items: center;
+gap: 12px;
+width: 100%;
+max-width: 900px;
+margin-bottom: 20px;
+padding: 0 8px;
+}
+.slideshow-topbar .slideshow-title {
+flex: 1;
+width: auto;
+margin-bottom: 0;
+font-size: clamp(1.3rem, 4.5vw, 2.5rem);
+}
+.back-btn {
+background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+color: #0a0a0a;
+border: 3px solid #000;
+border-radius: 20px;
+padding: 8px 14px;
+font-size: 0.9rem;
+font-weight: 600;
+cursor: pointer;
+min-width: 84px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.back-btn:hover { background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); }
+.topbar-spacer { min-width: 84px; }
+@media (max-width: 480px) { .topbar-spacer { display: none; } }
 </style>
 </head>
 <body>
@@ -797,7 +845,7 @@ min-width: 80px;
 <!-- Main menu -->
 <div class="main-menu" id="main-menu">
   <div class="logo-container">
-    <img src="https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png" alt="RumHam" />
+    <img src="RumHam.png" alt="RumHam" onerror="this.onerror=null;this.src='https://philipestevenson-rumham.github.io/CrookedBillet/RumHam.png'" />
   </div>
   <h1 class="main-title">Crooked Billet Quiz</h1>
   <p class="main-subtitle">Pick A Table Top</p>
@@ -809,18 +857,18 @@ min-width: 80px;
 <!-- Round sections injected here dynamically -->
 
 <!-- Zoom lightbox -->
-<div id="zoom-lightbox" class="zoom-lightbox">
+<div id="zoom-lightbox" class="zoom-lightbox" role="dialog" aria-modal="true" aria-label="Zoomed image">
   <div class="zoom-lightbox-inner" id="zoom-lightbox-inner">
     <img id="zoom-img" src="" alt="Zoomed image">
   </div>
-  <button class="zoom-center-btn" id="zoom-center-btn" title="Centre image">⊙</button>
-  <button class="zoom-close-btn" id="zoom-close-btn">✕</button>
+  <button class="zoom-center-btn" id="zoom-center-btn" title="Centre image" aria-label="Centre image">⊙</button>
+  <button class="zoom-close-btn" id="zoom-close-btn" aria-label="Close zoomed image">✕</button>
   <p class="zoom-hint">Pinch or double-tap to zoom &nbsp;•&nbsp; Drag to pan when zoomed</p>
 </div>
 
 <!-- Modal -->
 <div class="modal" id="modal" onclick="closeModal()">
-  <div class="modal-content" onclick="event.stopPropagation()">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="event.stopPropagation()">
     <div class="modal-body">
       <h3 class="modal-title" id="modal-title"></h3>
       <div class="modal-text" id="modal-text"></div>
@@ -843,11 +891,15 @@ let activeRoundIndex  = null;
 let isDragging        = false;
 let touchStartX       = 0;
 let touchEndX         = 0;
+let lastFocusEl       = null;
+let zoomLastFocus     = null;
+let answerReq         = 0;
+const MAX_DOTS        = 15;
 
 // ─── Load data ───────────────────────────────────────────────────────────────
 async function loadQuestions() {
   try {
-    const response = await fetch('questions.json');
+    const response = await fetch('questions.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     const data = await response.json();
 
@@ -861,6 +913,7 @@ async function loadQuestions() {
     buildRoundSections();
     buildMenuButtons();
     showMainMenu();
+    precacheImages();
 
   } catch (err) {
     const container = document.getElementById('menu-buttons');
@@ -959,15 +1012,19 @@ function buildRoundSections() {
     slideEl.id = `slideshow-round${idx}`;
 
     slideEl.innerHTML = `
-      <h1 class="slideshow-title" onclick="showMainMenu()">${escapeHtml(round.roundTitle)}</h1>
-      <div class="swipe-indicator" id="swipeIndicator${idx}">← Swipe to navigate →</div>
+      <div class="slideshow-topbar">
+        <button class="back-btn" onclick="showMainMenu()">&larr; Menu</button>
+        <h1 class="slideshow-title" onclick="showMainMenu()">${escapeHtml(round.roundTitle)}</h1>
+        <span class="topbar-spacer"></span>
+      </div>
+      <div class="swipe-indicator" id="swipeIndicator${idx}" aria-hidden="true">← Swipe to navigate →</div>
       <div class="slideshow-container">
         <div class="slides-wrapper" id="slides-wrapper${idx}">
           <div class="slides-container" id="slides-container${idx}"></div>
         </div>
         <div class="navigation">
           <button class="nav-btn" onclick="changeSlide(-1)" id="prevBtn${idx}">◀ Prev</button>
-          <div class="slide-counter">
+          <div class="slide-counter" aria-live="polite">
             <span id="current-slide${idx}">1</span> / <span id="total-slides${idx}">0</span>
           </div>
           <button class="nav-btn" onclick="changeSlide(1)" id="nextBtn${idx}">Next ▶</button>
@@ -996,7 +1053,7 @@ function showInstructions(idx) {
     s.classList.add('hidden');
   });
   document.getElementById(`instructions-round${idx}`).classList.remove('hidden');
-  activeRoundIndex = idx;
+  activeRoundIndex = null;
 }
 
 function startSlideshow(idx) {
@@ -1010,8 +1067,10 @@ function startSlideshow(idx) {
   if (!slidesContainer.children.length) {
     createSlides(idx);
   }
-  currentSlide = 1;
-  showSlide(1);
+  currentSlide = loadPos(idx);
+  slidesContainer.style.transition = 'none';
+  showSlide(currentSlide);
+  requestAnimationFrame(() => requestAnimationFrame(() => { slidesContainer.style.transition = ''; }));
   hideSwipeIndicator(idx);
 }
 
@@ -1022,6 +1081,16 @@ function downloadPDF() {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+}
+
+// ─── Resume position (per round, per tab session) ─────────────────────────────
+function posKey(idx) { return 'cb-pos:' + rounds[idx].roundTitle; }
+function savePos(idx, n) { try { sessionStorage.setItem(posKey(idx), String(n)); } catch (e) {} }
+function loadPos(idx) {
+  try {
+    const v = parseInt(sessionStorage.getItem(posKey(idx)), 10);
+    return (v >= 1 && v <= rounds[idx].questions.length) ? v : 1;
+  } catch (e) { return 1; }
 }
 
 // ─── Reveal logic ─────────────────────────────────────────────────────────────
@@ -1039,18 +1108,55 @@ function showClue(roundIdx, qIdx) {
   }
 }
 
-function showAnswer(roundIdx, qIdx) {
+async function loadAnswers(roundIdx) {
+  const round = rounds[roundIdx];
+  if (!round.answersFile) return 'missing';
+  const res = await fetch(round.answersFile, { cache: 'no-cache' });
+  if (res.status === 404) return 'missing';
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const data = await res.json();
+  const list = Array.isArray(data)
+    ? data
+    : Object.entries(data).map(([k, v]) => ({ questionNumber: Number(k), ...v }));
+  const byNum = new Map(list.map(a => [Number(a.questionNumber), a]));
+  round.questions.forEach(q => {
+    const a = byNum.get(Number(q.questionNumber));
+    if (a) { q.answer = a.answer; q.info = a.info; }
+  });
+  return 'ok';
+}
+
+async function showAnswer(roundIdx, qIdx) {
   const round = rounds[roundIdx];
   const q = round.questions[qIdx];
   if (!q) return;
 
-  if (isAnswerRevealed(roundIdx)) {
-    showModal('answer', 'Answer', q.answer, q.info, true);
-  } else {
+  if (!isAnswerRevealed(roundIdx)) {
     const revealDate = new Date(round.revealAnswer);
     showModal('answer', 'Answer Not Yet Available',
       `Answers will be revealed on ${revealDate.toLocaleString()}`, null, false);
+    return;
   }
+
+  if (q.answer === undefined) {
+    const token = ++answerReq;
+    showModal('answer', 'Answer', 'Loading\u2026', null, false);
+    try {
+      await loadAnswers(roundIdx);
+    } catch (e) {
+      if (token !== answerReq) return;
+      showModal('answer', 'Answer Unavailable',
+        "Couldn't load the answers. Check your connection and try again.", null, false);
+      return;
+    }
+    if (token !== answerReq) return;
+    if (q.answer === undefined) {
+      showModal('answer', 'Answer Not Yet Available',
+        "The answers haven't been published yet. Check back soon!", null, false);
+      return;
+    }
+  }
+  showModal('answer', 'Answer', q.answer, q.info, true);
 }
 
 function showModal(type, title, text, info, revealed) {
@@ -1075,13 +1181,19 @@ function showModal(type, title, text, info, revealed) {
     modalInfo.style.display = 'none';
   }
 
+  if (modal.style.display !== 'flex') lastFocusEl = document.activeElement;
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  const closeBtn = modal.querySelector('.modal-close');
+  if (closeBtn) closeBtn.focus();
 }
 
 function closeModal() {
+  answerReq++;
   document.getElementById('modal').style.display = 'none';
   document.body.style.overflow = 'auto';
+  if (lastFocusEl && lastFocusEl.focus) lastFocusEl.focus();
+  lastFocusEl = null;
 }
 
 function isModalOpen() {
@@ -1105,7 +1217,7 @@ function createSlides(idx) {
     slide.className = 'slide';
 
     const clueHTML = q.clue
-      ? `<button class="clue-btn" onclick="showClue(${idx}, ${qIdx})" title="Get a clue">
+      ? `<button class="clue-btn" onclick="showClue(${idx}, ${qIdx})" title="Get a clue" aria-label="Get a clue">
            <svg viewBox="0 0 24 24">
              <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
            </svg>
@@ -1128,7 +1240,7 @@ function createSlides(idx) {
                  preload="metadata"
                  playsinline webkit-playsinline="true"
                  oncontextmenu="return false"></video>
-          <button class="media-play-btn" data-target="${videoId}" onclick="toggleMedia(this)">
+          <button class="media-play-btn" data-target="${videoId}" aria-label="Play" onclick="toggleMedia(this)">
             ${PLAY_ICON_SVG}
           </button>
         </div>`;
@@ -1164,7 +1276,7 @@ function createSlides(idx) {
           <audio id="${audioId}" class="slide-audio"
                  src="${escapeHtml(mediaSrc)}"
                  oncontextmenu="return false"></audio>
-          <button class="media-play-btn" data-target="${audioId}" onclick="toggleMedia(this)">
+          <button class="media-play-btn" data-target="${audioId}" aria-label="Play" onclick="toggleMedia(this)">
             ${PLAY_ICON_SVG}
           </button>
         </div>`;
@@ -1176,7 +1288,7 @@ function createSlides(idx) {
                loading="lazy"
                draggable="false"
                onerror="this.src='${fallback}'">
-          <div class="img-overlay" data-zoom-src="${escapeHtml(mediaSrc)}" onclick="openZoom(this.dataset.zoomSrc)"></div>
+          <div class="img-overlay" role="button" tabindex="0" aria-label="Zoom image ${q.questionNumber}" data-zoom-src="${escapeHtml(mediaSrc)}" onclick="openZoom(this.dataset.zoomSrc)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openZoom(this.dataset.zoomSrc)}"></div>
         </div>`;
     }
 
@@ -1204,11 +1316,13 @@ function createSlides(idx) {
       const setPlayingUI = () => {
         btn.classList.add('is-playing');
         btn.innerHTML = PAUSE_ICON_SVG;
+        btn.setAttribute('aria-label', 'Pause');
         if (discEl) discEl.classList.add('spinning');
       };
       const setPausedUI = () => {
         btn.classList.remove('is-playing');
         btn.innerHTML = PLAY_ICON_SVG;
+        btn.setAttribute('aria-label', 'Play');
         if (discEl) discEl.classList.remove('spinning');
       };
 
@@ -1217,11 +1331,16 @@ function createSlides(idx) {
       media.addEventListener('ended', setPausedUI);
     }
 
-    const dot = document.createElement('span');
-    dot.className = `dot ${qIdx === 0 ? 'active' : ''}`;
-    dot.onclick = () => showSlide(qIdx + 1);
-    dotsContainer.appendChild(dot);
+    if (questions.length <= MAX_DOTS) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = `dot ${qIdx === 0 ? 'active' : ''}`;
+      dot.setAttribute('aria-label', `Go to question ${qIdx + 1}`);
+      dot.onclick = () => showSlide(qIdx + 1);
+      dotsContainer.appendChild(dot);
+    }
   });
+  dotsContainer.classList.toggle('hidden', questions.length > MAX_DOTS);
 }
 
 function showSlide(n) {
@@ -1239,6 +1358,14 @@ function showSlide(n) {
   slidesContainer.style.transform = `translateX(${-(currentSlide - 1) * 100}%)`;
   dots.forEach(d => d.classList.remove('active'));
   if (dots[currentSlide - 1]) dots[currentSlide - 1].classList.add('active');
+  dots.forEach((d, i) => d.setAttribute('aria-current', i === currentSlide - 1 ? 'true' : 'false'));
+  savePos(idx, currentSlide);
+
+  // Preload previous / current / next images so swipes never show blanks
+  [currentSlide - 2, currentSlide - 1, currentSlide].forEach(i => {
+    const img = slides[i] && slides[i].querySelector('img');
+    if (img && img.loading === 'lazy') img.loading = 'eager';
+  });
 
   document.getElementById(`current-slide${idx}`).textContent = currentSlide;
   document.getElementById(`prevBtn${idx}`).disabled = currentSlide === 1;
@@ -1270,9 +1397,10 @@ function handleTouchMove(e) {
   if (!isDragging || activeRoundIndex === null) return;
   e.preventDefault();
   touchEndX = e.touches[0].clientX;
-  const dragPercent   = ((touchEndX - touchStartX) / window.innerWidth) * 100;
-  const currentTx     = -(currentSlide - 1) * 100;
   const idx           = activeRoundIndex;
+  const wrapW         = document.getElementById(`slides-wrapper${idx}`).offsetWidth || window.innerWidth;
+  const dragPercent   = ((touchEndX - touchStartX) / wrapW) * 100;
+  const currentTx     = -(currentSlide - 1) * 100;
   const slidesContainer = document.getElementById(`slides-container${idx}`);
   slidesContainer.style.transition = 'none';
   slidesContainer.style.transform  = `translateX(${currentTx + dragPercent}%)`;
@@ -1330,8 +1458,10 @@ function openZoom(src) {
   ZL.scale = 1; ZL.panX = 0; ZL.panY = 0;
   img.style.transform = '';
   ZL.isActive = true;
+  zoomLastFocus = document.activeElement;
   lb.classList.add('active');
   document.body.style.overflow = 'hidden';
+  document.getElementById('zoom-close-btn').focus();
 }
 
 function closeZoom() {
@@ -1344,6 +1474,8 @@ function closeZoom() {
   ZL.isPanning = false;
   ZL.mouseDown = false;
   document.body.style.overflow = 'auto';
+  if (zoomLastFocus && zoomLastFocus.focus) zoomLastFocus.focus();
+  zoomLastFocus = null;
 }
 
 function applyZoomTransform() {
@@ -1485,17 +1617,21 @@ document.addEventListener('keydown', e => {
   // Close zoom lightbox with Escape
   if (ZL.isActive) {
     if (e.key === 'Escape') closeZoom();
+    else trapFocus(document.getElementById('zoom-lightbox'), e);
     return; // don't process other keys while zoom is open
   }
 
   if (isModalOpen()) {
     if (e.key === 'Escape') closeModal();
+    else trapFocus(document.querySelector('#modal .modal-content'), e);
     return;
   }
   if (activeRoundIndex !== null) {
     if (e.key === 'ArrowLeft')  changeSlide(-1);
     if (e.key === 'ArrowRight') changeSlide(1);
     if (e.key === 'Escape')     showMainMenu();
+  } else if (e.key === 'Escape' && document.querySelector('.instructions-section:not(.hidden)')) {
+    showMainMenu();
   }
 });
 
@@ -1519,6 +1655,37 @@ document.addEventListener('contextmenu', e => {
 document.getElementById('modal').addEventListener('touchstart', e => e.stopPropagation(), { passive: true });
 document.getElementById('modal').addEventListener('touchmove',  e => { e.preventDefault(); e.stopPropagation(); }, { passive: false });
 document.getElementById('modal').addEventListener('touchend',   e => e.stopPropagation(), { passive: true });
+
+function trapFocus(container, e) {
+  if (e.key !== 'Tab' || !container) return;
+  const f = [...container.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])')]
+    .filter(el => !el.disabled && el.getClientRects().length);
+  if (!f.length) return;
+  const first = f[0], last = f[f.length - 1];
+  if (!container.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+  else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+}
+
+// ─── Offline support ──────────────────────────────────────────────────────────
+// The service worker caches whatever passes through it; this just walks every
+// round's images once (after the worker is in control) so they're ready offline.
+async function precacheImages() {
+  if (!navigator.serviceWorker || !navigator.serviceWorker.controller) return;
+  if (navigator.connection && navigator.connection.saveData) return;
+  for (const r of rounds) {
+    for (const q of r.questions) {
+      if (getMediaType(q.fileName) !== 'image') continue;
+      try { await fetch(githubBaseUrl + q.fileName, { mode: 'no-cors' }); } catch (e) {}
+    }
+  }
+}
+
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
 
 // ─── Boot ─────────────────────────────────────────────────────────────────────
 loadQuestions();
